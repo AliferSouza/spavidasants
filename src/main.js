@@ -1,10 +1,9 @@
 
-import Home from'./pages/HOME.js'
-import Produto from'./pages/PRODUTO.JS'
-import { Router } from'./lib/router.js'
+
+importar a página  inicial  de './pages/Home.js'
+importar  Produto  de './pages/Produtos.js'
+import  {  Router  }  de './lib/router.js'
 
 
 
-Router({ "/": Home, "/produto": Produto})
-
-
+Roteador ( {  "/" : Home ,  "/produto" : Produto } )
