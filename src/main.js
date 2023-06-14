@@ -1,8 +1,12 @@
-
-import Home from'./pages/Home.js'
-import Produto from'./pages/Produtos.js'
-import { Router } from'./lib/router.js'
+import {Router} from "./lib/index.js"
+import pages from "./pages/index.js"
 
 
+Router(pages)
 
-Router({ "/": Home, "/produto": Produto})
+
+
+
+
+
+
