@@ -1,4 +1,5 @@
 import video from "../components/video.js"
+import {useCSS} from "../lib/index.js"
 
 export default async function Home() {
 
@@ -47,12 +48,10 @@ export default async function Home() {
     }
     scroll()
 
-
-
-
   }
 
   const html = () => `
+  
         <comp-menu></comp-menu>
         <div id="render"></div>
         <comp-slider data-class="container-slider" data-id="1"></comp-slider>

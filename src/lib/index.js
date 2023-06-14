@@ -137,12 +137,23 @@ function useExeFucTemp(func, time) {
   }, time || 1);
 }
 
+function useCSS(selector, styles) {
+  const elements = document.querySelectorAll(selector);
+
+  elements.forEach((element) => {
+    Object.keys(styles).forEach((property) => {
+      element.style[property] = styles[property];
+    });
+  });
+}
 
 
 
 
 ///////////////////////////////////////////////////////////
 async function customTags(sortedOut, statePage) {
+  window.scrollTo(0, 0);
+
   const components = await useGetModules("../components/index.js");
   const stateFunctions = [];
 
@@ -316,5 +327,6 @@ export {
   CSVToJSON,
   JSONToCSV,
   useNavigate,  
+  useCSS
 
 };

@@ -1,7 +1,8 @@
 import {cardDateColaboradores} from "../dados/data.js"
 import {useSearch} from "../lib/index.js"
 export default async function Perfilome() {
-  const url = useSearch("hash").match(/\/perfil\/(.+?)\//)[1]; 
+  const url = (useSearch("hash").match(/\/perfil\/(.+?)\//) || [null, "alifer"])[1];
+
   const resultado = cardDateColaboradores.find(valor => valor.id === url);
 
 
@@ -21,7 +22,7 @@ export default async function Perfilome() {
       <a data-href="/#/home/">🡸</a>    
       </div>
 
-      <img src="./src/img/${url}.jpg" alt="user" />
+      <img src="./src/img/${url }.jpg" alt="user" />
       <h1 class="name">${resultado.nome}</h1>
       <p class="designation">Massoterapeuta</p>
       <p class="about">${resultado.funcao}</p>
