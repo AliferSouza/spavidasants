@@ -11,7 +11,7 @@ export default  function cardProdutos(props) {
            id="${key || ''}"
            class="home-img-card"
            src="${value.img}"
-           alt="${value.pro}" width="200px" height="300px" alt="Produtos">`
+           alt="${value.pro}" width="180px" height="280px" alt="Produtos">`
     );
 
   

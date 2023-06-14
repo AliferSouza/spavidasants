@@ -47,10 +47,11 @@ h3 {
   gap: 5px;
   overflow-x: auto;
   padding: 20px;
+
 }
 
 .home-img-card {
-  margin: 15px 0px 15px 10px;
+  margin: 10px 0px 10px 10px;
   padding-bottom: 10px;
   border-radius: 8px;
   cursor: pointer;
@@ -62,6 +63,7 @@ h3 {
   align-items: center;
 
 }
+
 
 .cardd {
   width: 100%;
@@ -279,6 +281,35 @@ button {
   .cardd{
     background: #04051dea 
   }
+
+
+  
+
+}
+
+
+@media screen and (min-width: 500px) {
+
+/* Estilo da barra de rolagem */
+::-webkit-scrollbar {
+  width: 10px; /* Largura da barra de rolagem */
+}
+
+/* Estilo do "trilho" da barra de rolagem */
+::-webkit-scrollbar-track {
+  background: #f8f8f8; /* Cor do trilho */
+}
+
+/* Estilo do "polegar" da barra de rolagem */
+::-webkit-scrollbar-thumb {
+  background: #d08fee; /* Cor do polegar */
+}
+
+/* Estilo do "polegar" da barra de rolagem ao passar o mouse sobre ele */
+::-webkit-scrollbar-thumb:hover {
+  background: #d08fee; /* Cor do polegar ao passar o mouse */
+}
+
   
 
 }

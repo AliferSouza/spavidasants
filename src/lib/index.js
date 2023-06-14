@@ -190,10 +190,11 @@ async function customTags(sortedOut, statePage) {
 }  
 
 async function render(Pages, selectedPage) {
+  console.log(selectedPage==="erro")
   if(selectedPage === "erro"){
     erroPage(Pages)
   }else{
-    const { html, state, notTags } =   erroPage(Pages) || await Pages[selectedPage]() 
+    const { html, state, notTags } =  await Pages[selectedPage]() 
     const renderedHtml = typeof html === "function" ? html() : html;
     const renderedState = typeof state === "function" ? state : undefined;
   
@@ -210,15 +211,15 @@ async function render(Pages, selectedPage) {
 function stateURL(Pages) {
   const dataUrl = location.hash.replace("#", "") || location.pathname;
   let currentPage;
-
-  if (dataUrl === "/#" || dataUrl === "/#/" || dataUrl === "/") {
+  if (dataUrl === "/#" || dataUrl === "/#/" || dataUrl === "/" | dataUrl === "") {
     currentPage = Object.keys(Pages)[0];
-    history.pushState(null, null, `/#/${currentPage}/`);
   } else {
     const match = dataUrl.match(/^\/(\w+)(\/)?/);
     const keyPage = match && match[1];
     currentPage = keyPage && Pages[keyPage] ? keyPage : "erro";   
   }
+
+
   return currentPage;
 }
 

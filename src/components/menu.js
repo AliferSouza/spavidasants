@@ -20,9 +20,7 @@ export default async function Menu(props) {
     </label>
   
     <ul>
-      <li><a class="active" data-href="/#/">Início</a></li> 
-      <li><a class="active" data-href="/#/teste/">Bate-papo</a></li> 
-      <li><a class="active" data-href="/#/perfil/">Perfil</a></li> 
+         <li><a class="active" data-href="/">Início</a></li> 
     </ul>
   </nav>
 

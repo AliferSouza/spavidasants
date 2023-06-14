@@ -8,7 +8,7 @@ export default function cardColaboradores() {
       <div class="home-img-colaboradores">
         ${cardDateColaboradores.map(element =>`
         <a href="/#/perfil/${element.id}/" >
-          <img id="${element.id}" src="${element.img}" width="70px" height="70px" alt="Dados Usuários">
+          <img id="${element.id}" src="${element.img}" width="60px" height="60px" alt="Dados Usuários">
           </a>
         `).join('')}
       </div>
