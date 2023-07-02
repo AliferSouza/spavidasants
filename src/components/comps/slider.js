@@ -76,9 +76,9 @@ const html = () => {
   return`
     <div class="slideshow-container">
       <button class="prev" id="prevBtn">&#10094;</button>
-      <img class="mySlides" src="./public/img/slide/banner2.PNG">
-      <img class="mySlides" src="./public/img/slide/banner3.PNG">
-      <img class="mySlides" src="./public/img/slide/banner.jpg">
+      <img class="mySlides" src="./src/public/img/slide/banner2.PNG">
+      <img class="mySlides" src="./src/public/img/slide/banner3.PNG">
+      <img class="mySlides" src="./src/public/img/slide/banner.jpg">
       <button class="next" id="nextBtn">&#10095;</button>
       
     </div>`

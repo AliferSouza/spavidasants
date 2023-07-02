@@ -8,7 +8,7 @@ export default async function Menu(props) {
   const html = () => {
     return `   
     <nav>
-    <label class="logo"> <img data-href="/#/home/"  src="./public/img/logo/logo.png" width="70px" height="70px" alt="Logo"></label>
+    <label class="logo"> <img data-href="/#/home/"  src="./src/public/img/logo/logo.png" width="70px" height="70px" alt="Logo"></label>
     <input type="checkbox" id="check">
     <label for="check" class="checkbtn">
       &#x2630

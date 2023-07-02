@@ -23,6 +23,8 @@ export default async function home(props) {
         `
     }
 
+    console.log(prix)
+
 
     const state = () => {
         const botao = prix.$("#tres-pontos");
