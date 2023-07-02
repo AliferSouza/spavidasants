@@ -82,7 +82,7 @@ export default async function teste() {
       <div class="containerbatepapo">      
       <button id="sair">x</button>
        <div id="bate-papo">
-        <img src="./public/img/icones/mascote.png" width="40">
+        <img src="./src/public/img/icones/mascote.png" width="40">
         <h1>Perguntas e Respostas</h1>     
         </div>
         <label class="ia-label" for="question">Digite sua pergunta:</label>
