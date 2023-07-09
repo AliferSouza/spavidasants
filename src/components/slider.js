@@ -1,50 +1,49 @@
-export default async function slider() {
-const state = () => {
-  var slideIndex = 1;
-  showDivs(slideIndex);
+export default function slider(props) {
+  const state = () => {
+        
+        let slideIndex = 0;
+        showDivs(slideIndex);
 
-  document.getElementById("prevBtn").addEventListener("click", function() {
-    plusDivs(-1);
-  });
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
 
-  document.getElementById("nextBtn").addEventListener("click", function() {
-    plusDivs(1);
-  });
+      prevBtn.addEventListener("click", function () {
+        plusDivs(-1);
+      });
 
-  function plusDivs(n) {
-    showDivs(slideIndex += n);
+      nextBtn.addEventListener("click", function () {
+        plusDivs(1);
+      });
+
+      function plusDivs(n) {
+        showDivs((slideIndex += n));
+      }
+
+      function showDivs(n) {
+        const slides = document.getElementsByClassName("mySlides");
+        if (slides.length === 0) {
+          return; // Nenhum slide encontrado, retorna sem fazer nada
+        }
+        slideIndex = (n + slides.length) % slides.length; // Lógica para garantir que slideIndex seja um valor válido
+
+        for (let i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+        }
+        slides[slideIndex].style.display = "block";
   }
-
-  function showDivs(n) {
-    var i;
-    var x = document.getElementsByClassName("mySlides");
-    if (n > x.length) {slideIndex = 1}
-    if (n < 1) {slideIndex = x.length}
-    for (i = 0; i < x.length; i++) {
-      x[i].style.display = "none";  
-    }
-    x[slideIndex-1].style.display = "block";  
   }
+  const html = () => `
+    <div class="slideshow-container">
+      <button class="prev" id="prevBtn">&#10094;</button>
+      <img class="mySlides" src="./src/public/img/slide/banner.png">
+      <img class="mySlides" src="./src/public/img/slide/banner2.png">
+      <img class="mySlides" src="./src/public/img/slide/banner3.png">
+      <button class="next" id="nextBtn">&#10095;</button>      
+    </div>`;
 
-}
-
-const html = () => {
-  return`
-
-<div class="slideshow-container">
-  <img class="mySlides" src="./src/img/banner1.PNG">
-  <img class="mySlides" src="./src/img/banner2.PNG">
-  <img class="mySlides" src="./src/img/banner3.PNG">
-  <img class="mySlides" src="./src/img/banner1.PNG">
-
-  <button class="prev" id="prevBtn">&#10094;</button>
-  <button class="next" id="nextBtn">&#10095;</button>
-</div>`
-}
-return {
-  html,
-  state
-}
-
-
+  return {
+    html,
+    state
+    
+  };
 }
