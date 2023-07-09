@@ -12,7 +12,8 @@ const data = await dados()
 
 
 const Config = {
-  path: location.origin
+  path: location.origin,
+
 
 }
 

@@ -9,6 +9,9 @@ a {
   cursor: pointer;
 }
 
+@import "./componete/@newsletter.css";
+@import "./componete/@slide.css";
+
 
 
 #valor {
@@ -86,128 +89,9 @@ h1 {
 
 /* home*/
 
-#app {
-  display: flex;
-  flex-flow: column;
-
-  text-align: center;
-
-  background-size: cover;
-  background-position: center;
-  opacity: 0.9;
-}
-
-.cards {
-  width: 90%;
-  height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width: 1000px;
-  margin: 2vh auto;
-
-}
-
-.card {
-  height: 300px;
-  border-radius: 10px;
-  box-shadow: 0 30px 30px -25px rgba(49, 46, 83, 0.25);
-  max-width: 400px;
-}
-
-.information {
-  width: 500px;
-  background: linear-gradient(45deg, #f8f6f8 10%, #aaaaaaea 100%);
-  padding: 1rem;
-  border: 1px solid #c2a3c3b6;
-  color: #000;
-  border-radius: 10px;
-}
-
-.information2 {
-  display: flex;
-  align-items: center;
-  width: 500px;
-  background: linear-gradient(45deg, #f8f6f8 10%, #aaaaaaea 100%);
-  padding: 1rem;
-  border: 1px solid #c2a3c3b6;
-  color: #000;
-  border-radius: 10px;
-  margin-bottom: 1em;
-}
-
-.information21 {
-  padding: 5px;
-  font-size: 12px;
-}
-
-.information22 {
-  padding: 5px;
-  font-size: 12px;
-
-
-
-}
-
-.information .tag {
-  display: inline-block;
-  background-color: var(--c-titan-white);
-  color: var(--c-indigo);
-  font-weight: 600;
-  font-size: 0.875rem;
-  padding: 0.5em 0.75em;
-  line-height: 1;
-  border-radius: 6px;
-}
-
-.information .title {
-  font-size: 1.5rem;
-  line-height: 1.25;
-}
-
-.information .title+* {
-  margin-top: 1rem;
-}
-
-.information .info+* {
-  margin-top: 1.25rem;
-  color: #000;
-
-}
-
-.p-img {
-  border-radius: 20px;
-  padding: 10px
-}
-
-.information .button {
-  width: 90%;
-  padding: 15px;
-  color: #fff;
-  font: inherit;
-  line-height: 1;
-  background-color: #5abedd;
-  border: 2px solid #56a1d3;
-  border-radius: 10px;
-  font-weight: 500;
-  gap: 0.5rem;
-  cursor: pointer;
-  border: none
-}
 
 /* PacPesronalizados*/
 
-#app {
-  display: flex;
-  flex-flow: column;
-  text-align: center;
-  background-size: cover;
-  background-position: center;
-  opacity: 0.9;
-}
 
 .per-container {
   width: 100%;
@@ -295,155 +179,6 @@ h1 {
 
 
 
-/*Menu*/
-
-nav {
-  padding-top: 10px;
-  background: linear-gradient(45deg, #04051dea 100%, #dd8ecd 85%);
-  width: 100%;
-  height: 80px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  cursor: pointer;
-  margin-left: 20px;
-}
-
-nav ul {
-  float: right;
-  margin-right: 20px;
-  margin-top: -5px
-}
-
-nav ul li {
-  display: inline-block;
-  line-height: 80px;
-  margin: 0 5px;
-}
-
-nav ul li a {
-  color: white;
-  font-size: 17px;
-  padding: 7px 13px;
-  border-radius: 3px;
-  text-transform: uppercase;
-
-}
-
-a.active,
-a:hover {
-  background: #ff93b592;
-  transition: .5s;
-
-}
-
-.checkbtn {
-  font-size: 30px;
-  color: white;
-  float: right;
-  line-height: 80px;
-  margin-right: 40px;
-  cursor: pointer;
-  display: none;
-}
-
-#check {
-  display: none;
-}
-
-@media (max-width: 952px) {
-  label.logo {
-    font-size: 30px;
-  }
-
-  nav ul li a {
-    font-size: 16px;
-  }
-}
-
-@media (max-width: 600px) {
-  .checkbtn {
-    display: block;
-  }
-
-  ul {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #b776a5ac;
-    top: 95px;
-    left: -120%;
-    text-align: center;
-    transition: all .5s;
-    z-index: 1000;
-  }
-
-  nav ul li {
-    display: block;
-    margin: 40px 0;
-    line-height: 30px;
-    margin-right: 60px;
-  }
-
-  nav ul li a {
-    font-size: 20px;
-  }
-
-  a:hover,
-  a.active {
-    background: none;
-    color: #f7f7f7;
-  }
-
-  #check:checked~ul {
-    left: 0;
-  }
-
-}
-
-@media screen and (min-width: 900px) {
-  nav {
-    background: #04051dea
-  }
-
-
-}
-
-
-/*Componentes*/
-
-.home-img-colaboradores {
-  margin-top: 20px;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  overflow-x: auto;
-}
-
-.home-img-colaboradores img {
-  padding: 4px;
-  border: 2px solid #fffffffd;
-  border-radius: 50%;
-  margin: 15px 0px 15px 10px;
-  cursor: pointer;
-}
-
-
-
-/*produtos card home*/
-.home-img-cards {
-  display: flex;
-  gap: 5px;
-  padding: 20px;
-
-
-
-}
 
 .home-img-colob-scroll {
   display: flex;
@@ -547,7 +282,7 @@ a:hover {
   border-radius: 20px;
 }
 
-#sair {
+#SairIa {
   position: relative;
   left: 40%;
   top: -10px;

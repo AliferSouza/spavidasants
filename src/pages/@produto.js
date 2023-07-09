@@ -1,5 +1,7 @@
 export default async function produto(props) {
+    document.title = "PRODUTO"
     const nome = useSearch("hash").split('/').pop().replace("#", "")  
+
    
     const dadosSelecionado = props.Data.dadosP.find(d => d.id === nome)
 
@@ -7,7 +9,7 @@ export default async function produto(props) {
     const state = () => {
        const a = `https://api.whatsapp.com/send?phone=553171685900&text= 🠖 Queria saber sobre a ${nome} `
 
-		$(".button").addEventListener('click', e => {
+		$(".button").on('click', e => {
 			if (e.target.id === "whats") {
 				window.open(a, '_blank');
 			}
@@ -23,8 +25,7 @@ export default async function produto(props) {
                 <h2 class="title">${dadosSelecionado.nome}</h2>
                  <img class="p-img" src="${dadosSelecionado.img}" width= 280>
                  <p class="info">${dadosSelecionado.info}</p>
-                 <br>
-                <button class="button">
+                    <button class="button">
                     <span id="whats">Agende ➞</span>		
                 </button>
             </article> 	    	 

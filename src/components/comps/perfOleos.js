@@ -1,9 +1,6 @@
-export default async function Colaboradores(props) { 
-const dadosSelecionado = props.data.dadosP.filter(d => d.categoria === props.attributes.id)
+export default async function oleos(props) { 
+const dadosSelecionado = props.Data.dadosP.filter(d => d.categoria === props.attributes.id)
 
-const state = () => {
-  console.log("Souza")
-}
 
   const html = () => {
     return `
@@ -11,9 +8,9 @@ const state = () => {
       <div class="perfu-container-cor">
       <div class="perfu-container-conteudo">
         <h2>${props.content}</h2>
-        ${dadosSelecionado.map(element =>`
+        ${dadosSelecionado.map(element =>`     
         <a href="${props.attributes.a}" >
-        <img style="width:${props.attributes.useWidth}; height:${props.attributes.useHeight}  " class="comp-perfoleos-tamanho" id="${element.id}" data-url-src="${element.img}" alt="Dados Usuários">
+        <img style="width:${props.attributes.useWidth}; height:${props.attributes.useHeight}  " class="comp-perfoleos-tamanho" id="${element.id}" src="${element.img}" alt="Dados Usuários">
           </a>
         `).join('')}
       </div>
@@ -23,8 +20,7 @@ const state = () => {
 
   }
 
-  return {html,
-  state}
+  return {html}
 
    
   

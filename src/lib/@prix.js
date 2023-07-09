@@ -259,12 +259,10 @@ const $ = (selector) => {
   return obj;
 };
 
-
 const Router = async (PagesComponentsData = {}, Config = {}) => {
   const root = document.querySelector("#app");
   const [Pages, Components, Data] = Object.values(PagesComponentsData);
 
-  const pageCache = {};
   const cacheImg = new Map();
 
   const carregarImgLazy = async () => {
@@ -304,120 +302,104 @@ const Router = async (PagesComponentsData = {}, Config = {}) => {
       dataUrl === "/"
         ? Object.keys(Pages)[0]
         : dataUrl.split("#")[0].split("/").filter(Boolean).pop();
-        return currentPage
-  }
+    return currentPage;
+  };
 
-  const renderizaVirtualDom = async (renderedHtml) => { 
-    let stateFunctionsComponetLocal = []
-  const virtualDom = (originalHtml) => {
+
+
+  async function customTags(htmlState = {}) {
+    let stateFunctionsComponetLocal = [];
     const divTemporaria = document.createElement("div");
-    divTemporaria.insertAdjacentHTML("beforeend", originalHtml);
-    return divTemporaria;
-  };
-
-  const selectCustomTags = (virtualPageComponentes) => {
-    const tagsComponent = [
-      ...virtualPageComponentes.querySelectorAll("*"),
-    ].filter((element) => element.tagName.toLowerCase().match(/^comp-/i));
-      return tagsComponent;
-  };
-
-  const renderCompDom = async (tagSelectendVirtualDOM) => {
-
-    const fetchPromises = tagSelectendVirtualDOM.map(async (elem, i) => {
-      const componentTagName = elem.tagName.toLowerCase();
-      const attributes = { ...elem.dataset };
-      elem.setAttribute("key", `${elem.tagName.toLowerCase()}-${i}`);
-    
-      const dataComponente = {
-        reference: i,
-        key: elem.getAttribute("key"),
-        attributes,
-        parameter: Object.fromEntries(
-          new URLSearchParams(location.href.split("?")[1]).entries()
-        ),
-        page: location.hash.replace("#", "").match(/^\/(\w+)(\/)?/),
-        content: elem.innerText,
-        data: Data,
-        tag: elem,
-      
-      }    
-      
-      const { html, state } = await Components[componentTagName](dataComponente);   
-
-      if (typeof html === "function") {
-        elem.innerHTML += html();   
-      }
-      if (typeof state === "function") { 
-        stateFunctionsComponetLocal.push(state)
-      }
-    });    
-    await Promise.all(fetchPromises);
+    divTemporaria.insertAdjacentHTML("beforeend", htmlState.renderedHtml);
   
-  };
-
-  async function customTags(renderedHtml) {   
-
-    const virtualPageComponentes = virtualDom(renderedHtml);
-    const tagSelectendVirtualDOM = selectCustomTags(virtualPageComponentes);
-
-    await renderCompDom(tagSelectendVirtualDOM, Components);
-
- 
-    return virtualPageComponentes;
-  }
-  const resultHtmlRenderizadoVDom =  customTags(renderedHtml)
-  const returnFuncHtml = {
-    resultHtmlRenderizadoVDom:  await resultHtmlRenderizadoVDom,
-    stateFunctionsComponetLocal
-  }
-  return returnFuncHtml
-  }
-
-  const renderPageCompFuncNoDom = (returnPagesHTML, renderState, stateFunctionsComponetLocal) => {
-    root.innerHTML = ""
-    root.innerHTML = returnPagesHTML.innerHTML;
-
-    stateFunctionsComponetLocal.forEach((stateFunction) => stateFunction());
-    if (typeof renderState === "function") {
-      renderState();
+    const processElement = async (elem, i) => {
+      const attributes = Array.from(elem.getAttributeNames()).reduce(
+        (obj, attrName) =>
+          !attrName.startsWith("data-") ? { ...obj, [attrName]: elem.getAttribute(attrName) } : obj,
+        {}
+      );
+  
+      const dataApp = {
+        reference: i,
+        nameTag: elem.tagName.toLowerCase(),
+        attributes,
+        parameter: Object.fromEntries(new URLSearchParams(location.href.split("?")[1]).entries()),
+        page: location.hash.replace("#", "").match(/^\/(\w+)(\/)?/),
+        content: elem.textContent,
+        Data,
+        tag: elem,      
+      };
+  
+      const componentKey = elem.tagName.toLowerCase();
+      if (Components.hasOwnProperty(componentKey)) {
+        const { html, state } = await Components[componentKey](dataApp);
+  
+        if (typeof html === "function") {
+          elem.innerHTML = html();
+        }
+  
+        if (typeof state === "function") {
+          stateFunctionsComponetLocal.push(state);
+        }
+      } else {
+        throw new Error(`Componente não encontrado para a tag: ${componentKey}`);
+      }
+  
+      await identifyAndAddInnerComponents(elem);
+    };
+  
+    const identifyAndAddInnerComponents = async (parentElement) => {
+      const tagElements = Array.from(parentElement.querySelectorAll("*")).filter(
+        (element) => element.tagName.toLowerCase().match(/^comp-/i)
+      );
+  
+      for (let i = 0; i < tagElements.length; i++) {
+        const elem = tagElements[i];
+        await processElement(elem);
+      }
+    };
+  
+    const tagElements = Array.from(divTemporaria.querySelectorAll("*")).filter(
+      (element) => element.tagName.toLowerCase().match(/^comp-/i)
+    );
+  
+    for (let i = 0; i < tagElements.length; i++) {
+      const elem = tagElements[i];
+      await processElement(elem);
     }
-    carregarImgLazy();
-  };
+  
+    root.innerHTML = "";
+    root.innerHTML = divTemporaria.innerHTML
+  
+    stateFunctionsComponetLocal.forEach((func) => func());
+  
+    if (typeof htmlState.renderState === "function") {
+      htmlState.renderState();
+    }
+    carregarImgLazy()
+  }
+  
 
 
   async function routerPages() {
     const currentUrlPage = locationUrlPage();
-  
-    const resultUrl = currentUrlPage && Pages[currentUrlPage] ? currentUrlPage : "erro";
-  
-    if (resultUrl === "erro") {   
+    const resultUrl =
+      currentUrlPage && Pages[currentUrlPage] ? currentUrlPage : "erro";
+
+    if (resultUrl === "erro") {
+      // Lógica para tratamento de erro
     } else {
       const paginasData = { Pages, Components, Data };
+
       const { html, state } = await Pages[resultUrl](paginasData);
-  
-      // Verifica se a página já está em cache
-      if (pageCache[resultUrl]) {    
-        const { resultHtmlRenderizadoVDom, stateFunctionsComponetLocal } = pageCache[resultUrl];
-        renderPageCompFuncNoDom(resultHtmlRenderizadoVDom, state, stateFunctionsComponetLocal);
-      } else {
-        const renderedHtml = typeof html === "function" ? html() : await Pages[resultUrl]();
-        const renderState = typeof state === "function" ? state : undefined;
-  
-        // Renderiza o HTML da página e obtém as funções de estado dos componentes
-        const { resultHtmlRenderizadoVDom, stateFunctionsComponetLocal } = await renderizaVirtualDom(renderedHtml);
-  
-        // Armazena o HTML renderizado e as funções de estado em cache
-        pageCache[resultUrl] = {
-          resultHtmlRenderizadoVDom,
-          stateFunctionsComponetLocal
-        };
-  
-        renderPageCompFuncNoDom(resultHtmlRenderizadoVDom, renderState, stateFunctionsComponetLocal);
-      }
+
+      const renderedHtml =
+        typeof html === "function" ? html() : await Pages[resultUrl]();
+      const renderState = typeof state === "function" ? state : undefined;
+
+      customTags({ renderedHtml, renderState });
     }
   }
-  
 
   function debounce(fn, delay) {
     let timeoutId;

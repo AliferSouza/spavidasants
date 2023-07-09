@@ -202,35 +202,30 @@ const $ = (selector) => {
       });
       return obj;
     },
-
     removeClass: (className) => {
       elements.forEach((element) => {
         element.classList.remove(className);
       });
       return obj;
     },
-
     text: (textContent) => {
       elements.forEach((element) => {
         element.textContent = textContent;
       });
       return obj;
     },
-
     css: (styleObject) => {
       elements.forEach((element) => {
         Object.assign(element.style, styleObject);
       });
       return obj;
     },
-
     on: (event, handler) => {
       elements.forEach((element) => {
         element.addEventListener(event, handler);
       });
       return obj;
     },
-
     appendImage: (imageUrl) => {
       elements.forEach((element) => {
         const img = document.createElement("img");
@@ -239,7 +234,6 @@ const $ = (selector) => {
       });
       return obj;
     },
-
     hide: () => {
       elements.forEach((element) => {
         element.style.originalDisplay = element.style.display;
@@ -247,7 +241,6 @@ const $ = (selector) => {
       });
       return obj;
     },
-
     show: () => {
       elements.forEach((element) => {
         element.style.display = element.style.originalDisplay || "";
@@ -255,9 +248,11 @@ const $ = (selector) => {
       });
       return obj;
     },
-
     tag: () => {
       return elements[0];
+    },
+    tags: () => {
+      return elements;
     },
   };
 
@@ -266,37 +261,18 @@ const $ = (selector) => {
 
 const Router = async (PagesComponentsData = {}, Config = {}) => {
   const root = document.querySelector("#app");
-  const style = document.querySelector("style");
-
-  let stateStylesComponet = [];
-  let stateFunctionsComponet = [];
-
   const [Pages, Components, Data] = Object.values(PagesComponentsData);
 
-  const cache = new Map();
+  const cacheImg = new Map();
 
-  const virtualDom = (originalHtml) => {
-    const divTemporaria = document.createElement("div");
-    divTemporaria.insertAdjacentHTML("beforeend", originalHtml);
-    return divTemporaria;
-  };
-
-  const selectCustomTags = (virtualPageComponentes) => {
-    const tagsComponent = [
-      ...virtualPageComponentes.querySelectorAll("*"),
-    ].filter((element) => element.tagName.toLowerCase().match(/^comp-/i));
-
-    return tagsComponent;
-  };
-
-  const nativefunction = async () => {
+  const carregarImgLazy = async () => {
     const elements = document.querySelectorAll("[data-url-src]");
     elements.forEach(async (element) => {
       const url = element.dataset.urlSrc;
 
       // Check if the image URL is already cached
-      if (cache.has(url)) {
-        element.src = cache.get(url);
+      if (cacheImg.has(url)) {
+        element.src = cacheImg.get(url);
       } else {
         try {
           const response = await fetch(url);
@@ -306,7 +282,7 @@ const Router = async (PagesComponentsData = {}, Config = {}) => {
             const imageUrlObject = URL.createObjectURL(blob);
 
             // Cache the image URL
-            cache.set(url, imageUrlObject);
+            cacheImg.set(url, imageUrlObject);
 
             element.src = imageUrlObject;
           } else {
@@ -319,90 +295,144 @@ const Router = async (PagesComponentsData = {}, Config = {}) => {
     });
   };
 
-  const renderCompDom = async (tagSelectendVirtualDOM) => {
-    const fetchPromises = tagSelectendVirtualDOM.map(async (elem, i) => {
-      const componentKey = elem.tagName.toLowerCase();
-      const attributes = { ...elem.dataset };
-      elem.setAttribute("key", `${elem.tagName.toLowerCase()}-${i}`);
-
-      const dataApp = {
-        reference: i,
-        key: elem.getAttribute("key"),
-        attributes,
-        parameter: Object.fromEntries(
-          new URLSearchParams(location.href.split("?")[1]).entries()
-        ),
-        page: location.hash.replace("#", "").match(/^\/(\w+)(\/)?/),
-        content: elem.innerText,
-        Data: Data,
-      };
-      const { style, html, state } = await Components[componentKey](dataApp);
-
-      if (typeof style === "function") {
-        stateStylesComponet.push(style);
-      }
-      if (typeof html === "function") {
-        elem.innerHTML = html();
-      }
-      if (typeof state === "function") {
-        stateFunctionsComponet.push(state);
-      }
-    });
-    await Promise.all(fetchPromises);
-  };
-
-  async function customTags(renderStyle, renderedHtml, renderState) {
-    style.innerHTML = "";
-
-    const virtualPageComponentes = virtualDom(renderedHtml);
-    const tagSelectendVirtualDOM = selectCustomTags(virtualPageComponentes);
-    await renderCompDom(tagSelectendVirtualDOM, Components);
-   
-    const concatenatedClasses = stateStylesComponet
-      .map((style) => style())
-      .join(" ");
-    style.innerHTML += concatenatedClasses + renderStyle;
-
- 
- 
-    return virtualPageComponentes
-  };
-
-
-  async function routerPages() {
+  const locationUrlPage = () => {
     const dataUrl = location.hash.replace("#", "") || location.pathname;
 
     const currentPage =
       dataUrl === "/"
         ? Object.keys(Pages)[0]
         : dataUrl.split("#")[0].split("/").filter(Boolean).pop();
+    return currentPage;
+  };
+  let stateFunctionsComponetLocal = [];
+  async function customTags(htmlState = {}) {
 
-    const resultUrl = currentPage && Pages[currentPage] ? currentPage : "erro";
+    const divTemporaria = document.createElement("div");
+    divTemporaria.insertAdjacentHTML("beforeend", htmlState.renderedHtml);
+  
+    const tagElements = Array.from(divTemporaria.querySelectorAll("*")).filter(
+      (element) => element.tagName.toLowerCase().match(/^comp-/i)
+    );
+  
+    for (let i = 0; i < tagElements.length; i++) {
+      const elem = tagElements[i];
+      const attributes = Array.from(elem.getAttributeNames()).reduce(
+        (obj, attrName) =>
+          !attrName.startsWith("data-") ? { ...obj, [attrName]: elem.getAttribute(attrName) } : obj,
+        {}
+      );
+      
+
+  
+      const dataApp = {
+        reference: i,
+        nameTag: elem.tagName.toLowerCase(),
+        attributes,
+        parameter: Object.fromEntries(
+          new URLSearchParams(location.href.split("?")[1]).entries()
+        ),
+        page: location.hash.replace("#", "").match(/^\/(\w+)(\/)?/),
+        content: elem.textContent,
+        Data,
+        tag: elem
+      };
+  
+      const componentKey = elem.tagName.toLowerCase();
+      if (Components.hasOwnProperty(componentKey)) {
+        const { html, state } = await Components[componentKey](dataApp);
+
+  
+        if (typeof html === "function") {
+          elem.innerHTML = html();
+        }
+        if (typeof state === "function") {
+          stateFunctionsComponetLocal.push(state)
+        }
+      } else {
+        throw new Error(`Componente não encontrado para a tag: ${componentKey}`);
+      }
+      
+    // Executar a função para identificar e adicionar componentes internos dos componentes
+    await identifyAndAddInnerComponents(elem);
+    }
+  
+    root.innerHTML = ''; // Limpa o conteúdo existente em root
+    root.appendChild(divTemporaria); // Adiciona o fragmento temporário ao DOM
+
+    stateFunctionsComponetLocal.forEach((func)=>func())
+  
+    if (typeof htmlState.renderState === "function") {
+      htmlState.renderState();
+    }
+  }
+
+  async function identifyAndAddInnerComponents(parentElement) {     
+    const tagElements = Array.from(parentElement.querySelectorAll("*")).filter(
+      (element) => element.tagName.toLowerCase().match(/^comp-/i)
+    );
+    for (let i = 0; i < tagElements.length; i++) {
+      const elem = tagElements[i];
+      const attributes = Array.from(elem.getAttributeNames()).reduce(
+        (obj, attrName) =>
+          !attrName.startsWith("data-") ? { ...obj, [attrName]: elem.getAttribute(attrName) } : obj,
+        {}
+      );
+
+  
+        
+      const dataApp = {
+        reference: i,
+        nameTag: elem.tagName.toLowerCase(),
+        attributes,
+        parameter: Object.fromEntries(
+          new URLSearchParams(location.href.split("?")[1]).entries()
+        ),
+        page: location.hash.replace("#", "").match(/^\/(\w+)(\/)?/),
+        content: elem.textContent,
+        Data,
+        tag: elem
+      };
+
+      const componentKey = elem.tagName.toLowerCase();
+      if (Components.hasOwnProperty(componentKey)) {
+        const { html, state } = await Components[componentKey](dataApp);
+       
+        if (typeof html === "function") {
+          elem.innerHTML = html();
+        }
+
+        if (typeof state === "function") {
+          stateFunctionsComponetLocal.push(state)
+        }
+      }else{
+        throw new Error(`Componente não encontrado para a tag: ${componentKey}`);
+      }
+
+      
+
+  }
+}
+  
+  async function routerPages() {
+    const currentUrlPage = locationUrlPage();
+    const resultUrl =
+      currentUrlPage && Pages[currentUrlPage] ? currentUrlPage : "erro";
 
     if (resultUrl === "erro") {
-      erroPage(Pages);
+      // Lógica para tratamento de erro
     } else {
       const paginasData = { Pages, Components, Data };
-      const { html, state, style } = await Pages[resultUrl](paginasData);
-      const renderStyle = typeof style === "function" ? style : undefined;
+
+      const { html, state } = await Pages[resultUrl](paginasData);
+
       const renderedHtml =
         typeof html === "function" ? html() : await Pages[resultUrl]();
       const renderState = typeof state === "function" ? state : undefined;
 
-      const returnPagesEComponetRederizados = await  customTags(renderStyle, renderedHtml, renderState);
-    
-      root.innerHTML = returnPagesEComponetRederizados;
-
-      stateFunctionsComponet.forEach((stateFunction) => stateFunction());
-   
-         
-        if (typeof renderState === "function") {
-          renderState();
-        }
-        nativefunction();
+    customTags({renderedHtml, renderState});
 
     }
-  };
+  }
 
   function debounce(fn, delay) {
     let timeoutId;
@@ -412,7 +442,7 @@ const Router = async (PagesComponentsData = {}, Config = {}) => {
         fn.apply(this, args);
       }, delay);
     };
-  };
+  }
 
   function erroPage(Pages) {
     root.innerHTML = `
@@ -425,16 +455,16 @@ const Router = async (PagesComponentsData = {}, Config = {}) => {
         .join("")}
     </div>
   `;
-  };
+  }
 
   function handleClick(e) {
     if (e.target.matches("[data-href]")) {
       e.preventDefault();
       const href = e.target.dataset.href;
       history.pushState(null, null, href);
-      routerState();
+      routerPages();
     }
-  };
+  }
 
   window.addEventListener("popstate", routerPages);
   document.body.addEventListener("click", debounce(handleClick, 200));

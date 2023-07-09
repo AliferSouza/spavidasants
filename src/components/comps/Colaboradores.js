@@ -1,17 +1,19 @@
 export default async function Colaboradores(props) {
-  const state = () => {
 
 
-  };
+  const state = () =>{
+
+
+  }
 
   const html = () => {
     return `
-      <div class="home-cards-container">
+      <div class="home-cards-container">     
         <div class="home-img-colaboradores">
-          ${props.data.dadosC
+          ${props.Data.dadosC
             .map((element) => `      
                 <a href="/#/perfil/#${element.id}">
-                  <img id="colaborador-${element.id}" data-url-src="${element.img}" width="50px" height="50px" alt="Dados Usuários">
+                  <img id="colaborador-${element.id}" src="${element.img}" width="50px" height="50px" alt="Dados Usuários">
                 </a>
          
             `)

@@ -1,5 +1,5 @@
 export default async function teste() {
-  prix.$("style").innerHTML += ` }`
+
 
   const state = () => {
     const perguntasERespostas = {
@@ -65,13 +65,6 @@ export default async function teste() {
     }
 
     addSubmitEvent();
-
-    const s = prix.$("#sair")
-    const r = prix.$("#receberIa")
-    s.onclick = function() {
-    r.innerHTML = ""      
-    };
-
           
   }
 
@@ -80,9 +73,9 @@ export default async function teste() {
     return `  
       <comp-menu> </comp-menu>
       <div class="containerbatepapo">      
-      <button id="sair">x</button>
+      <button class="SairIa">x</button>
        <div id="bate-papo">
-        <img src="./public/img/icones/mascote.png" width="40">
+        <img src="./src/public/img/icones/mascote.png" width="40">
         <h1>Perguntas e Respostas</h1>     
         </div>
         <label class="ia-label" for="question">Digite sua pergunta:</label>
@@ -96,6 +89,6 @@ export default async function teste() {
 
   return {    
     html,
-    state,
+    
   }
 }

@@ -4,8 +4,8 @@ export default async function shop() {
      html: () => `       
         <comp-menu></comp-menu>
         <div class="perfumaria-container">       
-        <comp-perfoleos data-a="/#/shop/perfumaria/#oleos" data-use-width="80px"  data-use-height="80px"  data-id="oleos">Oleos</comp-perfoleos>
-       </div>
+        <comp-perfoleos a="/#/shop/perfumaria/#oleos" width="80px"  height="80px"  id="oleos"></comp-perfoleos>  
+    </div>
         
     `
 }
