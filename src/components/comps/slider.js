@@ -35,9 +35,9 @@ export default function slider(props) {
   const html = () => `
     <div class="slideshow-container">
       <button class="prev" id="prevBtn">&#10094;</button>
-      <img class="mySlides" src="./src/public/img/slide/banner.PNG">
-      <img class="mySlides" src="./src/public/img/slide/banner2.PNG">
-      <img class="mySlides" src="./src/public/img/slide/banner3.png">
+      <img class="mySlides" src="./src/public/img/slide/banner.png">
+      <img class="mySlides" src="./src/public/img/slide/bannerr.png">
+      <img class="mySlides" src="./src/public/img/slide/bannerrr.png">
       <button class="next" id="nextBtn">&#10095;</button>      
     </div>`;
 

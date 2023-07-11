@@ -46,7 +46,7 @@ export default async function home(props) {
        <comp-slider></comp-slider>
        <comp-colaboradores id="oliveira"></comp-colaboradores>    
        <h1>PROMOÇÃO</h1>
-       <comp-produtos id="promocao"></comp-produtos>
+       <comp-produtos id="promocao"> </comp-produtos>
        <h1>MASSAGENS</h1>
        <comp-produtos id="massagens"></comp-produtos>
         <h1>PACOTES</h1>

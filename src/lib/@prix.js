@@ -14,7 +14,27 @@ async function useGetModules(caminho) {
   return result;
 }
 
-async function useApi(url, method, useType) {
+async function useApi(params = {}) {
+  
+  const { url, method, useType, cacheDuration } = params;
+  const cacheKey = `${url}_${method}_${useType}`;
+
+  // Verifica se a resposta já está em cache no local storage
+  const cachedData = localStorage.getItem(cacheKey);
+  if (cachedData) {
+    const { data, timestamp } = JSON.parse(cachedData);
+    const currentTime = new Date().getTime();
+    const cacheDurationInMs = cacheDuration * 24 * 60 * 60 * 1000; // Converte cacheDuration de dias para milissegundos
+
+    // Verifica se os dados em cache ainda são válidos (dentro da duração do cache)
+    if (currentTime - timestamp < cacheDurationInMs) {
+      return data;
+    } else {
+      // Remove dados expirados do cache
+      localStorage.removeItem(cacheKey);
+    }
+  }
+
   try {
     const res = await fetch(url, method);
     let data;
@@ -25,11 +45,19 @@ async function useApi(url, method, useType) {
       data = await res.json();
     }
 
+    // Armazena a resposta no local storage com o timestamp
+    const cacheData = {
+      data,
+      timestamp: new Date().getTime(),
+    };
+    localStorage.setItem(cacheKey, JSON.stringify(cacheData));
+
     return data;
-  } catch {
+  } catch (error) {
     return null;
   }
 }
+
 
 function useLocalStorage(operation, name, props) {
   if (operation === "getItem") {
@@ -312,7 +340,7 @@ const Router = async (PagesComponentsData = {}, Config = {}) => {
     const divTemporaria = document.createElement("div");
     divTemporaria.insertAdjacentHTML("beforeend", htmlState.renderedHtml);
   
-    const processElement = async (elem, i) => {
+    const processElement = async (elem, i) => {   
       const attributes = Array.from(elem.getAttributeNames()).reduce(
         (obj, attrName) =>
           !attrName.startsWith("data-") ? { ...obj, [attrName]: elem.getAttribute(attrName) } : obj,
@@ -335,7 +363,7 @@ const Router = async (PagesComponentsData = {}, Config = {}) => {
         const { html, state } = await Components[componentKey](dataApp);
   
         if (typeof html === "function") {
-          elem.innerHTML = html();
+          elem.innerHTML += html();
         }
   
         if (typeof state === "function") {
@@ -348,7 +376,7 @@ const Router = async (PagesComponentsData = {}, Config = {}) => {
       await identifyAndAddInnerComponents(elem);
     };
   
-    const identifyAndAddInnerComponents = async (parentElement) => {
+    const identifyAndAddInnerComponents = async (parentElement) => { 
       const tagElements = Array.from(parentElement.querySelectorAll("*")).filter(
         (element) => element.tagName.toLowerCase().match(/^comp-/i)
       );

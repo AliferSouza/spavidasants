@@ -73,7 +73,6 @@ export default async function teste() {
     return `  
       <comp-menu> </comp-menu>
       <div class="containerbatepapo">      
-      <button class="SairIa">x</button>
        <div id="bate-papo">
         <img src="./src/public/img/icones/mascote.png" width="40">
         <h1>Perguntas e Respostas</h1>     

@@ -1,7 +1,14 @@
 export default async function data() {
-  const dadosP = await useCSVToJSON(
-    "../../src/public/data/massagens/massagens.csv"
-  );
+  const params = {
+    url: "https://script.google.com/macros/s/AKfycbyKU9OcJSJ0RrCvwGnRXkwGOUkKVYr4epjnNSwSvreRdWvPZG7RGSe5KeNkP20HyFtg5g/exec",
+    method: {},
+    useType: "json",
+    cacheDuration: 0
+  };
+
+    
+  const dadosP = await useApi(params);
+
   const dadosC = await useCSVToJSON(
     "../../src/public/data/colaboradores/colaboradores.csv"
   );
@@ -11,3 +18,6 @@ export default async function data() {
   };
   return data;
 }
+
+
+

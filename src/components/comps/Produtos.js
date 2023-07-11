@@ -6,11 +6,12 @@ export default async  function cardProdutos(props) {
   const html =  () => {
     const entries = Object.entries(dadosSelecionado);
     const cards = entries.map(([key, value]) => `
-      <img data-href="/#/produto/#${value.id.split(" ").join("").toLowerCase()}"
+      <img loading="lazy" data-href="/#/produto/#${value.id.split(" ").join("").toLowerCase()}"
            id="${value.id}"
            class="home-img-card"
            src="${value.img}"
-           alt="${value.nome}" width="150px" height="250px" alt="Produtos">`
+           alt="${value.nome}" width="150px" height="250px" alt="Produtos">
+          `
     );
 
   

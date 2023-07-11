@@ -1,5 +1,6 @@
 export default async function produto(props) {
     document.title = "PRODUTO"
+    window.scroll(0,0)
     const nome = useSearch("hash").split('/').pop().replace("#", "")  
 
    

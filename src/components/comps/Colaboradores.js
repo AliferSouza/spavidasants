@@ -13,7 +13,7 @@ export default async function Colaboradores(props) {
           ${props.Data.dadosC
             .map((element) => `      
                 <a href="/#/perfil/#${element.id}">
-                  <img id="colaborador-${element.id}" src="${element.img}" width="50px" height="50px" alt="Dados Usuários">
+                  <img loading="lazy" id="colaborador-${element.id}" src="${element.img}" width="50px" height="50px" alt="Dados Usuários">
                 </a>
          
             `)
