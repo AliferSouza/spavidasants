@@ -1,22 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./src/public/img/logo/logo.ico" type="image/x-icon">
-    <meta name="description" content="SpaVidaSants">
-    <link href="./src/styles/@main.css" rel="stylesheet">
-    <link href="./src/styles/componete/@slide.css" rel="stylesheet">
-    <link href="./src/styles/componete/@newsletter.css" rel="stylesheet">
-    <link href="./src/styles/@produtos.css" rel="stylesheet">
-    <link href="./src/styles/componete/@menu.css" rel="stylesheet">
-    <link href="./src/styles/componete/@colaboradores.css" rel="stylesheet">
-    <title></title>
-    <style>    </style>
-</head>
-<body>
- <div id="app"></div>  
- <script type="module" src="/src/main.js"> </script>
-</body>
+    <head>
+        <title>SpaVidaSants</title>
+        <meta name="description" content="Description..." />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#9c6799" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="google" content="notranslate" />
+
+        <!-- Open Graph -->
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="SpaVidaSants" />
+        <meta property="og:description" content="Description..." />
+        <meta property="og:site_name" content="SpaVidaSants" />
+        <meta property="og:url" content="https://spavidasants.com" />
+        <meta property="og:image" content="" />
+
+  
+        <link rel="manifest" href="/manifest.json" />   
+        
+        
+        
+        <link rel="icon" type="imagem/png" href="/icons/icon_192.png" />
+              
+      <script type="module" crossorigin src="/assets/index-2ecfb5a8.js"></script>
+      <link rel="stylesheet" href="/assets/index-61d6beca.css">
+    </head>
+
+    <body>
+        <div id="app"></div>  
+        
+       
+        <script>
+            if ("serviceWorker" in navigator) {
+                window.addEventListener("load", function () {
+                    navigator.serviceWorker
+                        .register("/service-worker.js")
+                        .then((registration) => {                          
+                        });
+                });
+            }
+        </script>
+
+    </body>
 </html>
