@@ -1,6 +1,18 @@
 // Nome do cache para armazenar as respostas em cache
 const CACHE_NAME = 'cache-spa';
 
+if ('caches' in window) {
+  caches.open(CACHE_NAME).then(function(cache) {
+    cache.delete().then(function(deleted) {
+      if (deleted) {
+        console.log('Cache removido com sucesso');
+      } else {
+        console.log('Falha ao remover o cache');
+      }
+    });
+  });
+}
+
 // Lista de arquivos a serem armazenados em cache durante a instalação
 const FILES_TO_CACHE = [
     '/',
