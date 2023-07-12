@@ -1,5 +1,6 @@
 export default async function produto(props) {
     document.title = "PRODUTO"
+    window.scroll(0,0)
     const nome = useSearch("hash").split('/').pop().replace("#", "")  
 
    
@@ -25,8 +26,7 @@ export default async function produto(props) {
                 <h2 class="title">${dadosSelecionado.nome}</h2>
                  <img class="p-img" src="${dadosSelecionado.img}" width= 280>
                  <p class="info">${dadosSelecionado.info}</p>
-                 <br>
-                <button class="button">
+                    <button class="button">
                     <span id="whats">Agende ➞</span>		
                 </button>
             </article> 	    	 

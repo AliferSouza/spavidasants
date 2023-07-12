@@ -1,4 +1,4 @@
-export default function slider() {
+export default function slider(props) {
   const state = () => {
         
         let slideIndex = 0;
@@ -35,14 +35,15 @@ export default function slider() {
   const html = () => `
     <div class="slideshow-container">
       <button class="prev" id="prevBtn">&#10094;</button>
-      <img class="mySlides" src="./src/public/img/slide/banner2.PNG">
-      <img class="mySlides" src="./src/public/img/slide/banner3.PNG">
-      <img class="mySlides" src="./src/public/img/slide/banner.jpg">
+      <img class="mySlides" src="./src/public/img/slide/banner.png">
+      <img class="mySlides" src="./src/public/img/slide/bannerr.png">
+      <img class="mySlides" src="./src/public/img/slide/bannerrr.png">
       <button class="next" id="nextBtn">&#10095;</button>      
     </div>`;
 
   return {
     html,
     state
+    
   };
 }

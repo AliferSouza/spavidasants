@@ -19,7 +19,7 @@ export default {
     "comp-newsletter": newsletter,
     "comp-whatsapp": Whatsapp,
     "comp-mascoteia": mascoteIa,
-    "comp-ia": ia,
+    "comp-mascote-ia": ia,
     "comp-perfoleos": perfOleos,
     "comp-video": video,
     "comp-button-lateral": flutuante

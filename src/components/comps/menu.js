@@ -1,9 +1,16 @@
-export default async function Menu() {
+export default async function Menu(props) {
+  props.tag.addEventListener('click', e=>{ 
+    console.log(e.target)
+  })
+
+  const state = () => {
+
+  }
 
   const html = () => {
     return `   
-    <nav>
-    <label class="logo"> <img data-href="/#/home/" data-url-src="./src/public/img/logo/logo.png" width="70px" height="70px" alt="Logo"></label>
+    <nav id="${props.attributes.id}"> 
+    <label class="logo"> <img data-href="/#/home/" src="./src/public/img/logo/logo22.png" width="70px" height="70px" alt="Logo"></label>
     <input type="checkbox" id="check">
     <label for="check" class="checkbtn">
       &#x2630
@@ -23,6 +30,7 @@ export default async function Menu() {
 
   return {  
     html,
+    state
 
   }
 }
