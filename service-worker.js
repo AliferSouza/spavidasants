@@ -1,6 +1,9 @@
 // Nome do cache para armazenar as respostas em cache
 const CACHE_NAME = 'cache-spa';
 
+
+
+
 // Lista de arquivos a serem armazenados em cache durante a instalação
 const FILES_TO_CACHE = [
     '/',
@@ -8,7 +11,7 @@ const FILES_TO_CACHE = [
   ];
 
 // Tempo de validade do cache em segundos (4 dias neste exemplo)
-const CACHE_EXPIRATION = 5 * 60 * 1000
+const CACHE_EXPIRATION = 1 * 24 * 60 * 60;
 
 // Evento de instalação do service worker
 self.addEventListener('install', event => {
