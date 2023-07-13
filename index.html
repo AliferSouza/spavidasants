@@ -36,16 +36,33 @@
         <div id="app"></div>  
         
        
-        <script>
-            if ("serviceWorker" in navigator) {
-                window.addEventListener("load", function () {
-                    navigator.serviceWorker
-                        .register("/service-worker.js")
-                        .then((registration) => {                          
-                        });
+  <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+            .then(function(registration) {
+            registration.addEventListener('updatefound', function() {
+                // Um novo Service Worker foi encontrado, será instalado
+                registration.installing.addEventListener('statechange', function() {
+                if (this.state === 'installed') {
+                    // O novo Service Worker foi instalado
+                    // Notificar o usuário ou realizar outras ações
+                    console.log('Novo Service Worker instalado!');
+
+                    // Atualizar o cache e recarregar a página
+                    caches.keys().then(function(cacheNames) {
+                    cacheNames.forEach(function(cacheName) {
+                        caches.delete(cacheName);
+                    });
+                    }).then(function() {
+                    window.location.reload();
+                    });
+                }
                 });
-            }
-        </script>
+            });
+            });
+        }
+
+    </script>
 
     </body>
 </html>
