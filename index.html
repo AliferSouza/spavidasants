@@ -1,68 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>SpaVidaSants</title>
-        <meta name="description" content="Description..." />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="theme-color" content="#9c6799" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="google" content="notranslate" />
 
-        <!-- Open Graph -->
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="SpaVidaSants" />
-        <meta property="og:description" content="Description..." />
-        <meta property="og:site_name" content="SpaVidaSants" />
-        <meta property="og:url" content="https://spavidasants.com" />
-        <meta property="og:image" content="" />
+<head>
+    <title>SpaVidaSants</title>
+    <meta name="description" content="Description..." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#9c6799" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="google" content="notranslate" />
 
-        <link rel="manifest" href="/manifest.json" />     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <link rel="icon" type="imagem/png" href="/icons/icon_192.png" />
-              
-      <script type="module" crossorigin src="/assets/index-d6cd27b5.js"></script>
-      <link rel="stylesheet" href="/assets/index-4763f137.css">
-    </head>
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="SpaVidaSants" />
+    <meta property="og:description" content="Description..." />
+    <meta property="og:site_name" content="SpaVidaSants" />
+    <meta property="og:url" content="https://spavidasants.com" />
+    <meta property="og:image" content="" />
 
-    <body>
-        <div id="app"></div>  
-        
-       
-  <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('service-worker.js')
-            .then(function(registration) {
-            registration.addEventListener('updatefound', function() {
-                // Um novo Service Worker foi encontrado, será instalado
-                registration.installing.addEventListener('statechange', function() {
-                if (this.state === 'installed') {
-                    // O novo Service Worker foi instalado
-                    // Notificar o usuário ou realizar outras ações
-                    console.log('Novo Service Worker instalado!');
+    <link rel="manifest" href="/manifest.json" />
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <link rel="icon" type="imagem/png" href="/icons/icon_192.png" />
 
-                    // Atualizar o cache e recarregar a página
-                    caches.keys().then(function(cacheNames) {
-                    cacheNames.forEach(function(cacheName) {
-                        caches.delete(cacheName);
+  <script type="module" crossorigin src="/assets/index-a1857846.js"></script>
+  <link rel="stylesheet" href="/assets/index-bacc57fc.css">
+</head>
+
+<body>
+    <div id="app"></div>
+    
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(function (registration) {
+                    registration.addEventListener('updatefound', function () {
+                        // Um novo Service Worker foi encontrado, será instalado
+                        registration.installing.addEventListener('statechange', function () {
+                            if (this.state === 'installed') {
+                                // O novo Service Worker foi instalado
+                                // Notificar o usuário ou realizar outras ações
+                                console.log('Novo Service Worker instalado!');
+
+                                // Atualizar o cache e recarregar a página
+                                caches.keys().then(function (cacheNames) {
+                                    cacheNames.forEach(function (cacheName) {
+                                        caches.delete(cacheName);
+                                    });
+                                }).then(function () {
+                                    window.location.reload();
+                                });
+                            }
+                        });
                     });
-                    }).then(function() {
-                    window.location.reload();
-                    });
-                }
                 });
-            });
-            });
         }
 
+        window.addEventListener("load", function () {
+            navigator.serviceWorker
+                .register("/service-worker.js")
+                .then((registration) => {
+                });
+        });
+            
     </script>
 
-    </body>
+</body>
+
 </html>
