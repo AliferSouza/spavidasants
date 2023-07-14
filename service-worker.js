@@ -1,5 +1,5 @@
 // Nome do cache para armazenar as respostas em cache
-const CACHE_NAME = 'cache-spa-novo';
+const CACHE_NAME = 'cache-spa-01';
 
 // Lista de arquivos a serem armazenados em cache durante a instalação
 const FILES_TO_CACHE = [
