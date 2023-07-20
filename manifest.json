@@ -27,5 +27,13 @@
             "type": "image/png",
             "purpose": "maskable"
         }
-    ]
+    ],
+    "shortcuts": [
+        {
+          "name": "Página Inicial",
+          "short_name": "SpaVidaSants",
+          "url": "/",
+          "icons": [{ "src": "iicon_192_pwa.png", "sizes": "72x72" }]
+        }
+      ]
 }

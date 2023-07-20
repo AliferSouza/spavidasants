@@ -1,70 +1,43 @@
-// Nome do cache para armazenar as respostas em cache
-const CACHE_NAME = 'SPA';
-
-// Lista de arquivos a serem armazenados em cache durante a instalação
+const CACHE_NAME = 'SPA-v8';
 const FILES_TO_CACHE = [
-    '/',
-    '/*'
-  ];
+  '/',
+  '/*'
+];
 
-// Evento de instalação do service worker
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(FILES_TO_CACHE);
-    })
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(FILES_TO_CACHE))
+      .then(() => self.skipWaiting())
   );
 });
 
-// Evento de ativação do service worker
 self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    })
+    caches.keys()
+      .then(cacheNames => {
+        return Promise.all(
+          cacheNames.filter(name => name !== CACHE_NAME)
+            .map(name => caches.delete(name))
+        );
+      })
+      .then(() => self.clients.claim())
   );
 });
 
-// ...
-
-// Evento fetch - Intercepta as solicitações de rede
 self.addEventListener('fetch', event => {
   event.respondWith(
     caches.open(CACHE_NAME).then(cache => {
       return cache.match(event.request).then(response => {
-        // Verifica se a resposta está em cache
-        if (response) {
-          return response;
-        }
-
-        // Faz a solicitação de rede
-        return fetch(event.request).then(networkResponse => {
-          // Verifica se a resposta da rede é válida
-          if (
-            networkResponse.status === 200 &&
-            networkResponse.type === 'basic'
-          ) {
-            // Clona a resposta da rede
-            const clonedResponse = networkResponse.clone();
-
-            // Armazena a resposta em cache
-            caches.open(CACHE_NAME).then(cache => {
-              cache.put(event.request, clonedResponse);
-            });
+        const fetchPromise = fetch(event.request).then(networkResponse => {
+          if (networkResponse && networkResponse.status === 200) {
+            cache.put(event.request, networkResponse.clone());
           }
-
-          // Retorna a resposta da rede
           return networkResponse;
         });
+
+        return response || fetchPromise;
       });
     })
   );
 });
-
-// ...

@@ -31,8 +31,8 @@
     
     <link rel="icon" type="imagem/png" href="/icons/icon_192.png" />
 
-  <script type="module" crossorigin src="/assets/index-0c80834b.js"></script>
-  <link rel="stylesheet" href="/assets/index-2c48c366.css">
+  <script type="module" crossorigin src="/assets/index-16fb21c0.js"></script>
+  <link rel="stylesheet" href="/assets/index-683a38f8.css">
 </head>
 
 <body>
@@ -40,12 +40,16 @@
     
 
     <script>
-        window.addEventListener("load", function () {
-            navigator.serviceWorker
-                .register("/service-worker.js")
-                .then((registration) => {
-                });
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(registration => {
+          console.log('Service Worker registrado com sucesso!', registration);
+        })
+        .catch(error => {
+          console.error('Erro ao registrar o Service Worker:', error);
         });
+    }
+
             
     </script>
 
