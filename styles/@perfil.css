@@ -1,0 +1,74 @@
+#perfil {
+  width: 100vw;
+  height: 100vh;
+  background: #334046;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+
+#perfil-img {
+  max-width: 500px;
+  width: 100%;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+
+
+}
+
+#perfil-img img {
+  max-width: 500;
+  width: 100%;
+}
+
+#descicaoPerfil {
+  max-width: 500px;
+  width: 100%;
+  text-align: left;
+}
+
+
+#info {
+  width: 90%;
+  color: #bbbaba;
+  text-align: left;
+  padding: 20px;
+
+}
+
+
+.buttonperfilCon {
+  width: 96%;
+  padding: 20px;
+
+}
+
+.buttonperfil {
+  width: 80%;
+  height: 40px;
+  color: #fff;
+  font: inherit;
+  line-height: 1;
+  background-color: #009373;
+  border-radius: 15px;
+  font-weight: 500;
+  gap: 0.5rem;
+  cursor: pointer;
+  border: none
+}
+
+select {
+  background-color: green;
+  width: 90%;
+  padding: 10px;
+  border: none;
+  background-color: #009373;
+  border-radius: 15px;
+  color: white;
+}

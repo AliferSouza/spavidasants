@@ -1,0 +1,79 @@
+
+#tres-pontos{
+    position: fixed;
+    width: 15px;
+    top: 50%;
+    right: 10px;
+    display: none;
+    width: 25px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #000000;
+    padding: 4px;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #fff;
+    z-index: 1000;
+  }
+  
+  #tres-pontos span {
+    background: #e29595;
+    border-radius: 100%;
+    width: 5px;
+    height: 5px;
+    margin: 2px 2px;
+    -webkit-animation: loader-tres-pontinhos 0.8s linear infinite alternate;
+    animation: loader-tres-pontinhos 0.8s linear infinite alternate;
+  }
+  
+  .loader-tres-pontinhos span:nth-child(1) {
+    -webkit-animation-delay: -0.8;
+    animation-delay: -0.8s;
+  
+  }
+  
+  .loader-tres-pontinhos span:nth-child(2) {
+    -webkit-animation-delay: -0.53333s;
+    animation-delay: -0.53333s;
+  }
+  
+  .loader-tres-pontinhos span:nth-child(3) {
+    -webkit-animation-delay: -0.26666s;
+    animation-delay: -0.26666s;
+  }
+  
+  @keyframes loader-tres-pontinhos {
+    from {
+      transform: scale(0, 0);
+    }
+  
+    to {
+      transform: scale(1, 1);
+    }
+  }
+  
+  @-webkit-keyframes loader-tres-pontinhos {
+    from {
+      -webkit-transform: scale(0, 0);
+    }
+  
+    to {
+      -webkit-transform: scale(1, 1);
+    }
+  }
+  
+
+    
+  #videoPalyPause{
+    z-index: 200;
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);   
+    border-radius: 10px;   
+
+ 
+}
