@@ -35,8 +35,8 @@ export default async function agenda({ tagPage }) {
       Valor Total: ${data.valorTotal}
     `;
 
-    //const phoneNumber = '31999739602';
-    //const linkWhatsapp = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    const phoneNumber = '31999739602';
+    const linkWhatsapp = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
       
   
