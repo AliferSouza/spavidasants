@@ -7,7 +7,7 @@ export default async function Colaboradores({ tag }) {
     <div class="home-cards-container-colaborador">      
       <div class="home-img-colaboradores">
         ${dados.colaboradores.map((element) => `
-          <img use:href="/perfil/${element.id}" src="${element.img}" id="colaborador-${element.id}" width="50" height="50" alt="Dados Usuários">
+          <img use:href="/perfil/${element.id}" src="${element.img}" id="colaborador-${element.id}" alt="Dados Usuários">
         `)}
       </div>        
     </div>`;
