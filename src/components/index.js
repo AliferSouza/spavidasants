@@ -1,26 +1,20 @@
-import menu from "./comps/menu.js";
-import slider from "./comps/slider.js";
-import colaboradores from "./comps/Colaboradores.js";
-import produtos from "./comps/Produtos.js";
-import newsletter from "./comps/newsletter.js";
-import Whatsapp from "./comps/whatsapp.js";
-import mascoteIa from "./comps/mascoteIa.js";
-import ia from "./comps/telaIA.js";
-import perfOleos from "./comps/perfOleos.js"
-import video from "./comps/video.js";
-import flutuante from"./comps/flutuante.js"
 
+import slider from "./comp-slider.js";
+import colaboradores from "./comp-colaboradores.js"
+import newsletter from "./comp-newsletter.js"
+import Whatsapp from "./comp-whatsapp.js"
+import flutuante from "./comp-button-lateral.js"
+import cardProduct from "./card-product.js"
+import menuPrincipal from "./menu-principal.js"
 
-export default {
-    "comp-menu": menu,
+export default {  
     "comp-slider": slider,
-    "comp-colaboradores": colaboradores,
-    "comp-produtos": produtos,
+    "comp-colaboradores": colaboradores,        
     "comp-newsletter": newsletter,
-    "comp-whatsapp": Whatsapp,
-    "comp-mascoteia": mascoteIa,
-    "comp-mascote-ia": ia,
-    "comp-perfoleos": perfOleos,
-    "comp-video": video,
-    "comp-button-lateral": flutuante
+    "comp-whatsapp": Whatsapp, 
+    "comp-button-lateral": flutuante,
+    "card-product": cardProduct,
+    "menu-principal": menuPrincipal,
+  
+ 
 }

@@ -1,483 +1,266 @@
-const ROOT = document.querySelector("#app");
-const STYLE = document.querySelector("style");
-async function useGetModules(caminho) {
-  let result;
+import Pages from "../pages/index.js"
+import Components from "../components/index.js"
 
-  try {
-    result = await import(`${caminho}`).then((module) => module.default);
-  } catch (error) {
-    // Trate o erro de importação aqui
-    console.error("Erro ao importar o arquivo:", error);
-    // Defina um valor padrão para result ou faça qualquer outra ação adequada
+const root = document.querySelector("#app");
+let lastFetchTime = 0;
+
+const componentCache = {};
+const functionEvent = {};
+
+
+
+function on(event, cb) {
+  const nameFunction = event.name || event;
+  if (nameFunction.includes("comp")) {
+    const kebabCaseName = nameFunction
+      .replace(/([a-zA-Z])(?=[A-Z])/g, "$1-")
+      .toLowerCase();
+    if (!Components.hasOwnProperty(kebabCaseName)) {
+      PagesComponentsDataArray.Components[kebabCaseName] = cb || event;
+    }
   }
 
-  return result;
+  if (typeof event === "function") {
+    const nameFunction = event.name;
+    if (!functionEvent[nameFunction]) {
+      functionEvent[nameFunction] = [event];
+    } else if (!functionEvent[nameFunction].includes(event)) {
+      functionEvent[nameFunction].push(event);
+    }
+  } else {
+    if (!functionEvent[event]) {
+      functionEvent[event] = [cb];
+    } else if (!functionEvent[event].includes(cb)) {
+      functionEvent[event].push(cb);
+    }
+  }
 }
-
-async function useApi(params = {}) {
-  
-  const { url, method, useType, cacheDuration } = params;
-  const cacheKey = `${url}_${method}_${useType}`;
-
-  // Verifica se a resposta já está em cache no local storage
-  const cachedData = localStorage.getItem(cacheKey);
-  if (cachedData) {
-    const { data, timestamp } = JSON.parse(cachedData);
-    const currentTime = new Date().getTime();
-    const cacheDurationInMs = cacheDuration * 24 * 60 * 60 * 1000; // Converte cacheDuration de dias para milissegundos
-
-    // Verifica se os dados em cache ainda são válidos (dentro da duração do cache)
-    if (currentTime - timestamp < cacheDurationInMs) {
-      return data;
-    } else {
-      // Remove dados expirados do cache
-      localStorage.removeItem(cacheKey);
-    }
+function emit(event, ...args) {
+  if (functionEvent[event]) {
+    const values = functionEvent[event]
+      .map((cb) => cb(...args))
+      .filter((result) => result !== undefined);
+    return values.length > 0 ? values : "";
   }
+  return "";
+}
+async function useNavigate(Rota) {
+  window.history.pushState(null, null, Rota)
+  Router()
 
-  try {
-    const res = await fetch(url, method);
-    let data;
+}
+let urlRevalidateComponent;
+const intervalMap = new Map();
+const reloadComp = (element) => {
+  if (element.tagName.includes("-")) {
 
-    if (useType === "text") {
-      data = await res.text();
-    } else if (useType === "json") {
-      data = await res.json();
-    }
-
-    // Armazena a resposta no local storage com o timestamp
-    const cacheData = {
-      data,
-      timestamp: new Date().getTime(),
+    const verificarUse = () => {
+      const use = element.hasAttribute("use:revalidate");
+      const useValue = element.getAttribute("use:revalidate") || 1000;
+      return [use, useValue];
     };
-    localStorage.setItem(cacheKey, JSON.stringify(cacheData));
 
-    return data;
-  } catch (error) {
-    return null;
-  }
-}
+    const [use, useValue] = verificarUse();
 
+    if (use) {
+      const reload = async () => processElement(element);
+      const intervalId = setInterval(reload, useValue);
+      intervalMap.set(element.tagName.toLowerCase(), intervalId);
+      urlRevalidateComponent = location.href;
+    } else {
+      const tagNameLowerCase = element.tagName.toLowerCase();
+      const intervalId = intervalMap.get(tagNameLowerCase);
 
-function useLocalStorage(operation, name, props) {
-  if (operation === "getItem") {
-    return JSON.parse(window.localStorage.getItem(name));
-  } else if (operation === "setItem") {
-    window.localStorage.setItem(name, JSON.stringify(props));
-  } else if (operation === "setItems") {
-    const items = JSON.parse(localStorage.getItem(name) || "[]");
-    items.push(props);
-    localStorage.setItem(name, JSON.stringify(items));
-  }
-}
-
-async function useLocation() {
-  async function getLocation() {
-    return new Promise((resolve, reject) => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const latitude = position.coords.latitude;
-            const longitude = position.coords.longitude;
-            resolve({ latitude, longitude });
-          },
-          (error) => {
-            reject(error);
-          }
-        );
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalMap.delete(tagNameLowerCase);
       } else {
-        const error = new Error(
-          "Geolocation is not supported by this browser."
-        );
-        reject(error);
-      }
-    });
-  }
-
-  try {
-    const { latitude, longitude } = await getLocation();
-    return [latitude, longitude];
-  } catch (error) {
-    console.log("Erro ao obter localização:", error.message);
-    return [null, null];
-  }
-}
-
-async function useNavigate(Rota, Pages) {
-  history.pushState(null, null, Rota);
-  Router(Pages);
-}
-
-async function useId(senha) {
-  try {
-    // Converte a senha para um ArrayBuffer
-    const encoder = new TextEncoder();
-    const senhaBytes = encoder.encode(senha);
-
-    // Calcula o hash SHA-256 da senha
-    const hashBuffer = await crypto.subtle.digest("SHA-256", senhaBytes);
-
-    // Converte o hash para uma string hexadecimal
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray
-      .map((byte) => byte.toString(16).padStart(2, "0"))
-      .join("");
-
-    return hashHex;
-  } catch (error) {
-    throw new Error("Erro ao criptografar a senha: " + error);
-  }
-}
-
-function useSearch(props) {
-  try {
-    const location = window.location;
-    const prop = location[props];
-    return decodeURIComponent(prop) || location;
-  } catch (error) {
-    throw error;
-  }
-}
-
-async function useCSVToJSON(url, ct) {
-  const response = await fetch(url, {
-    headers: {
-      ct,
-    },
-  });
-  const data = await response.text();
-
-  const lines = data.split("\n");
-  const keys = lines[0].split(";");
-
-  return lines.slice(1).map((line) => {
-    return line.split(";").reduce((acc, cur, i) => {
-      const toAdd = {};
-      toAdd[keys[i]] = cur;
-      return { ...acc, ...toAdd };
-    }, {});
-  });
-}
-
-function useJSONToCSV(objArray, keys) {
-  return [
-    keys.join(","),
-    ...objArray.map((row) => keys.map((k) => row[k] || "").join(",")),
-  ].join("\n");
-}
-
-function useExeFucTemp(func, time) {
-  setTimeout(function () {
-    func();
-  }, time || 1);
-}
-
-function useCSS(selector, styles) {
-  const elements = document.querySelectorAll(selector);
-
-  elements.forEach((element) => {
-    Object.keys(styles).forEach((property) => {
-      element.style[property] = styles[property];
-    });
-  });
-}
-
-function $$(arg1, arg2) {
-  if (typeof arg1 === "string") {
-    if (arg2) {
-      document.querySelector(arg1).innerHTML = arg2;
-    }
-    return document.querySelector(arg1);
-  } else if (Array.isArray(arg1)) {
-    arg1.forEach((element, index) => {
-      const selector = Object.keys(element)[0];
-      const attributes = Object.values(element)[0];
-
-      const targetElements = document.querySelectorAll(selector);
-
-      targetElements.forEach((targetElement) => {
-        for (const [attribute, value] of Object.entries(attributes)) {
-          if (attribute === "innerHTML") {
-            targetElement.innerHTML = value;
-          } else {
-            targetElement.setAttribute(attribute, value);
-          }
+        if ((urlRevalidateComponent === location.href) === false) {
+          intervalMap.clear();
         }
-      });
-
-      return targetElements;
-    });
-
-    // Define e retorna a variável "elements" se necessário
-    const elements = document.querySelectorAll(
-      arg1.map((element) => Object.keys(element)[0]).join(", ")
-    );
-    return elements.length > 1 ? elements : elements[0];
+      }
+    }
   }
 }
 
-const $ = (selector) => {
-  const elements = document.querySelectorAll(selector);
+const pagesComponentsFetch = async (props) => {
+  const { tag, Data } = props;
+  const componentKey = tag.tagName.toLowerCase();
 
-  if (elements.length === 0) {
-    return selector;
+  const verificarFetch = () => {
+    const [fetchValue, htmljs] = (tag.getAttribute("use:fetch") || "")
+      .split("|")
+      .map((str) => str.trim());
+    return [fetchValue, htmljs];
+  };
+  const [fetchValue, htmljs] = verificarFetch();
+
+  let Resultcomponent;
+  let htmlFunction;
+  let response;
+
+  if (componentCache[componentKey]) {
+    Resultcomponent = await componentCache[componentKey](Data);
+  } else {
+    const url = `${location.origin}/${fetchValue}/${componentKey}.${htmljs}`;
+    response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch page content");
+    }
+
+    if (htmljs === "html") {
+      document.querySelector(componentKey).innerHTML = await response.text();
+    }
+
+    if (htmljs === "js") {
+      htmlFunction = await response.text();
+      Resultcomponent = Function("return " + htmlFunction)();
+      tag.innerHTML = Resultcomponent(Data)
+      componentCache[componentKey] = Resultcomponent;
+    }
   }
 
-  const obj = {
-    addClass: (className) => {
-      elements.forEach((element) => {
-        element.classList.add(className);
-      });
-      return obj;
-    },
-    removeClass: (className) => {
-      elements.forEach((element) => {
-        element.classList.remove(className);
-      });
-      return obj;
-    },
-    text: (textContent) => {
-      elements.forEach((element) => {
-        element.textContent = textContent;
-      });
-      return obj;
-    },
-    css: (styleObject) => {
-      elements.forEach((element) => {
-        Object.assign(element.style, styleObject);
-      });
-      return obj;
-    },
-    on: (event, handler) => {
-      elements.forEach((element) => {
-        element.addEventListener(event, handler);
-      });
-      return obj;
-    },
-    appendImage: (imageUrl) => {
-      elements.forEach((element) => {
-        const img = document.createElement("img");
-        img.src = imageUrl;
-        element.appendChild(img);
-      });
-      return obj;
-    },
-    hide: () => {
-      elements.forEach((element) => {
-        element.style.originalDisplay = element.style.display;
-        element.style.display = "none";
-      });
-      return obj;
-    },
-    show: () => {
-      elements.forEach((element) => {
-        element.style.display = element.style.originalDisplay || "";
-        delete element.style.originalDisplay;
-      });
-      return obj;
-    },
-    tag: () => {
-      return elements[0];
-    },
-    tags: () => {
-      return elements;
-    },
-  };
+}
 
-  return obj;
+const processElement = async (elem) => {
+
+  const elemName = elem.tagName.toLowerCase();
+  const isFetch = elem.hasAttribute("use:fetch");
+  const revalidate = elem.hasAttribute("use:revalidate");
+
+  const componentResult = await (isFetch
+    ? pagesComponentsFetch({ tag: elem })
+    : Components[elemName]({ tag: elem }));
+
+  elem.innerHTML = componentResult
+
+
+  await Promise.all(
+    Array.from(elem.querySelectorAll("*")).map(async (element) => {
+      if (element.tagName.includes("-") && element.tagName.toLowerCase() !== elemName) {
+        await processElement(element);
+        if (revalidate) {
+          reloadComp(element);
+        }
+
+      }
+    })
+  );
+  if (revalidate) {
+    reloadComp(elem);
+  }
+  emit(elemName);
 };
 
-const Router = async (PagesComponentsData = {}, Config = {}) => {
-  const root = document.querySelector("#app");
-  const [Pages, Components, Data] = Object.values(PagesComponentsData);
+async function customTags() {
 
-  const cacheImg = new Map();
+  const tagElementsObserve = Array.from(document.querySelectorAll("*")).filter(
+    (element) => {
+      const hasHyphen = element.tagName.includes("-");
+      const hasPriority = element.hasAttribute("priority");
 
-  const carregarImgLazy = async () => {
-    const elements = document.querySelectorAll("[data-url-src]");
-    elements.forEach(async (element) => {
-      const url = element.dataset.urlSrc;
-
-      // Check if the image URL is already cached
-      if (cacheImg.has(url)) {
-        element.src = cacheImg.get(url);
-      } else {
-        try {
-          const response = await fetch(url);
-
-          if (response.ok) {
-            const blob = await response.blob();
-            const imageUrlObject = URL.createObjectURL(blob);
-
-            // Cache the image URL
-            cacheImg.set(url, imageUrlObject);
-
-            element.src = imageUrlObject;
-          } else {
-            console.error("Error fetching the image");
-          }
-        } catch (error) {
-          console.error("Error:", error);
+      if (hasHyphen) {
+        if (hasPriority) {
+          processElement(element);
+        } else {
+          return element;
         }
+      }
+    }
+  );
+
+  const observerTagsDom = (() => {
+    const processed = new Set();
+    const observer = new IntersectionObserver(async (entries, obs) => {
+      const e = entries.find((e) => e.isIntersecting);
+      if (e) {
+        const { target } = e;
+        processElement(target);
+        reloadComp(target);
+        obs.unobserve(target);
+        const next = tagElementsObserve.find((tag) => !processed.has(tag));
+        if (next) processed.add(next) && obs.observe(next);
       }
     });
+
+    const first = tagElementsObserve.find((tag) => !processed.has(tag));
+    if (first) processed.add(first) && observer.observe(first);
+  })();
+}
+
+function debounce(fn, delay) {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      fn.apply(this, args);
+    }, delay);
   };
+}
 
-  const locationUrlPage = () => {
-    const dataUrl = location.hash.replace("#", "") || location.pathname;
-
-    const currentPage =
-      dataUrl === "/"
-        ? Object.keys(Pages)[0]
-        : dataUrl.split("#")[0].split("/").filter(Boolean).pop();
-    return currentPage;
-  };
-
-
-
-  async function customTags(htmlState = {}) {
-    let stateFunctionsComponetLocal = [];
-    const divTemporaria = document.createElement("div");
-    divTemporaria.insertAdjacentHTML("beforeend", htmlState.renderedHtml);
-  
-    const processElement = async (elem, i) => {   
-      const attributes = Array.from(elem.getAttributeNames()).reduce(
-        (obj, attrName) =>
-          !attrName.startsWith("data-") ? { ...obj, [attrName]: elem.getAttribute(attrName) } : obj,
-        {}
-      );
-  
-      const dataApp = {
-        reference: i,
-        nameTag: elem.tagName.toLowerCase(),
-        attributes,
-        parameter: Object.fromEntries(new URLSearchParams(location.href.split("?")[1]).entries()),
-        page: location.hash.replace("#", "").match(/^\/(\w+)(\/)?/),
-        content: elem.textContent,
-        Data,
-        tag: elem,      
-      };
-  
-      const componentKey = elem.tagName.toLowerCase();
-      if (Components.hasOwnProperty(componentKey)) {
-        const { html, state } = await Components[componentKey](dataApp);
-  
-        if (typeof html === "function") {
-          elem.innerHTML += html();
-        }
-  
-        if (typeof state === "function") {
-          stateFunctionsComponetLocal.push(state);
-        }
-      } else {
-        throw new Error(`Componente não encontrado para a tag: ${componentKey}`);
-      }
-  
-      await identifyAndAddInnerComponents(elem);
-    };
-  
-    const identifyAndAddInnerComponents = async (parentElement) => { 
-      const tagElements = Array.from(parentElement.querySelectorAll("*")).filter(
-        (element) => element.tagName.toLowerCase().match(/^comp-/i)
-      );
-  
-      for (let i = 0; i < tagElements.length; i++) {
-        const elem = tagElements[i];
-        await processElement(elem);
-      }
-    };
-  
-    const tagElements = Array.from(divTemporaria.querySelectorAll("*")).filter(
-      (element) => element.tagName.toLowerCase().match(/^comp-/i)
-    );
-  
-    for (let i = 0; i < tagElements.length; i++) {
-      const elem = tagElements[i];
-      await processElement(elem);
-    }
-  
-    root.innerHTML = "";
-    root.innerHTML = divTemporaria.innerHTML
-  
-    stateFunctionsComponetLocal.forEach((func) => func());
-  
-    if (typeof htmlState.renderState === "function") {
-      htmlState.renderState();
-    }
-    carregarImgLazy()
-  }
-  
-
-
+const Router = async () => {
   async function routerPages() {
-    const currentUrlPage = locationUrlPage();
-    const resultUrl =
-      currentUrlPage && Pages[currentUrlPage] ? currentUrlPage : "erro";
+    const match = location.href.match(/#\/([^\/?]+)/)
+    const currentPathUrl = match ? match[1] : Object.keys(Pages)[0]
+    if (!currentPathUrl || currentPathUrl === "#") return;
+    const currentComponent = Pages[currentPathUrl] || "erro";
 
-    if (resultUrl === "erro") {
-      // Lógica para tratamento de erro
-    } else {
-      const paginasData = { Pages, Components, Data };
+    root.innerHTML = currentComponent === "erro"
+      ? erroPage(Pages)
+      : await Pages[currentPathUrl]({ currentPage: currentPathUrl, tagPage: root });
 
-      const { html, state } = await Pages[resultUrl](paginasData);
-
-      const renderedHtml =
-        typeof html === "function" ? html() : await Pages[resultUrl]();
-      const renderState = typeof state === "function" ? state : undefined;
-
-      customTags({ renderedHtml, renderState });
-    }
-  }
-
-  function debounce(fn, delay) {
-    let timeoutId;
-    return function (...args) {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        fn.apply(this, args);
-      }, delay);
-    };
+    emit(currentPathUrl);
+    customTags();
   }
 
   function erroPage(Pages) {
     root.innerHTML = `
-    <div class="erroPages">
-      ${Object.keys(Pages)
-        .map(
-          (page, index) =>
-            `<a class="pagina-erro" id="${index}"  data-href="/#/${page}/">${page.toUpperCase()}</a>`
-        )
-        .join("")}
-    </div>
-  `;
+      <div class="erroPages">
+        ${Object.keys(Pages).map((page, index) =>
+      `<a class="Erro" id="${index}" use:href="/#/${page}">${page.toUpperCase()}</a>`
+    ).join("")}
+      </div>
+    `;
   }
 
   function handleClick(e) {
-    if (e.target.matches("[data-href]")) {
-      e.preventDefault();
-      const href = e.target.dataset.href;
-      history.pushState(null, null, href);
-      routerPages();
+    const href = e.target.getAttribute("use:href");
+    if (href) {
+      const normalizedHref = `#${href}`;
+      if (normalizedHref !== window.location.hash) {
+        window.history.pushState(null, null, normalizedHref);
+        routerPages();
+      }
     }
   }
 
   window.addEventListener("popstate", routerPages);
   document.body.addEventListener("click", debounce(handleClick, 200));
   routerPages();
-};
-export {
-  useLocalStorage,
-  useApi,
-  useGetModules,
-  useSearch,
-  useExeFucTemp,
-  useId,
-  useLocation,
-  useCSVToJSON,
-  useJSONToCSV,
-  useNavigate,
-  useCSS,
-  $,
-  Router,
-  $$,
-};
+}
+
+const $effect = async (elem) => {
+  if (typeof (elem) === "string") {
+    processElement(document.querySelector(elem))
+  } else {
+    processElement(elem)
+
+  }
+}
+
+const $render = (elem, render) => {
+  if (typeof (elem) === "string") {
+    document.querySelector("comp-colaboradores").innerHTML = render()
+  } else (
+    document.querySelector(elem.tagName.toLowerCase()).innerHTML = render()
+  )
+
+}
+
+const $ = (seletor) => {
+  on(seletor)
+}
+
+
+export { debounce, useNavigate, Router, on, emit, processElement, $, $effect, $render };
