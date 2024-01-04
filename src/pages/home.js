@@ -1,95 +1,34 @@
-import video from "../components/video.js"
-import {useCSS} from "../lib/index.js"
 
-export default async function Home() {
 
-  const state = () => {
-    const botao = $("#tres-pontos");
-    const videoElement = $("#video");  
-    let textoOriginal = botao.innerHTML;
-    
-    botao.addEventListener('click', e => {
-      if(e.target.innerHTML==="Fechar"){
-          videoElement.innerHTML = ""
-          botao.innerHTML = textoOriginal 
-          scroll()
-        }
-      if (e.target.parentElement.id === "tres-pontos"){     
-            videoElement.innerHTML = video();
-            botao.innerHTML = "Fechar";    
-            scroll()    
-          
-          }
-        
-      
-    });
-    
+export default async function Novo() {
+  document.title = "NOVO";
 
-    
-    function scroll() {
 
-      const botao = $(".loader-tres-pontinhos");
-      var floatingButton = $("#floating-button");
-      
-      window.addEventListener("scroll", function () {
-        if (window.scrollY > 0 && botao.innerHTML !== "Fechar") {
-          floatingButton.style.display = "block";
-        }
-      
-        setTimeout(function () {
-          if (botao.innerHTML !== "Fechar") {
-            floatingButton.style.display = "none";
-          }
-        }, 4000);
-      });
-      
-      
-    
-    }
-    scroll()
 
-  }
 
-  const html = () => `
-  
-        <comp-menu></comp-menu>
-        <div id="render"></div>
-        <comp-slider data-class="container-slider" data-id="1"></comp-slider>
+  return `   
+       <div class="container_page">     
+          <menu-principal ></menu-principal>
+     
+          <comp-slider ></comp-slider>
+          <comp-colaboradores></comp-colaboradores> 
 
-        <comp-colaboradores></comp-colaboradores>
-
-        <h3>Promoções e pacotes</h3>
-        <comp-cardpodutos data-id="promoção"></comp-cardpodutos>
-
-        <h3>Terapias e massagens</h3>
-        <comp-cardpodutos data-id="cardDate"></comp-cardpodutos>
-
-        <h3>Estética</h3>
-        <comp-cardpodutos data-id="cardDate"></comp-cardpodutos>
-
-        <comp-newsletter data-class="newsletter"></comp-newsletter>
-        <comp-whatsapp></comp-whatsapp>
-        <comp-mascote data-id="comp-mascote"></comp-mascote>
-
-        <div id="floating-button" id="tres-pontos">
-          <div class="loader-tres-pontinhos" id="tres-pontos"> 
-            <div id="tres-pontos">                
-              <span></span>
-              <span></span>
-              <span></span>    
-            </div>            
+          <comp-button-lateral  id="flutuante"> </comp-button-lateral>  
+       
+          <div class="container_card-product">
+          <card-product id="promocao" width="150" height="200"></card-product>
+         
+          <card-product id="massagens" width="140" height="140"></card-product>   
+          <card-product id="estetica" width="150" height="200"></card-product>
+       
           </div>
-        </div>
 
-        <div id="video"></div>`;
+          <comp-whatsapp   priority  class="whatsapp"></comp-whatsapp>
 
-
-
-  return {
-    html,
-    state,
-  }
-
-
+          <comp-newsletter  priority class="card-newsletter"  id="news latter"></comp-newsletter>
+          
+          
+     
+    </div>
+    `;
 }
-

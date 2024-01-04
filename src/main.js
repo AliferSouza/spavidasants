@@ -1,31 +1,8 @@
-import pages from "./pages/index.js"
-import components from "./components/index.js"
-import dados from "./data/data.js"
-import * as prix from "./lib/@prix.js";
-
-Object.keys(prix).forEach(key => {
-  if (typeof prix[key] === 'function') {
-    window[key] = prix[key];
-  }
-});
+import {useNavigate} from "./lib/@prix.js";
 
 
-const data = await dados()
-
-
-const Config = {
-  path: location.origin,
-
-
+async function main() {
+  useNavigate() 
+  
 }
-
-
-
-
-Router({pages, components, data}, Config)
-
-
-
-
-
-
+ main();
