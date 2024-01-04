@@ -1,0 +1,484 @@
+* *::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --px-1: 10px;
+  --px-2: 12px;
+  --px-2: 14px;
+  --px-3: 16px;
+  --px-4: 18px;
+  --px-5: 12px;
+  --color-black: black;
+  --color-white: white;
+  --color-gray: gray;
+  --color-red: red;
+  --color-blue: blue;
+  --color-green: green;
+  --color-yellow: yellow;
+  --color-orange: orange;
+  --color-purple: purple;
+  --color-pink: pink;
+  --center: center
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+figure,
+picture {
+  margin: 0;
+}
+
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+
+.fs-1 {
+  font-size: var(--fs-100);
+}
+
+.fs-2 {
+  font-size: var(--fs-200);
+}
+
+.fs-3 {
+  font-size: var(--fs-300);
+}
+
+.fs-4 {
+  font-size: var(--fs-400);
+}
+
+.fs-5 {
+  font-size: var(--fs-500);
+}
+
+.fs-6 {
+  font-size: var(--fs-600);
+}
+
+.fs-7 {
+  font-size: var(--fs-700);
+}
+
+.text-black {
+  color: var(--color-black)
+}
+
+.text-white {
+  color: var(--color-white)
+}
+
+.text-gray {
+  color: var(--color-gray)
+}
+
+.text-green {
+  color: var(--color-green)
+}
+
+.text-orange {
+  color: var(--color-orange)
+}
+
+.text-pink {
+  color: var(--color-pink)
+}
+
+.text-purple {
+  color: var(--color-purple)
+}
+
+.text-red {
+  color: var(--color-red)
+}
+
+.text-yellow {
+  color: var(--color-yellow)
+}
+
+.text-blue {
+  color: var(--color-blue)
+}
+
+.text-center {
+  align-items: center;
+}
+
+
+
+
+.bg {
+  background-color: var(--cor-primaria);
+}
+
+.bg-black {
+  background-color: var(--color-black)
+}
+
+.bg-white {
+  background-color: var(--color-white)
+}
+
+.bg-gray {
+  background-color: var(--color-gray)
+}
+
+.bg-green {
+  background-color: var(--color-green)
+}
+
+.bg-orange {
+  background-color: var(--color-orange)
+}
+
+.bg-pink {
+  background-color: var(--color-pink)
+}
+
+.bg-purple {
+  background-color: var(--color-purple)
+}
+
+.bg-red {
+  background-color: var(--color-red)
+}
+
+.bg-yellow {
+  background-color: var(--color-yellow)
+}
+
+.bg-blue {
+  background-color: var(--color-blue)
+}
+
+
+.p-1 {
+  padding: var(--px-1);
+}
+
+.p-2 {
+  padding: var(--px-2);
+}
+
+.p-3 {
+  padding: var(--px-3);
+}
+
+.p-4 {
+  padding: var(--px-4);
+}
+
+.p-5 {
+  padding: var(--px-5);
+}
+
+.m-1 {
+  margin: var(--px-1);
+
+}
+
+.m-2 {
+  margin: var(--px-2);
+
+}
+
+.m-3 {
+  margin: var(--px-3);
+
+}
+
+.m-4 {
+  margin: var(--px-4);
+
+}
+
+.m-5 {
+  margin: var(--px-5);
+
+}
+
+
+
+
+
+
+
+.flex {
+  display: flex;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.justify-center {
+  justify-content: var(--center);
+
+}
+
+.itens-center {
+  align-items: var(--center);
+
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
+}
+
+.column {
+  flex-direction: column;
+}
+
+.gap-1{
+  gap: var(--px-1)
+}
+.gap-2{
+  gap: var(--px-2)
+}
+.gap-3{
+  gap: var(--px-3)
+}
+.gap-4{
+  gap: var(--px-4)
+}
+
+
+
+
+.w-1 {
+  width: 10%
+}
+
+.w-2 {
+  width: 20%
+}
+
+.w-3 {
+  width: 40%
+}
+
+.w-4 {
+  width: 60%
+}
+
+.w-5 {
+  width: 80%
+}
+
+.w-6 {
+  width: 100%
+}
+
+.w-px-1 {
+  width: 10px;
+}
+
+.w-px-2 {
+  width: 20px;
+}
+
+.w-px-3 {
+  width: 30px;
+}
+
+.w-px-4 {
+  width: 40px;
+}
+
+.w-px-5 {
+  width: 50px;
+}
+
+.w-px-6 {
+  width: 60px;
+}
+
+.w-px-7 {
+  width: 70px;
+}
+
+.w-px-8 {
+  width: 80px;
+}
+
+.w-px-9 {
+  width: 90px;
+}
+
+.w-px-10 {
+  width: 100px;
+}
+
+.w-px-11 {
+  width: 120px;
+}
+
+.w-px-12 {
+  width: 140px;
+}
+
+.w-px-13 {
+  width: 160px;
+}
+
+.w-px-14 {
+  width: 180px;
+}
+
+.h-px-10{
+  height: 10px;
+}
+
+.w-full {
+  width: 100vw;
+}
+.w-p-100 {
+  width: 100%;
+}
+
+.h-full {
+  height: 100vh;
+}
+
+.rounded-full {
+  border-radius: 100%;
+}
+
+.rounded-entire {
+  border-radius: 50%;
+}
+
+.rounded-1 {
+  border-radius: 5px;
+}
+
+.rounded-2 {
+  border-radius: 10px;
+}
+
+.rounded-3 {
+  border-radius: 15px;
+}
+
+.rounded-4 {
+  border-radius: 20px;
+}
+
+.rounded-5 {
+  border-radius: 25px;
+}
+
+.rounded-6 {
+  border-radius: 30px;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.fixed {
+  position: fixed;
+}
+
+.relative {
+  position: relative;
+}
+
+.pointer{
+  cursor: pointer;
+}
+
+.none{
+  display: none;
+}
+
+.scroll-x{
+   overflow-x: auto;
+}
+.scroll-y{
+  overflow-y: auto;
+}
+
+.boder-none{
+  border: none;
+}
+
+
+.lefttoright {
+  animation-name: slideLeftToRight;
+  animation-duration: 1s; /* Duração da animação em segundos */
+  animation-timing-function: ease; /* Função de temporização (pode ser ajustada) */
+  animation-fill-mode: forwards; /* Manter o estado final da animação após a conclusão */
+}
+
+@keyframes slideLeftToRight {
+  0% {
+    transform: translateX(-100%); /* Elemento fora da tela à esquerda */
+  }
+  100% {
+    transform: translateX(0); /* Elemento na posição original */
+  }
+}
+
+.righttoleft {
+  animation-name: slideRightToLeft;
+  animation-duration: 1s; /* Duração da animação em segundos */
+  animation-timing-function: ease; /* Função de temporização (pode ser ajustada) */
+  animation-fill-mode: forwards; /* Manter o estado final da animação após a conclusão */
+}
+
+@keyframes slideRightToLeft {
+  0% {
+    transform: translateX(100%); /* Elemento fora da tela à direita */
+  }
+  100% {
+    transform: translateX(0); /* Elemento na posição original */
+  }
+}
+
+/* Classe para animação de entrada de cima para baixo */
+.toptobottom {
+  animation-name: slideTopToBottom;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideTopToBottom {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* Classe para animação de entrada de baixo para cima */
+.bottomtotop {
+  animation-name: slideBottomToTop;
+  animation-duration: 1s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+
+@keyframes slideBottomToTop {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+
