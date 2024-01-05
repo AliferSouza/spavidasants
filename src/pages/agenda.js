@@ -37,6 +37,7 @@ export default async function agenda({ tagPage }) {
 
     const phoneNumber = '31999739602';
     const linkWhatsapp = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+    window.open(linkWhatsapp);
 
       
   
