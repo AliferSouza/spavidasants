@@ -79,26 +79,24 @@ export default async function agenda({ tagPage }) {
     }
     if (e.target.id === "horario") {
       const dataSelecionada = tagPage.querySelector("#data").value;
-      const dataAgendar = tagPage.querySelector("#agendar")
-      const horarioSelecionado = e.target.value.replace(/:/g, '')
-      const dataVerify = dataSelecionada.replace(/-/g, '')
-
+      const dataAgendar = tagPage.querySelector("#agendar");
+      const horarioSelecionado = e.target.value.replace(/:/g, '');
+      const dataVerify = dataSelecionada.replace(/-/g, '');
+  
       const lancamentoEncontrado = dB.find(item => {
-        return item.Data === parseInt(dataVerify) && item.Horário === parseInt(horarioSelecionado)
+          return item.Data === parseInt(dataVerify) && item.Horário === parseInt(horarioSelecionado);
       });
-
-
+  
       if (lancamentoEncontrado) {
-        const horarioString = lancamentoEncontrado.Horário.toString();
-        const doisPrimeirosNumeros = horarioString.substring(0, 2);
-
-        dataAgendar.innerText = "Já existe um agedamento:" + doisPrimeirosNumeros
+          const horarioString = lancamentoEncontrado.Horário.toString();
+          const doisPrimeirosNumeros = horarioString.substring(0, 2);
+  
+          dataAgendar.textContent = "Já existe um agendamento: " + doisPrimeirosNumeros;
       } else {
-        dataAgendar.innerText = "Agendar"
+          dataAgendar.textContent = "Agendar";
       }
-
-
-    }
+  }
+  
 
   })
 
