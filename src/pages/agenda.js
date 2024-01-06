@@ -1,10 +1,7 @@
 import { itemAgendamento } from "../context/agedamento.js"
+import getPlanilhas from "../context/Data.js"
 
 export default async function agenda({ tagPage }) {
-  const dadosPlanilha = await fetch("https://script.google.com/macros/s/AKfycby1LQnv7b0H-UD3EAfRrGKRfNf7epQtiupAg-jPiTNxqdKayteOk6MEVOyh4x44zJep/exec")
-  const dB = await dadosPlanilha.json()
-  const objetoData = itemAgendamento.valorMassagem
-
   const lancamentos = JSON.parse(localStorage.getItem("agedamento")) || [];
 
   tagPage.addEventListener("submit", (event) => {
@@ -15,11 +12,8 @@ export default async function agenda({ tagPage }) {
 
     const data = {
       ...formDataObject,
-      valorTotal: parseFloat(objetoData.valor) * parseFloat(formDataObject.quantidade),
-    };
-
-    //lancamentos.push(data);  
-    //localStorage.setItem("agedamento", JSON.stringify(lancamentos));
+      valorTotal: parseFloat(itemAgendamento.valor) * parseFloat(formDataObject.quantidade),
+    }; 
     const messageObj = {
       Nome: data.nome,
       Telefone: data.telefone,
@@ -27,11 +21,11 @@ export default async function agenda({ tagPage }) {
       Horário: data.horario.replace(/:/g, ''),
       Data: data.data.replace(/-/g, ''),
       Quantidade: data.quantidade,
-      Informações_adicionais: data.info,
+      Servico: data.servico,
       Valor_Total: data.valorTotal
     }
-
-
+     lancamentos.push(data);  
+     localStorage.setItem("agedamento", JSON.stringify(lancamentos));
 
     const requestOptions = {
       method: 'POST',
@@ -50,22 +44,19 @@ export default async function agenda({ tagPage }) {
 
 
     const message = `
-  Nome: ${data.nome}
-  Telefone: ${data.telefone}
-  Terapeuta: ${data.profissional}
-  Horário: ${data.horario}
-  Data: ${data.data}
-  Quantidade: ${data.quantidade}
-  Informações adicionais: ${data.info}
-  Valor Total: ${data.valorTotal}
-`;
-
+      Nome: ${data.nome}
+      Telefone: ${data.telefone}
+      Terapeuta: ${data.profissional}
+      Horário: ${data.horario}
+      Data: ${data.data}
+      Servico: ${data.servico},
+      Quantidade: ${data.quantidade}
+      Valor Total: ${data.valorTotal}
+    `;
 
     const phoneNumber = '31999739602';
     const linkWhatsapp = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
     window.open(linkWhatsapp);
-
-
 
     agendamentoForm.reset();
   });
@@ -83,7 +74,7 @@ export default async function agenda({ tagPage }) {
       const horarioSelecionado = e.target.value.replace(/:/g, '');
       const dataVerify = dataSelecionada.replace(/-/g, '');
   
-      const lancamentoEncontrado = dB.find(item => {
+      const lancamentoEncontrado = lancamentos.find(item => {
           return item.Data === parseInt(dataVerify) && item.Horário === parseInt(horarioSelecionado);
       });
   
@@ -100,6 +91,19 @@ export default async function agenda({ tagPage }) {
 
   })
 
+ 
+
+
+const urlParts = window.location.href.split("?");
+const queryString = urlParts.length > 1 ? urlParts[1].split("#")[0] : "";
+const params = new URLSearchParams(queryString);
+const jsonParams = Array.from(params.entries()).reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+
+const planilhas = await getPlanilhas()
+const servicos = () => {
+  return;
+}
+
 
 
 
@@ -115,10 +119,21 @@ export default async function agenda({ tagPage }) {
           </div>
 
           <select id="selecao-nome" name="profissional" required>
-            <option value="">Selecione um Profissional</option>
-            <option value="Alifer">Alifer</option>
-            <option value="Viviane">Viviane</option>
-          </select>    
+          <option value="" ${jsonParams.profissional === '' ? 'selected' : ''}>Selecione um Profissional</option>
+          <option value="Alifer" ${jsonParams.profissional === 'Alifer' ? 'selected' : ''}>Alifer</option>
+          <option value="Viviane" ${jsonParams.profissional === 'Viviane' ? 'selected' : ''}>Viviane</option>
+         </select> 
+  
+         <select id="selecao-servico" name="servico" required>
+          <option value="" selected >Escolha uma Especialidade</option>
+          ${ planilhas.massagens.map(produto => `
+          <option value="${produto.id}" ${itemAgendamento.valorMassagem && itemAgendamento.valorMassagem.nome === produto.nome ? 'selected' : ''}>
+            ${produto.nome}
+          </option>`
+        ).join('')}
+          </select> 
+
+ 
           <input class="agendamento-form-data" type="date" id="data" name="data"
               value="${new Date().toISOString().split("T")[0]}" required>
 
@@ -136,10 +151,7 @@ export default async function agenda({ tagPage }) {
             <option value="19:00">19:00</option>
             <option value="20:00">20:00</option>        
           </select>          
-          <input type="text" id="quantidade" name="quantidade" placeholder="Quantidade" required>
-       
-          <textarea type="text" id="info" name="info" placeholder="Ex: Massagem de casal / vai ser 2 sessões para min." ></textarea>
-
+          <input type="text" id="quantidade" name="quantidade" placeholder="Quantidade" required>       
           <button type="submit" id="agendar">Agendar</button>
         </form>
    

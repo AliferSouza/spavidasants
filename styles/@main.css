@@ -12,13 +12,7 @@ body{
 
 #app{
     max-width: 450px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border-radius: 4px;
-    text-align: center;
+    width: 100%; 
 }
 
 .container_page{
@@ -232,6 +226,8 @@ body{
       }
 }
 
+
+
 .whatsapp {
     position: fixed;
     bottom: 5px;
@@ -307,22 +303,15 @@ body{
 
 
 
-
-
-
-
-
-
-
-
 .agendamento-container {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: linear-gradient(45deg, #04051dea 0%, #dd8ecd 100%);
+    background: linear-gradient(45deg, #630e74ea 0%, #dd8ecd 100%);
+    color: #f9f9f9;
 
-  }
+  
   
   .agendamento-form-contains {
     max-width: 400px;
@@ -341,7 +330,7 @@ body{
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      gap: 10px;
+      gap: 10px;   
   
       input,
       select,
@@ -349,8 +338,11 @@ body{
         width: 100%;
         height: 55px;
         margin: 8px 0;
+        border: none;
+        border-radius: 5px;
         box-sizing: border-box;
       }
+ 
   
       #horario,
       #selecao-nome {
@@ -367,11 +359,12 @@ body{
     button{
         width: 100%;
         height: 55px;
-        background: #5d98e6;
-        color: #fff;
-        font-size: 18px;
-        border: none;
+        background: #20804b;
         border-radius: 5px;
+        border: none;
+        font-size: 18px;
+        color: #f9f9f9;
+      
     }
 
       
@@ -382,6 +375,7 @@ body{
       }
       
   }
+}
 
   .perfil{
     display: flex;
@@ -415,6 +409,104 @@ body{
         margin-bottom: 20px;
     }
   }
+
+
+.container_pedido {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    background: linear-gradient(45deg, #04051dea 0%, #dd8ecd 100%);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #f9f9f9;
+
+    form {
+      width: 99%;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 20px;
+      color: #f9f9f9;
+  
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            height: 45px;
+            padding: 8px;
+            border-radius: 5px;
+            border: none;
+            box-sizing: border-box;
+        }
+
+        button {
+          width: 100%;
+          height: 55px;
+          background: #20804b;
+          border-radius: 5px;
+          border: none;
+          font-size: 18px;
+          color: #f9f9f9;
+
+            &:hover {
+                background-color: #20804b94;
+            }
+        }
+    }
+
+    #order-status {
+        margin-top: 20px;
+        color: #f9f9f9;
+    }
+
+    #payment-status,
+    #service-status {
+        font-weight: bold;
+    }
+
+    #payment-status {
+        color: red;
+    }
+
+    #service-status {
+        color: red;
+    }
+}
+
+.container_pedido_list{
+    display: flex;
+    justify-content: center ;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.pedido_list{
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    background: #20804b;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 15px;
+
+}
   
 
 

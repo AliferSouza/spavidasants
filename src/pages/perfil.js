@@ -2,7 +2,6 @@ import Data from "../context/Data.js"
 
 export default async function perfil() {
   const dados = await Data()
-
   const slug = location.hash.split("/").pop() || location.pathname.split("/").pop()
   const data = dados.colaboradores.find((d) => d.id === slug);
   document.title = slug.toLocaleUpperCase();
@@ -19,7 +18,7 @@ export default async function perfil() {
           <h5 id="info">${data.descricao} </h5>
             ${(data.nome === "Viviane" || data.nome === "Alifer")? `                   
             <button id="entreemcontato" url="${data.insta}" class="buttonperfil">                 
-            <span use:href="/agenda/"  id="entreemcontato"  class="buttonperfil" id="whats">Agende um horário</span>		           
+            <span use:href="/agenda/?profissional=${data.nome}"  id="entreemcontato"  class="buttonperfil" id="whats">Agende um horário</span>		           
             </button>`:""}  
           </div>                 
   

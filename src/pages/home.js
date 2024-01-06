@@ -1,6 +1,4 @@
-
-
-export default async function Novo() {
+export default async function home() {
   document.title = "NOVO";
 
 
