@@ -1,7 +1,7 @@
 const cache = {
   key: 'agedamento',
   cacheTimestampKey: 'cacheTimestamp',
-  expirationTime: 120000, // 2 minutos em milissegundos
+  expirationTime: 190000, // 2 minutos em milissegundos
   cachedData: null,
   cacheTimestamp: 0
 };

@@ -13,12 +13,12 @@ function on(event, cb) {
   if (nameFunction.includes("comp")) {
     const kebabCaseName = nameFunction
       .replace(/([a-zA-Z])(?=[A-Z])/g, "$1-")
-      .toLowerCase();
-    if (!Components.hasOwnProperty(kebabCaseName)) {
-      PagesComponentsDataArray.Components[kebabCaseName] = cb || event;
+      .toLowerCase();   
+
+    if (!PagesComponents.hasOwnProperty(kebabCaseName)) {
+      PagesComponents[kebabCaseName] = cb || event;
     }
   }
-
   if (typeof event === "function") {
     const nameFunction = event.name;
     if (!functionEvent[nameFunction]) {
@@ -129,22 +129,14 @@ const processElement = async (elem) => {
   const isFetch = elem.hasAttribute("use:fetch");
   const revalidate = elem.hasAttribute("use:revalidate");
   const slot = elem.querySelector('slot')
-
-
   const componentResult = await (isFetch
     ? pagesComponentsFetch({ tag: elem })
     : PagesComponents[elemName]({ tag: elem }));
-
     if(slot){
      slot.innerHTML += componentResult
     }else{
       elem.innerHTML = componentResult;
     }
-
-
-
-
-
   await Promise.all(
     Array.from(elem.querySelectorAll("*")).map(async (element) => {
       if (element.tagName.includes("-") && element.tagName.toLowerCase() !== elemName) {

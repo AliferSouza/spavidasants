@@ -437,7 +437,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     color: #f9f9f9;
 
-    form {
+    #orderform {
         width: 99%;
         height: 200px;
         display: flex;
@@ -517,4 +517,49 @@ body {
     border-radius: 8px;
     font-size: 15px;
 
+}
+
+
+
+
+.slideshow-container-product {
+    position: relative;
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+
+    img {      
+        width: 90%; 
+        height: 95%; 
+        border-radius: 10px;
+    }
+
+    .mySlides {
+        display: none;
+        width: 100%;
+    }
+
+    button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0, 0, 0, 0.5);
+        color: #fff;
+        font-size: 15px;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .prev {
+        left: 8px;
+    }
+
+    .next {
+        right: 8px;
+    }
 }

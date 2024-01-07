@@ -6,6 +6,7 @@ import flutuante from "./comp-button-lateral.js"
 import cardProduct from "./card-product.js"
 import menuPrincipal from "./menu-principal.js"
 import compPedido from "./comp-pedido.js"
+import slideProduct from "./comp-slider-product.js"
 
 export default {  
     "comp-slider": slider,
@@ -15,7 +16,8 @@ export default {
     "comp-button-lateral": flutuante,
     "card-product": cardProduct,
     "menu-principal": menuPrincipal,
-    "comp-pedido":compPedido
+    "comp-pedido":compPedido,
+    "comp-slider-product": slideProduct
   
  
 }
