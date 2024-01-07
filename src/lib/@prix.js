@@ -1,13 +1,12 @@
-import Pages from "../pages/index.js"
-import Components from "../components/index.js"
-
 const root = document.querySelector("#app");
-let lastFetchTime = 0;
+let PagesComponents
 
 const componentCache = {};
 const functionEvent = {};
 
-
+const $imports = (objImports) => {
+  PagesComponents = objImports
+}
 
 function on(event, cb) {
   const nameFunction = event.name || event;
@@ -35,6 +34,7 @@ function on(event, cb) {
     }
   }
 }
+
 function emit(event, ...args) {
   if (functionEvent[event]) {
     const values = functionEvent[event]
@@ -44,11 +44,13 @@ function emit(event, ...args) {
   }
   return "";
 }
+
 async function useNavigate(Rota) {
   window.history.pushState(null, null, Rota)
   Router()
 
 }
+
 let urlRevalidateComponent;
 const intervalMap = new Map();
 const reloadComp = (element) => {
@@ -122,18 +124,25 @@ const pagesComponentsFetch = async (props) => {
   }
 
 }
-
 const processElement = async (elem) => {
-
   const elemName = elem.tagName.toLowerCase();
   const isFetch = elem.hasAttribute("use:fetch");
   const revalidate = elem.hasAttribute("use:revalidate");
+  const slot = elem.querySelector('slot')
+
 
   const componentResult = await (isFetch
     ? pagesComponentsFetch({ tag: elem })
-    : Components[elemName]({ tag: elem }));
+    : PagesComponents[elemName]({ tag: elem }));
 
-  elem.innerHTML = componentResult
+    if(slot){
+     slot.innerHTML += componentResult
+    }else{
+      elem.innerHTML = componentResult;
+    }
+
+
+
 
 
   await Promise.all(
@@ -151,7 +160,7 @@ const processElement = async (elem) => {
     reloadComp(elem);
   }
   emit(elemName);
-};
+}
 
 async function customTags() {
 
@@ -170,8 +179,8 @@ async function customTags() {
     }
   );
 
+  const processed = new Set();
   const observerTagsDom = (() => {
-    const processed = new Set();
     const observer = new IntersectionObserver(async (entries, obs) => {
       const e = entries.find((e) => e.isIntersecting);
       if (e) {
@@ -187,6 +196,7 @@ async function customTags() {
     const first = tagElementsObserve.find((tag) => !processed.has(tag));
     if (first) processed.add(first) && observer.observe(first);
   })();
+
 }
 
 function debounce(fn, delay) {
@@ -200,15 +210,21 @@ function debounce(fn, delay) {
 }
 
 const Router = async () => {
+
   async function routerPages() {
-    const match = location.href.match(/#\/([^\/?]+)/)
-    const currentPathUrl = match ? match[1] : Object.keys(Pages)[0]
+    let currentPathUrl;
+    const match = location.href.match(/#\/([^\/?]+)/);
+    if (match) {
+      currentPathUrl = match[1].split('/')[0];
+    } else {
+      currentPathUrl = location.pathname.split('/')[1] || Object.keys(PagesComponents)[0];
+    }
     if (!currentPathUrl || currentPathUrl === "#") return;
-    const currentComponent = Pages[currentPathUrl] || "erro";
+    const currentComponent = PagesComponents[currentPathUrl] || "erro";
 
     root.innerHTML = currentComponent === "erro"
-      ? erroPage(Pages)
-      : await Pages[currentPathUrl]({ currentPage: currentPathUrl, tagPage: root });
+      ? erroPage(PagesComponents)
+      : await PagesComponents[currentPathUrl]({ currentPage: currentPathUrl, tagPage: root });
 
     emit(currentPathUrl);
     customTags();
@@ -225,13 +241,12 @@ const Router = async () => {
   }
 
   function handleClick(e) {
+    e.preventDefault()
     const href = e.target.getAttribute("use:href");
-    if (href) {
-      const normalizedHref = `#${href}`;
-      if (normalizedHref !== window.location.hash) {
-        window.history.pushState(null, null, normalizedHref);
+    if (href) {  
+        window.history.pushState(null, null, href);
         routerPages();
-      }
+      
     }
   }
 
@@ -251,16 +266,16 @@ const $effect = async (elem) => {
 
 const $render = (elem, render) => {
   if (typeof (elem) === "string") {
-    document.querySelector("comp-colaboradores").innerHTML = render()
+    document.querySelector(elem).innerHTML = render()
   } else (
     document.querySelector(elem.tagName.toLowerCase()).innerHTML = render()
   )
 
 }
 
-const $ = (seletor) => {
+const $on = (seletor) => {
   on(seletor)
 }
 
 
-export { debounce, useNavigate, Router, on, emit, processElement, $, $effect, $render };
+export { $imports, debounce, useNavigate, Router, on, emit, processElement, $on, $effect, $render };

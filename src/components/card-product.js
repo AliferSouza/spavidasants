@@ -11,7 +11,7 @@ export default  async function cardProdutos({tag}) {
     return dadosSelecionados.map((item, key) => 
         `<img 
             id="${item.id}"
-           use:href="/agenda/"
+            use:href="/agenda/"
             src="${item.img}" 
             width="${width}"
             height="${height}"

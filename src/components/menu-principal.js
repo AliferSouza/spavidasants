@@ -14,7 +14,7 @@ export default function Menu({ tag }) {
           <label id="menu-oculto">&#8801</label>
       </div>
       <div class="menu-oculto">
-          <a class="active" use:href="/home/">Início</a>            
+          <a class="active" use:href="/home/">Início</a>        
       </div>         
      `;
 }

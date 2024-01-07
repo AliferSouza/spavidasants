@@ -1,4 +1,4 @@
-import { $effect } from "../lib/@prix.js"
+import { $effect, useNavigate } from "../lib/@prix.js"
 import getPlanilha from "../context/getPlanilha.js"
 
 const stateNumero = false
@@ -7,7 +7,7 @@ let whatsapp = false
 let filteredObjects 
 let filteredObjectsUnic
 export default async function compPedido({tag}) {
-console.log(filteredObjects)
+
 
   tag.addEventListener("submit", async (event) => {
     event.preventDefault();
@@ -22,23 +22,35 @@ console.log(filteredObjects)
   });
 
   function verificarOrdem(e){
-    filteredObjectsUnic = filteredObjects[e.target.id]
-    statusVerify = true
-    $effect(tag)
-    tag.removeEventListener('click', verificarOrdem);
+    if(e.target.id === "voltar"){
+ 
+       statusVerify = false
+       whatsapp = false
+
+      useNavigate("/pedido/")
+    }else{
+      filteredObjectsUnic = filteredObjects[e.target.id]
+      statusVerify = true
+      $effect(tag)
+     tag.removeEventListener('click', verificarOrdem);
+    }
+   
   }
 
   tag.addEventListener("click", verificarOrdem)
+  console.log(filteredObjectsUnic)
+
 
 
   if(statusVerify){
     return `   
         <h1>Status do Pedido</h1>
         <h2>Resumo do Pedido</h2>
-        <p>Valor: R$100,00</p>
-        <p>30% adiantamento<span id="payment-status" style="color: red;"> Não pago</span></p>
-        <p>Atendimento: <span id="service-status" style="color: red;"> Não realizado</span></p>
-        <span id="service-status" style="color: red;">Finalizado em<p>31/01/24</p></span>    
+        <p>Valor: <span style="color: ${filteredObjects.Valor_Total >= 0 ? 'green' : 'red'};">R$${filteredObjects.Valor_Total}</span></p>
+        <p>30% adiantamento<span id="payment-status" style="color: ${filteredObjectsUnic.Adiantamento ? 'green' : 'red'};">${filteredObjectsUnic.Adiantamento}</span></p>
+        <p>Agedamento para <span id="service-status" style="color: ${filteredObjectsUnic.Data ? 'green' : 'red'};">${filteredObjectsUnic.Data}</span></p>
+        <p>Finalizado em <span id="service-status" style="color: ${filteredObjectsUnic.Finalizado ? 'green' : 'red'};">${filteredObjectsUnic.Finalizado}</span></p>
+        <p id="voltar">Click para voltar</p>
      `
   }
 
