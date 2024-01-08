@@ -15,6 +15,7 @@ export default function Menu({ tag }) {
       <div class="menu-oculto">
           <a class="active" use:href="/home/">Início</a>     
           <a class="active" use:href="/catalogo/">Catálogos</a>      
+          <a class="active" use:href="/acompanhar/">Acompanhar</a>  
       </div>         
      `;
 }
