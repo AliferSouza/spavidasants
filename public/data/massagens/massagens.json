@@ -7,9 +7,8 @@
       "info": "Experimente nosso pacote de limpeza de pele com massagem desportiva ou terapêutica. Agende sua consulta hoje mesmo para relaxar e cuidar da sua pele. Desfrute dos benefícios para o seu bem-estar.",
       "color": "e29595",
       "valor": 169,
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1      
+
     },
     {
       "id": "massagemrelaxante",
@@ -19,9 +18,8 @@
       "info": "Usando-se de movimentos leves, a massagem relaxante é uma excelente alternativa para o tratamento de dores musculares. Geralmente causadas por estresse, problemas de postura ou movimentos repetitivos, esses hábitos são prejudiciais, resultando em diferentes doenças. Dessa maneira, ela é uma ferramenta que promove o bem-estar, aliviando o desconforto das regiões mais afetadas",
       "color": "#2d1341",
       "valor": "99,00",
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
+   
     },
     {
       "id": "drenagemlinfatica",
@@ -32,8 +30,7 @@
       "color": "#8ca78a",
       "valor": 110,
       "tempo": "00",
-      "null": 1,
-      "": ""
+      "null": 1
     },
     {
       "id": "massagemmodeladora",
@@ -43,9 +40,7 @@
       "info": "A massagem modeladora é uma técnica que utiliza movimentos manuais intensos e profundos, com o objetivo de reorganizar as camadas de gordura, promovendo a harmonização dos contornos corporais. Além disso, quando aplicada com a técnica correta, pode auxiliar na redução de medidas e na retenção de líquidos",
       "color": "#837043",
       "valor": "110,00",
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "liberacaomiofascial",
@@ -55,9 +50,7 @@
       "info": "A liberação miofascial é um procedimento que visa amenizar as dores musculares causadas por tensão. Por meio de pressão sobre o local da dor, realizada manualmente ou com o aporte de rolos, a terapia previne lesões e contribui para o tratamento de graves patologias musculoesqueléticas.",
       "color": "#1E3319",
       "valor": "110,00",
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "pedrasquentes",
@@ -67,9 +60,7 @@
       "info": "A massagem com pedras quentes é uma terapia milenar, já utilizada pelos chineses, monges budistas e indígenas em seus rituais sagrados e de cura. A aplicação da pedra de tamanho e formato adequados, com a pressão e manipulação correta pelo terapeuta, proporciona os efeitos benéficos dessa massagem, desencadeando sua ação terapêutica.",
       "color": "#626262",
       "valor": "110,000",
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "bambuterapia",
@@ -79,9 +70,7 @@
       "info": "A bambuterapia é uma técnica de massagem em que são utilizadas hastes de bambu (de diferentes tamanhos e espessuras) que se “encaixam” de acordo com a região do corpo em que são aplicadas, podendo gerar benefícios estéticos (como diminuição da celulite, por exemplo) e/ou terapêuticos (como relaxamento, entre outros). Conheça as particularidades da técnica, suas vantagens e contraindicações.",
       "color": "#704400",
       "valor": "110,00",
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "massagemcomvelas",
@@ -91,226 +80,130 @@
       "info": "A massagem com velas é uma técnica de massagem americana que está sendo muito utilizada nas grandes clínicas e spas, denominada como Melted Candle (significa “velas derretidas”).",
       "color": "#e1e1e1",
       "valor": "110,00",
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "1",
       "categoria": "promocao",
-      "nome": "PROMOÇÃO",
+      "nome": "Crio imersão",
       "img": "/img/promoções/1.jpeg",
       "info": "Aproveite nossas promoções especiais! Neste mês",
       "color": "#e29595",
       "valor": "99,99",
-      "tempo": 1,
-      "null": "",
-      "": ""
-    },
-    {
-      "id": "2",
-      "categoria": "promocao",
-      "nome": "PROMOÇÃO",
-      "img": "/img/promoções/2.jpeg",
-      "info": "Aproveite nossas promoções especiais! Neste mês",
-      "color": "#e29595",
-      "valor": "99,99",
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "3",
       "categoria": "promocao",
-      "nome": "PROMOÇÃO",
+      "nome": "Pindas chinesas",
       "img": "/img/promoções/3.jpeg",
       "info": "Aproveite nossas promoções especiais! Neste mês",
       "color": "#e29595",
       "valor": "89,99",
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
-      "id": "4",
+      "id": "2",
       "categoria": "promocao",
-      "nome": "PROMOÇÃO",
-      "img": "/img/promoções/4.jpeg",
-      "info": "Aproveite nossas promoções especiais! Neste mês",
-      "color": "#e29595",
-      "valor": "89,99",
-      "tempo": 1,
-      "null": "",
-      "": ""
-    },
-    {
-      "id": "5",
-      "categoria": "promocao",
-      "nome": "PROMOÇÃO",
-      "img": "/img/promoções/5.jpeg",
+      "nome": "Liberação Miofascial",
+      "img": "/img/promoções/2.jpeg",
       "info": "Aproveite nossas promoções especiais! Neste mês",
       "color": "#e29595",
       "valor": "99,99",
-      "tempo": 1,
-      "null": "",
-      "": ""
-    },
-    {
-      "id": "6",
-      "categoria": "promocao",
-      "nome": "PROMOÇÃO",
-      "img": "/img/promoções/6.jpeg",
-      "info": "Aproveite nossas promoções especiais! Neste mês",
-      "color": "#e29595",
-      "valor": "79,99",
-      "tempo": 1,
-      "null": "",
-      "": ""
-    },
-    {
-      "id": "7",
-      "categoria": "promocao",
-      "nome": "PROMOÇÃO",
-      "img": "/img/promoções/7.jpeg",
-      "info": "Aproveite nossas promoções especiais! Neste mês",
-      "color": "#e29595",
-      "valor": "89,99",
-      "tempo": 1,
-      "null": "",
-      "": ""
-    },
-    {
-      "id": "8",
-      "categoria": "promocao",
-      "nome": "PROMOÇÃO",
-      "img": "/img/promoções/8.jpeg",
-      "info": "Aproveite nossas promoções especiais! Neste mês",
-      "color": "#e29595",
-      "valor": "89,99",
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "9",
       "categoria": "promocao",
-      "nome": "PROMOÇÃO",
+      "nome": "Terapeutica com ventosa",
       "img": "/img/promoções/9.jpeg",
       "info": "Aproveite nossas promoções especiais! Neste mês",
       "color": "#e29595",
       "valor": "89,99",
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
-    {
-      "id": "10",
+     {
+      "id": "4",
       "categoria": "promocao",
-      "nome": "PROMOÇÃO",
-      "img": "/img/promoções/10.jpeg",
+      "nome": "Terapeutica",
+      "img": "/img/promoções/4.jpeg",
       "info": "Aproveite nossas promoções especiais! Neste mês",
       "color": "#e29595",
       "valor": "89,99",
-      "tempo": 1,
-      "null": "",
-      "": ""
-    },
+      "tempo": 1
+    },   
     {
-      "id": "11",
+      "id": "8",
       "categoria": "promocao",
-      "nome": "PROMOÇÃO",
-      "img": "/img/promoções/11.jpeg",
-      "info": "Aproveite nossas promoções especiais! Neste mês",
-      "color": "#e29595",
-      "valor": "99,99",
-      "tempo": 1,
-      "null": "",
-      "": ""
-    },
-    {
-      "id": "12",
-      "categoria": "promocao",
-      "nome": "PROMOÇÃO",
-      "img": "/img/promoções/12.jpeg",
-      "info": "Aproveite nossas promoções especiais! Neste mês",
-      "color": "#e29595",
-      "valor": "99,99",
-      "tempo": 1,
-      "null": "",
-      "": ""
-    },
-    {
-      "id": "13",
-      "categoria": "promocao",
-      "nome": "PROMOÇÃO",
-      "img": "/img/promoções/13.jpeg",
+      "nome": "Drenagem lifatica",
+      "img": "/img/promoções/8.jpeg",
       "info": "Aproveite nossas promoções especiais! Neste mês",
       "color": "#e29595",
       "valor": "89,99",
-      "tempo": 1,
-      "null": "",
-      "": ""
-    },
-    {
-      "id": "14",
+      "tempo": 1
+    }, 
+     {
+      "id": "7",
       "categoria": "promocao",
-      "nome": "PROMOÇÃO",
-      "img": "/img/promoções/14.jpeg",
+      "nome": "Liberação com Bambuterapia",
+      "img": "/img/promoções/7.jpeg",
       "info": "Aproveite nossas promoções especiais! Neste mês",
       "color": "#e29595",
       "valor": "89,99",
-      "tempo": 1,
-      "null": "",
-      "": ""
-    },
-    {
-      "id": "15",
-      "categoria": "promocao",
-      "nome": "PROMOÇÃO",
-      "img": "/img/promoções/15.jpeg",
-      "info": "Aproveite nossas promoções especiais! Neste mês",
-      "color": "#e29595",
-      "valor": "99,99",
-      "tempo": 1,
-      "null": "",
-      "": ""
-    },
-    {
-      "id": "16",
-      "categoria": "promocao",
-      "nome": "PROMOÇÃO",
-      "img": "/img/promoções/16.jpeg",
-      "info": "Aproveite nossas promoções especiais! Neste mês",
-      "color": "#e29595",
-      "valor": "99,99",
-      "tempo": 1,
-      "null": "",
-      "": ""
-    },
-    {
-      "id": "17",
-      "categoria": "promocao",
-      "nome": "PROMOÇÃO",
-      "img": "/img/promoções/17.jpeg",
-      "info": "Aproveite nossas promoções especiais! Neste mês",
-      "color": "#e29595",
-      "valor": "99,99",
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "18",
       "categoria": "promocao",
-      "nome": "PROMOÇÃO",
+      "nome": "Massagem Modeladora",
       "img": "/img/promoções/18.jpeg",
       "info": "Aproveite nossas promoções especiais! Neste mês",
       "color": "#e29595",
       "valor": "99,99",
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
+  
+    {
+      "id": "10",
+      "categoria": "promocao",
+      "nome": "Liberação com ventosa",
+      "img": "/img/promoções/10.jpeg",
+      "info": "Aproveite nossas promoções especiais! Neste mês",
+      "color": "#e29595",
+      "valor": "89,99",
+      "tempo": 1
+    },
+    {
+      "id": "11",
+      "categoria": "promocao",
+      "nome": "Banho de imersão",
+      "img": "/img/promoções/11.jpeg",
+      "info": "Aproveite nossas promoções especiais! Neste mês",
+      "color": "#e29595",
+      "valor": "99,99",
+      "tempo": 1
+    },      
+    {
+      "id": "15",
+      "categoria": "promocao",
+      "nome": "Terapeutica",
+      "img": "/img/promoções/15.jpeg",
+      "info": "Aproveite nossas promoções especiais! Neste mês",
+      "color": "#e29595",
+      "valor": "99,99",
+      "tempo": 1
+    },
+     {
+      "id": "17",
+      "categoria": "promocao",
+      "nome": "Liberação com Bambuterapia",
+      "img": "/img/promoções/17.jpeg",
+      "info": "Aproveite nossas promoções especiais! Neste mês",
+      "color": "#e29595",
+      "valor": "99,99",
+      "tempo": 1
+    },
+
     {
       "id": "pillingneffetiti",
       "categoria": "estetica",
@@ -319,9 +212,7 @@
       "info": "",
       "color": "#e29595",
       "valor": "120,00",
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "pillingegipicio",
@@ -331,9 +222,7 @@
       "info": "",
       "color": "#e29595",
       "valor": "95,00",
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "altafrequecia",
@@ -343,9 +232,7 @@
       "info": "",
       "color": "#e29595",
       "valor": "160,00",
-      "tempo": "",
-      "null": "",
-      "": ""
+      "tempo": ""
     },
     {
       "id": "dermaplaning",
@@ -355,9 +242,7 @@
       "info": "",
       "color": "#e29595",
       "valor": "160,00",
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "antiacne",
@@ -367,9 +252,7 @@
       "info": "",
       "color": "#e29595",
       "valor": "160,00",
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "peelingdedadyagaucrania",
@@ -379,9 +262,7 @@
       "info": "",
       "color": "#e29595",
       "valor": "110,00",
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "tratamentomelasma",
@@ -391,9 +272,7 @@
       "info": "",
       "color": "#e29595",
       "valor": "250,00",
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "lavanda",
@@ -403,9 +282,7 @@
       "info": "",
       "color": "#e29595",
       "valor": 40,
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "teatree",
@@ -415,9 +292,7 @@
       "info": "",
       "color": "#e29595",
       "valor": 40,
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "laranjadoce",
@@ -427,9 +302,7 @@
       "info": "",
       "color": "#e29595",
       "valor": 40,
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "eucaliptoglobulos",
@@ -439,9 +312,7 @@
       "info": "",
       "color": "#e29595",
       "valor": 40,
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "alecrim",
@@ -451,9 +322,7 @@
       "info": "",
       "color": "#e29595",
       "valor": "40,00",
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "propolisverde",
@@ -463,9 +332,7 @@
       "info": "",
       "color": "#e29595",
       "valor": 40,
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     },
     {
       "id": "ylangylang",
@@ -475,8 +342,6 @@
       "info": "",
       "color": "#e29595",
       "valor": 40,
-      "tempo": 1,
-      "null": "",
-      "": ""
+      "tempo": 1
     }
   ]

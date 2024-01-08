@@ -1,19 +1,19 @@
 const root = document.querySelector("#app");
-let PagesComponents
+let PagesComponents;
 
 const componentCache = {};
 const functionEvent = {};
 
 const $imports = (objImports) => {
-  PagesComponents = objImports
-}
+  PagesComponents = objImports;
+};
 
 function on(event, cb) {
   const nameFunction = event.name || event;
   if (nameFunction.includes("comp")) {
     const kebabCaseName = nameFunction
       .replace(/([a-zA-Z])(?=[A-Z])/g, "$1-")
-      .toLowerCase();   
+      .toLowerCase();
 
     if (!PagesComponents.hasOwnProperty(kebabCaseName)) {
       PagesComponents[kebabCaseName] = cb || event;
@@ -46,16 +46,14 @@ function emit(event, ...args) {
 }
 
 async function useNavigate(Rota) {
-  window.history.pushState(null, null, Rota)
-  Router()
-
+  window.history.pushState(null, null, Rota);
+  Router();
 }
 
 let urlRevalidateComponent;
 const intervalMap = new Map();
 const reloadComp = (element) => {
   if (element.tagName.includes("-")) {
-
     const verificarUse = () => {
       const use = element.hasAttribute("use:revalidate");
       const useValue = element.getAttribute("use:revalidate") || 1000;
@@ -83,7 +81,7 @@ const reloadComp = (element) => {
       }
     }
   }
-}
+};
 
 const pagesComponentsFetch = async (props) => {
   const { tag, Data } = props;
@@ -118,33 +116,34 @@ const pagesComponentsFetch = async (props) => {
     if (htmljs === "js") {
       htmlFunction = await response.text();
       Resultcomponent = Function("return " + htmlFunction)();
-      tag.innerHTML = Resultcomponent(Data)
+      tag.innerHTML = Resultcomponent(Data);
       componentCache[componentKey] = Resultcomponent;
     }
   }
-
-}
+};
 const processElement = async (elem) => {
   const elemName = elem.tagName.toLowerCase();
   const isFetch = elem.hasAttribute("use:fetch");
   const revalidate = elem.hasAttribute("use:revalidate");
-  const slot = elem.querySelector('slot')
+  const slot = elem.querySelector("slot");
   const componentResult = await (isFetch
     ? pagesComponentsFetch({ tag: elem })
     : PagesComponents[elemName]({ tag: elem }));
-    if(slot){
-     slot.innerHTML += componentResult
-    }else{
-      elem.innerHTML = componentResult;
-    }
+  if (slot) {
+    slot.innerHTML += componentResult;
+  } else {
+    elem.innerHTML = componentResult;
+  }
   await Promise.all(
     Array.from(elem.querySelectorAll("*")).map(async (element) => {
-      if (element.tagName.includes("-") && element.tagName.toLowerCase() !== elemName) {
+      if (
+        element.tagName.includes("-") &&
+        element.tagName.toLowerCase() !== elemName
+      ) {
         await processElement(element);
         if (revalidate) {
           reloadComp(element);
         }
-
       }
     })
   );
@@ -152,10 +151,9 @@ const processElement = async (elem) => {
     reloadComp(elem);
   }
   emit(elemName);
-}
+};
 
 async function customTags() {
-
   const tagElementsObserve = Array.from(document.querySelectorAll("*")).filter(
     (element) => {
       const hasHyphen = element.tagName.includes("-");
@@ -188,7 +186,6 @@ async function customTags() {
     const first = tagElementsObserve.find((tag) => !processed.has(tag));
     if (first) processed.add(first) && observer.observe(first);
   })();
-
 }
 
 function debounce(fn, delay) {
@@ -202,21 +199,25 @@ function debounce(fn, delay) {
 }
 
 const Router = async () => {
-
   async function routerPages() {
     let currentPathUrl;
     const match = location.href.match(/#\/([^\/?]+)/);
     if (match) {
-      currentPathUrl = match[1].split('/')[0];
+      currentPathUrl = match[1].split("/")[0];
     } else {
-      currentPathUrl = location.pathname.split('/')[1] || Object.keys(PagesComponents)[0];
+      currentPathUrl =
+        location.pathname.split("/")[1] || Object.keys(PagesComponents)[0];
     }
     if (!currentPathUrl || currentPathUrl === "#") return;
     const currentComponent = PagesComponents[currentPathUrl] || "erro";
 
-    root.innerHTML = currentComponent === "erro"
-      ? erroPage(PagesComponents)
-      : await PagesComponents[currentPathUrl]({ currentPage: currentPathUrl, tagPage: root });
+    root.innerHTML =
+      currentComponent === "erro"
+        ? erroPage(PagesComponents)
+        : await PagesComponents[currentPathUrl]({
+            currentPage: currentPathUrl,
+            tagPage: root,
+          });
 
     emit(currentPathUrl);
     customTags();
@@ -225,49 +226,78 @@ const Router = async () => {
   function erroPage(Pages) {
     root.innerHTML = `
       <div class="erroPages">
-        ${Object.keys(Pages).map((page, index) =>
-      `<a class="Erro" id="${index}" use:href="/#/${page}">${page.toUpperCase()}</a>`
-    ).join("")}
+        ${Object.keys(Pages)
+          .map(
+            (page, index) =>
+              `<a class="Erro" id="${index}" use:href="/#/${page}">${page.toUpperCase()}</a>`
+          )
+          .join("")}
       </div>
     `;
   }
 
   function handleClick(e) {
-    e.preventDefault()
+    e.preventDefault();
     const href = e.target.getAttribute("use:href");
-    if (href) {  
-        window.history.pushState(null, null, href);
-        routerPages();
-      
+    if (href) {
+      window.history.pushState(null, null, href);
+      routerPages();
     }
   }
 
   window.addEventListener("popstate", routerPages);
   document.body.addEventListener("click", debounce(handleClick, 200));
   routerPages();
-}
+};
 
 const $effect = async (elem) => {
-  if (typeof (elem) === "string") {
-    processElement(document.querySelector(elem))
+  if (typeof elem === "string") {
+    processElement(document.querySelector(elem));
   } else {
-    processElement(elem)
-
+    processElement(elem);
   }
-}
+};
 
 const $render = (elem, render) => {
-  if (typeof (elem) === "string") {
-    document.querySelector(elem).innerHTML = render()
-  } else (
-    document.querySelector(elem.tagName.toLowerCase()).innerHTML = render()
-  )
-
-}
+  if (typeof elem === "string") {
+    document.querySelector(elem).innerHTML = render();
+  } else
+    document.querySelector(elem.tagName.toLowerCase()).innerHTML = render();
+};
 
 const $on = (seletor) => {
-  on(seletor)
-}
+  on(seletor);
+};
 
+const $state = (initialValue) => {
+  let state = initialValue;
 
-export { $imports, debounce, useNavigate, Router, on, emit, processElement, $on, $effect, $render };
+  const getState = () => state;
+
+  const setState = (newValue) => {
+    if(!newValue === undefined){
+      return state = newValue;
+    }
+    console.log(state)
+ return state
+  };
+
+  return {
+    value: getState,
+    set: setState,
+  };
+};
+
+export {
+  debounce,
+  useNavigate,
+  Router,
+  on,
+  emit,
+  processElement,
+  $imports,
+  $on,
+  $effect,
+  $render,
+  $state,
+};

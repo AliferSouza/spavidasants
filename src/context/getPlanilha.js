@@ -1,9 +1,9 @@
 const cache = {
-  key: 'agedamento',
-  cacheTimestampKey: 'cacheTimestamp',
-  expirationTime: 190000, // 2 minutos em milissegundos
+  key: "agedamento",
+  cacheTimestampKey: "cacheTimestamp",
+  expirationTime: 1900000, // 2 minutos em milissegundos
   cachedData: null,
-  cacheTimestamp: 0
+  cacheTimestamp: 0,
 };
 
 export default async function fetchDataWithCache(props) {
@@ -11,13 +11,22 @@ export default async function fetchDataWithCache(props) {
 
   // Tentar carregar dados do localStorage
   const cachedDataFromLocalStorage = localStorage.getItem(cache.key);
-  const cachedTimestampFromLocalStorage = localStorage.getItem(cache.cacheTimestampKey);
+  const cachedTimestampFromLocalStorage = localStorage.getItem(
+    cache.cacheTimestampKey
+  );
 
-  if (!shouldForceRefresh && cachedDataFromLocalStorage && cachedTimestampFromLocalStorage) {
+  if (
+    !shouldForceRefresh &&
+    cachedDataFromLocalStorage &&
+    cachedTimestampFromLocalStorage
+  ) {
     const parsedCachedTimestamp = parseInt(cachedTimestampFromLocalStorage, 10);
     const parsedCachedData = JSON.parse(cachedDataFromLocalStorage);
 
-    if (parsedCachedData && (Date.now() - parsedCachedTimestamp < cache.expirationTime)) {
+    if (
+      parsedCachedData &&
+      Date.now() - parsedCachedTimestamp < cache.expirationTime
+    ) {
       console.log("Using cached data from localStorage");
       return parsedCachedData;
     }
@@ -25,7 +34,11 @@ export default async function fetchDataWithCache(props) {
 
   try {
     // Fetch data from the URL
-    const dadosPlanilha = await fetch(`https://script.google.com/macros/s/AKfycbxtmKZSWMQnVaDaOriCanoUnjo_4rRyznhMAsTKSXdGfh0P-ZL-8C5EUGjLYjK5lhtM/exec?Telefone=${props || ""}`);
+    const dadosPlanilha = await fetch(
+      `https://script.google.com/macros/s/AKfycbxtmKZSWMQnVaDaOriCanoUnjo_4rRyznhMAsTKSXdGfh0P-ZL-8C5EUGjLYjK5lhtM/exec?Telefone=${
+        props || ""
+      }`
+    );
     const dB = await dadosPlanilha.json();
 
     // Atualizar o cache apenas se houver algum dado
@@ -35,7 +48,10 @@ export default async function fetchDataWithCache(props) {
 
       // Adicionar ao localStorage
       localStorage.setItem(cache.key, JSON.stringify(cache.cachedData));
-      localStorage.setItem(cache.cacheTimestampKey, cache.cacheTimestamp.toString());
+      localStorage.setItem(
+        cache.cacheTimestampKey,
+        cache.cacheTimestamp.toString()
+      );
     }
 
     console.log("Fetched fresh data");

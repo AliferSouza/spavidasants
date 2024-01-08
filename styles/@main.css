@@ -7,18 +7,18 @@
 body {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center;    
+    background: linear-gradient(45deg, #04051dea 0%, #dd8ecd 100%);
 }
 
 #app {
     max-width: 450px;
     width: 100%;
+ 
 }
 
 .container_page {
-    width: 100%;
-    background: linear-gradient(45deg, #04051dea 0%, #dd8ecd 100%);
-
+      width: 100%;   
 }
 
 .menu {
@@ -130,7 +130,6 @@ body {
     }
 }
 
-
 .container_card-product {
     width: 100%;
     display: flex;
@@ -187,7 +186,6 @@ body {
 
 }
 
-
 .card-newsletter {
     width: 100%;
     height: 200px;
@@ -234,8 +232,6 @@ body {
     }
 }
 
-
-
 .whatsapp {
     position: fixed;
     bottom: 5px;
@@ -244,8 +240,6 @@ body {
     height: 50px;
     z-index: 100;
 }
-
-
 
 #tres-pontos {
     position: fixed;
@@ -297,7 +291,6 @@ body {
     }
 }
 
-
 #video {
     width: 380px;
     position: fixed;
@@ -307,9 +300,6 @@ body {
     z-index: 200;
 
 }
-
-
-
 
 .agendamento-container {
     display: flex;
@@ -392,9 +382,8 @@ body {
     flex-direction: column;
     gap: 10px;
     margin-bottom: 20px;
-
     img {
-        width: 440px;
+        width: 100%
     }
 
     a {
@@ -406,7 +395,8 @@ body {
         font-size: 15px;
         color: #f9f9f9;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
-        padding: 20px 30px 0px 30px
+        padding: 20px 30px 0px 30px;
+        margin-bottom: 40px;
     }
 
     button {
@@ -421,7 +411,6 @@ body {
     }
 }
 
-
 .container_pedido {
     width: 100%;
     height: 100vh;
@@ -429,16 +418,48 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    gap: 15px;
     text-align: center;
-    gap: 20px;
-    background: linear-gradient(45deg, #04051dea 0%, #dd8ecd 100%);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     color: #f9f9f9;
 
+    .status_pedido{      
+        padding: 20px;
+        background: #000000;
+        p{
+            margin-top: 10px;
+            text-align: left;
+        }
+    }
+    #orderform{
+        padding: 15px;
+        background:#000000;
+
+        label{
+           font-size: 15px;
+        }
+    }
+
+    #voltar_whats{
+        margin-top: 10px;
+        background: #20804b;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+
+    }
+
+    #voltar{
+        margin-top: 10px;
+        background: #20804b;
+        padding: 10px;
+        border-radius: 5px;
+        cursor: pointer;
+
+    }
+
+
     #orderform {
-        width: 99%;
+        width: 250px;
         height: 200px;
         display: flex;
         justify-content: center;
@@ -447,6 +468,7 @@ body {
         gap: 10px;
         font-size: 20px;
         color: #f9f9f9;
+
 
 
         label {
@@ -498,6 +520,8 @@ body {
 }
 
 .container_pedido_list {
+    width: 350px;
+    height: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -505,22 +529,33 @@ body {
     gap: 10px;
     padding: 20px;
     border-radius: 10px;
+
+    .pedido_list {
+        width: 250px;
+    
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+        background: #20804b;
+        padding: 20px;
+        border-radius: 8px;
+        font-size: 15px;
+
+        button {
+            margin-top: 5px;
+            width: 100%;
+            padding: 5px;
+
+        }
+        div{
+            background: #000000;
+        }
+
+    }
+
+ 
 }
-
-.pedido_list {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-direction: column;
-    background: #20804b;
-    padding: 10px;
-    border-radius: 8px;
-    font-size: 15px;
-
-}
-
-
-
 
 .slideshow-container-product {
     position: relative;
@@ -531,9 +566,9 @@ body {
     align-items: center;
     padding: 8px;
 
-    img {      
-        width: 90%; 
-        height: 95%; 
+    img {
+        width: 90%;
+        height: 95%;
         border-radius: 10px;
     }
 
@@ -561,5 +596,74 @@ body {
 
     .next {
         right: 8px;
+    }
+}
+
+.catalogo{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+    color: #f9f9f9;
+
+
+    h1 {
+        font-size: 100%;
+        position: relative;
+        bottom: 20%;
+        }
+
+    .catalogo_card {
+        width: 90%;       
+        display: flex;
+        justify-content: center;
+        align-items: center;   
+        flex-direction: column;    
+        
+    
+    }
+
+    .catalogo_card_interno {
+        width: 60%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;   
+        margin: 10px;   
+        border-radius: 5px;     
+        padding: 10px;
+        background: #6b0d66;
+         
+        img{
+            width: 40%;
+            border-radius: 5px;
+        }
+
+        span{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          gap: 10px;
+
+        }
+        
+    }
+    
+
+
+
+    a {
+        width: 100%;
+        padding: 10px;
+        background: #20804b;
+        color: #f9f9f9;
+        font-size: 15px;
+        text-decoration: none;
+        border: none;
+        border-radius: 5px;
     }
 }

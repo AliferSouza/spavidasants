@@ -1,6 +1,6 @@
-export default  function video({tag}) {
+export default function video({ tag }) {
   let videoVisible = false;
-   
+
   tag.addEventListener("click", (e) => {
     const videoComp = document.querySelector("#video");
     if (videoVisible) {
@@ -13,16 +13,15 @@ export default  function video({tag}) {
       `;
       videoComp.innerHTML = videoHTML;
     }
-  
+
     videoVisible = !videoVisible;
   });
-  
+
   return `
         <div id="video"></div>  
         <div id="tres-pontos" key="id">                
            <span></span>
            <span></span>
            <span></span>         
-        </div>`
-  
+        </div>`;
 }

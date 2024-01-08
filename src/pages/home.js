@@ -11,10 +11,10 @@ export default async function home() {
           <comp-colaboradores></comp-colaboradores> 
           <comp-button-lateral  id="flutuante"> </comp-button-lateral>        
           <div class="container_card-product">
-          <card-product id="promocao" width="150" height="200"></card-product>   
+          <card-product key="PROMOÇÕES" id="promocao" width="180" height="220"></card-product>   
          
-          <card-product id="massagens" width="140" height="140"></card-product>   
-          <card-product id="estetica" width="150" height="200"></card-product>
+          <card-product key="MASSAGENS" id="massagens" width="180" height="250"></card-product>   
+          <card-product key= "ESTÉTICA" id="estetica" width="180" height="260"></card-product>
           </div>
           <comp-whatsapp   priority  class="whatsapp"></comp-whatsapp>
           <comp-newsletter  priority class="card-newsletter"  id="news latter"></comp-newsletter>                 
