@@ -161,8 +161,7 @@
       "color": "#e29595",
       "valor": "99,99",
       "tempo": 1
-    },
-  
+    },  
     {
       "id": "10",
       "categoria": "promocao",
@@ -203,7 +202,6 @@
       "valor": "99,99",
       "tempo": 1
     },
-
     {
       "id": "pillingneffetiti",
       "categoria": "estetica",
@@ -343,5 +341,6 @@
       "color": "#e29595",
       "valor": 40,
       "tempo": 1
-    }
+    }   
+
   ]

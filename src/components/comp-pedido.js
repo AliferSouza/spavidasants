@@ -13,7 +13,7 @@ export default async function compPedido({ tag }) {
 
     if (e.target.id === "button_submit") {
       const whats = tag.querySelector("#order-number").value;
-      const dP = await getPlanilha();
+      const dP = await getPlanilha(whats);
       filteredObjects = dP.filter((item) => item.Telefone === parseInt(whats));
       lista = true;
       tag.removeEventListener("click", verificarOrdem);

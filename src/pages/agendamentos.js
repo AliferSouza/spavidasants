@@ -3,62 +3,90 @@ import getPlanilhas from "../context/Data.js"
 
 export default async function agenda({ tagPage }) {
   const lancamentos = JSON.parse(localStorage.getItem("agedamento")) || [];
+  const planilhas = await getPlanilhas()
+  
+  const urlParts = window.location.href.split("?");
+  const queryString = urlParts.length > 1 ? urlParts[1].split("#")[0] : "";
+  const params = new URLSearchParams(queryString);
+  const jsonParams = Array.from(params.entries()).reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+
+
 
   tagPage.addEventListener("submit", (event) => {
     event.preventDefault();
+  
     const formData = new FormData(agendamentoForm);
     const formDataObject = Object.fromEntries(formData);
-    const data = {
-      ...formDataObject,
-      valorTotal: parseFloat(itemAgendamento.valorMassagem.valor) * parseFloat(formDataObject.quantidade),
-    }; 
-
-    const messageObj = {
-      Nome: data.nome,
-      Telefone: data.telefone,
-      Terapeuta: data.profissional,
-      Horário: data.horario.replace(/:/g, ''),
-      Data: data.data.replace(/-/g, ''),
-      Quantidade: data.quantidade,
-      Servico: data.servico,
-      Valor_Total: data.valorTotal
+  
+    // Check if all required fields have values
+    const requiredFields = ['nome', 'telefone', 'profissional', 'horario', 'data', 'quantidade', 'servico'];
+    const allFieldsFilled = requiredFields.every(field => {
+      return formDataObject[field] && formDataObject[field].trim() !== '';
+    });
+  
+    if (allFieldsFilled) {
+      const data = {
+        ...formDataObject,
+        valorTotal: (
+          parseFloat(itemAgendamento?.valorMassagem?.valor) *
+          parseFloat(formDataObject?.quantidade)
+        ) ?? 0,
+      };
+  
+      // Save to localStorage
+      const lancamentos = JSON.parse(localStorage.getItem("agendamento")) || [];
+      lancamentos.push(data);
+      localStorage.setItem("agendamento", JSON.stringify(lancamentos));
+  
+      // Send POST request
+      const messageObj = {
+        Nome: data.nome,
+        Telefone: data.telefone,
+        Terapeuta: data.profissional,
+        Horário: data.horario.replace(/:/g, ''),
+        Data: data.data.replace(/-/g, ''),
+        Quantidade: data.quantidade,
+        Servico: data.servico,
+        Valor_Total: data.valorTotal
+      };
+  
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(messageObj),
+        mode: 'no-cors'
+      };
+  
+      const url = 'https://script.google.com/macros/s/AKfycbxEw_RZaAGlgYokXZBhug4iYv16XlBTklo4iscCC3xkeTB5uRF0Ld-ng2SgnCiCkroU/exec';
+  
+      fetch(url, requestOptions)
+        .then(response => response.ok ? response.json() : Promise.reject('Erro no pedido POST: ' + response.statusText))
+        .then(data => console.log("Pedido POST bem-sucedido:", data))
+        .catch(error => console.error('Erro no pedido POST:', error));
+  
+      // Open WhatsApp link
+      const message = `
+        Nome: ${data.nome}
+        Telefone: ${data.telefone}
+        Terapeuta: ${data.profissional}
+        Horário: ${data.horario}
+        Data: ${data.data}
+        Servico: ${data.servico},
+        Quantidade: ${data.quantidade}
+        Valor Total: ${data.valorTotal}
+      `;
+      const phoneNumber = '31999739602';
+      const linkWhatsapp = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      window.open(linkWhatsapp);
+  
+      agendamentoForm.reset();
+    } else {
+      console.error('Please fill in all required fields before submitting.');
     }
-
-    console.log(data)
-     lancamentos.push(data);  
-     localStorage.setItem("agedamento", JSON.stringify(lancamentos));
-
-    const requestOptions = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(messageObj),
-      mode: 'no-cors'
-    };
-    const url = 'https://script.google.com/macros/s/AKfycbxEw_RZaAGlgYokXZBhug4iYv16XlBTklo4iscCC3xkeTB5uRF0Ld-ng2SgnCiCkroU/exec';
-    fetch(url, requestOptions)
-      .then(response => response.ok ? response.json() : Promise.reject('Erro no pedido POST: ' + response.statusText))
-      .then(data => console.log("Pedido POST bem-sucedido:", data))
-      .catch(error => console.error(error));
-
-
-    const message = `
-      Nome: ${data.nome}
-      Telefone: ${data.telefone}
-      Terapeuta: ${data.profissional}
-      Horário: ${data.horario}
-      Data: ${data.data}
-      Servico: ${data.servico},
-      Quantidade: ${data.quantidade}
-      Valor Total: ${data.valorTotal}
-    `;
-    const phoneNumber = '31999739602';
-    const linkWhatsapp = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-    window.open(linkWhatsapp);
-    agendamentoForm.reset();
   });
-
+  
 
   tagPage.addEventListener("click", e => {
     if (e.target.id === "pix") {
@@ -66,6 +94,7 @@ export default async function agenda({ tagPage }) {
       navigator.clipboard.writeText(pixText);
 
     }
+    
     if (e.target.id === "horario") {
       const dataSelecionada = tagPage.querySelector("#data").value;
       const dataAgendar = tagPage.querySelector("#agendar");
@@ -76,11 +105,8 @@ export default async function agenda({ tagPage }) {
           return item.Data === parseInt(dataVerify) && item.Horário === parseInt(horarioSelecionado);
       });
   
-      if (lancamentoEncontrado) {
-          const horarioString = lancamentoEncontrado.Horário.toString();
-          const doisPrimeirosNumeros = horarioString.substring(0, 2);
-  
-          dataAgendar.textContent = "Já existe um agendamento: " + doisPrimeirosNumeros;
+      if (lancamentoEncontrado) {                
+          dataAgendar.textContent = "Já existe um agendamento: " +  lancamentoEncontrado.Horário.toString().substring(0, 2)
       } else {
           dataAgendar.textContent = "Agendar";
       }
@@ -92,21 +118,10 @@ export default async function agenda({ tagPage }) {
  
 
 
-const urlParts = window.location.href.split("?");
-const queryString = urlParts.length > 1 ? urlParts[1].split("#")[0] : "";
-const params = new URLSearchParams(queryString);
-const jsonParams = Array.from(params.entries()).reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
-
-const planilhas = await getPlanilhas()
-const servicos = () => {
-  return;
-}
-
-
 
 
   return `
-      <menu-principal ></menu-principal>   
+    <menu-principal ></menu-principal>   
     <div class="agendamento-container">
       <div class="agendamento-form-contains">
 
@@ -118,7 +133,7 @@ const servicos = () => {
           </div>
 
           <select id="selecao-nome" name="profissional" required>
-          <option value="" ${jsonParams.profissional === '' ? 'selected' : ''}>Selecione um Profissional</option>
+          <option value="" selected}>Selecione um Profissional</option>
           <option value="Alifer" ${jsonParams.profissional === 'Alifer' ? 'selected' : ''}>Alifer</option>
           <option value="Viviane" ${jsonParams.profissional === 'Viviane' ? 'selected' : ''}>Viviane</option>
          </select> 

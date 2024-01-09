@@ -18,7 +18,7 @@ export default async function perfil() {
           <h5 id="info">${data.descricao} </h5>
             ${(data.nome === "Viviane" || data.nome === "Alifer")? `                   
             <button id="entreemcontato" url="${data.insta}" class="buttonperfil">                 
-            <span use:href="/agenda/?profissional=${data.nome}"  id="entreemcontato"  class="buttonperfil" id="whats">Agende um horário</span>		           
+            <span use:href="/agendamentos/?profissional=${data.nome}"  id="entreemcontato"  class="buttonperfil" id="whats">Agende um horário</span>		           
             </button>`:""}  
           </div>                 
   

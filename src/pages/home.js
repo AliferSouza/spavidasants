@@ -15,6 +15,7 @@ export default async function home() {
          
           <card-product key="MASSAGENS" id="massagens" width="180" height="250"></card-product>   
           <card-product key= "ESTÉTICA" id="estetica" width="180" height="260"></card-product>
+          <card-product key= "ÓLEOS" id="oleos" width="165" height="165"></card-product>
           </div>
           <comp-whatsapp   priority  class="whatsapp"></comp-whatsapp>
           <comp-newsletter  priority class="card-newsletter"  id="news latter"></comp-newsletter>                 

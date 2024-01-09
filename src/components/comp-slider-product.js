@@ -29,7 +29,7 @@ export default async function sliderProduct({ tag }) {
       ${dadosSelecionados
         .map(
           (item, index) =>
-            `<img use:href="/agenda/" id="${item.id}" class="mySlides" src="${
+            `<img use:href="/agendamentos/" id="${item.id}" class="mySlides" src="${
               item.img
             }" alt="${item.info}" width="${
               item.width || 200

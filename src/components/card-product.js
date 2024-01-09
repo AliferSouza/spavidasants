@@ -15,7 +15,7 @@ export default async function cardProdutos({ tag }) {
         (item, key) =>
           `<img 
             id="${item.id}"
-            use:href="/agenda/"
+            use:href="/agendamentos/"
             src="${item.img}" 
             width="${width}"
             height="${height}"
