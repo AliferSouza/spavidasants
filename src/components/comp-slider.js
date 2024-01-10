@@ -1,4 +1,4 @@
-export default function slider({ tag }) {
+export default function slider(tag) {
   let slideIndex = 0;
 
   tag.addEventListener("click", (e) => {

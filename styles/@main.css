@@ -12,7 +12,7 @@ body {
 }
 
 #app {
-    max-width: 450px;
+    max-width: 800px;
     width: 100%;
  
 }
@@ -202,7 +202,7 @@ body {
     color: #f9f9f9;
     font-size: 20px;
     background: linear-gradient(45deg, #04051dea 100%, #dd8ecd 85%);
-
+    margin-top: 40px;
 
     span {
         font-size: 30px;
@@ -694,3 +694,125 @@ body {
         border-radius: 5px;
     }
 }
+
+
+
+@media only screen and (min-width: 500px) {
+    #app {   
+       max-width: 1600px;
+       width: 100%;  
+    
+            
+    }
+
+    .slideshow-container {
+        position: relative;
+        max-width: 1600px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 8px;
+    
+        img {
+            margin-top: 10px;
+            max-width: 500px;
+            width: 100%;
+        
+            border-radius: 10px;
+        }
+           
+    }
+
+    
+
+    .container_card-product {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 50px;
+    
+
+        .container_produtos {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            .container_produtos_title {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px;
+                font-size: 12px;
+                border-radius: 5px;
+                color: #ffffff;
+                cursor: pointer;
+
+            }
+
+            .container_produtos_produtos {
+                width: 70vw;     
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+            }
+
+            .container_produtos_produtos div {
+                padding-bottom: 5px;
+                margin: 5px;
+                gap: 5px;
+                display: flex;
+                overflow-x: auto;
+
+            }
+
+            .container_produtos_produtos div img {
+                margin: 4px;
+                border-radius: 6px;
+                cursor: pointer;
+            
+            }
+            img{
+                width: 250px !important;   
+                height: 300px;
+            }
+
+
+
+        }
+
+    }
+
+    comp-slider-product{
+        display: flex;
+        justify-content: center;
+        
+
+    .slideshow-container-product {
+        position: relative;
+        width: 600px;
+        height: 90vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 8px;                    
+    }
+    }
+
+    .perfil{
+        margin-left: 25%;
+        width: 50%;
+        background-color: #000000;
+    }
+
+   
+    
+}
+
+

@@ -1,6 +1,6 @@
 const root = document.querySelector("#app");
 let PagesComponents;
-
+let URL
 const componentCache = {};
 const functionEvent = {};
 
@@ -45,7 +45,7 @@ function emit(event, ...args) {
   return "";
 }
 
-async function useNavigate(Rota) {
+async function useNavigate(Rota) {  
   window.history.pushState(null, null, Rota);
   Router();
 }
@@ -126,14 +126,10 @@ const processElement = async (elem) => {
   const isFetch = elem.hasAttribute("use:fetch");
   const revalidate = elem.hasAttribute("use:revalidate");
   const slot = elem.querySelector("slot");
-  const componentResult = await (isFetch
-    ? pagesComponentsFetch({ tag: elem })
-    : PagesComponents[elemName]({ tag: elem }));
-  if (slot) {
-    slot.innerHTML += componentResult;
-  } else {
-    elem.innerHTML = componentResult;
-  }
+  const componentResult = await (isFetch ? pagesComponentsFetch(elem): PagesComponents[elemName](elem))
+ 
+  elem.innerHTML = slot ? slot.innerHTML + componentResult : componentResult;
+
   await Promise.all(
     Array.from(elem.querySelectorAll("*")).map(async (element) => {
       if (
@@ -200,6 +196,8 @@ function debounce(fn, delay) {
 
 const Router = async () => {
   async function routerPages() {
+    URL = location.href
+    
     let currentPathUrl;
     const match = location.href.match(/#\/([^\/?]+)/);
     if (match) {
@@ -209,40 +207,38 @@ const Router = async () => {
         location.pathname.split("/")[1] || Object.keys(PagesComponents)[0];
     }
     if (!currentPathUrl || currentPathUrl === "#") return;
-    const currentComponent = PagesComponents[currentPathUrl] || "erro";
+    const currentPage = PagesComponents[currentPathUrl] || "erro";
 
-    root.innerHTML =
-      currentComponent === "erro"
-        ? erroPage(PagesComponents)
-        : await PagesComponents[currentPathUrl]({
-            currentPage: currentPathUrl,
-            tagPage: root,
-          });
+    if(currentPage === "erro"){
+      erroPage(PagesComponents)
+    }else{
+      root.innerHTML = await currentPage(root)
+    }
 
     emit(currentPathUrl);
     customTags();
   }
 
   function erroPage(Pages) {
-    root.innerHTML = `
-      <div class="erroPages">
-        ${Object.keys(Pages)
-          .map(
-            (page, index) =>
-              `<a class="Erro" id="${index}" use:href="/#/${page}">${page.toUpperCase()}</a>`
-          )
-          .join("")}
-      </div>
-    `;
+    const nomesSemHifen = Object.keys(Pages).filter(page => !page.includes('-'));    
+    root.innerHTML = nomesSemHifen.map((page, index) => 
+      `<a class="erro_page" id="${index}" use:href="${location.hash ? `/#/${page}/` : `/${page}/`}">${page}</a>`
+    ).join("");
   }
+  
 
   function handleClick(e) {
     e.preventDefault();
-    const href = e.target.getAttribute("use:href");
-    if (href) {
-      window.history.pushState(null, null, href);
-      routerPages();
+    const href = e.target.getAttribute("use:href");    
+    if(URL === location.href){
+      URL = location.href
+      if (href) {
+        window.history.replaceState(null, null, href);
+        routerPages();
+      }             
+
     }
+    
   }
 
   window.addEventListener("popstate", routerPages);
@@ -269,24 +265,24 @@ const $on = (seletor) => {
   on(seletor);
 };
 
-const $state = (initialValue) => {
-  let state = initialValue;
 
-  const getState = () => state;
-
-  const setState = (newValue) => {
-    if(!newValue === undefined){
-      return state = newValue;
+const $state = (() => {
+  const instancesMap = new Map();
+  return (initialValue) => {
+    let stateInstance = instancesMap.get(initialValue);
+    if (!stateInstance) {
+      stateInstance = {
+        value: initialValue,
+        set(newValue) {
+          stateInstance.value = newValue;
+        },
+      };
+      instancesMap.set(initialValue, stateInstance);
     }
-    console.log(state)
- return state
+    return stateInstance;
   };
+})();
 
-  return {
-    value: getState,
-    set: setState,
-  };
-};
 
 export {
   debounce,

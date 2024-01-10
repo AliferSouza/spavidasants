@@ -1,7 +1,7 @@
 import Data from "../context/Data.js";
 import { itemAgendamento } from "../context/agedamento.js";
 
-export default async function cardProdutos({ tag }) {
+export default async function cardProdutos(tag) {
   const dados = await Data();
   const dadosSelecionados = dados.massagens.filter(
     (d) => d.categoria === tag.id

@@ -1,6 +1,6 @@
 import produtos from "../context/Data.js";
 import { itemAgendamento } from "../context/agedamento.js";
-export default async function sliderProduct({ tag }) {
+export default async function sliderProduct(tag) {
   let slideIndex = 0;
   const p = await produtos();
   const dadosSelecionados = p.massagens.filter(

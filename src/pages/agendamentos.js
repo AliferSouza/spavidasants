@@ -1,7 +1,7 @@
 import { itemAgendamento } from "../context/agedamento.js"
 import getPlanilhas from "../context/Data.js"
 
-export default async function agenda({ tagPage }) {
+export default async function agenda(tagPage) {
   const lancamentos = JSON.parse(localStorage.getItem("agedamento")) || [];
   const planilhas = await getPlanilhas()
   

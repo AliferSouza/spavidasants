@@ -1,4 +1,4 @@
-export default function video({ tag }) {
+export default function video(tag) {
   let videoVisible = false;
 
   tag.addEventListener("click", (e) => {

@@ -7,9 +7,9 @@ export default async function perfil() {
   document.title = slug.toLocaleUpperCase();
 
   return `        
-      
+       <menu-principal></menu-principal>
          <div class="container_page"> 
-         <menu-principal></menu-principal>
+        
          <div class="perfil">
          <img src="${data.img}" alt="Imagem do colaborado ${data.nome}" >                           
            ${data.nome}

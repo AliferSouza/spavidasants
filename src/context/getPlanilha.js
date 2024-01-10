@@ -26,8 +26,7 @@ export default async function fetchDataWithCache(props) {
     if (
       parsedCachedData &&
       Date.now() - parsedCachedTimestamp < cache.expirationTime
-    ) {
-      console.log("Using cached data from localStorage");
+    ) { 
       return parsedCachedData;
     }
   }
@@ -54,7 +53,7 @@ export default async function fetchDataWithCache(props) {
       );
     }
 
-    console.log("Fetched fresh data");
+
     return dB;
   } catch (error) {
     console.error("Error fetching data:", error);

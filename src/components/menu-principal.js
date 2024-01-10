@@ -1,4 +1,4 @@
-export default function Menu({ tag }) {
+export default function Menu(tag) {
   tag.addEventListener("click", (e) => {
     if (e.target.id === "menu-oculto") {
       const menuOculto = tag.querySelector(".menu-oculto");

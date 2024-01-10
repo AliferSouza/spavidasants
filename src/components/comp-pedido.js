@@ -6,7 +6,7 @@ let lista = false
 let filteredObjects 
 let filteredObjectsUnic 
 
-export default async function compPedido({ tag }) {
+export default async function compPedido(tag) {
 
 
   async function verificarOrdem(e) {

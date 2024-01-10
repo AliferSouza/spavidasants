@@ -1,4 +1,4 @@
-export default async function agenda({ tagPage }) {
+export default async function agenda() {
  
 
   return `
