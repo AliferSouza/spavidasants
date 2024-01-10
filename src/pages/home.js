@@ -11,8 +11,7 @@ export default async function home() {
           <comp-colaboradores></comp-colaboradores> 
           <comp-button-lateral  id="flutuante"> </comp-button-lateral>        
           <div class="container_card-product">
-          <card-product key="PROMOÇÕES" id="promocao" width="180" height="220"></card-product>   
-         
+          <card-product key="PROMOÇÕES" id="promocao" width="180" height="220"></card-product>  
           <card-product key="MASSAGENS" id="massagens" width="180" height="250"></card-product>   
           <card-product key= "ESTÉTICA" id="estetica" width="180" height="260"></card-product>
           <card-product key= "ÓLEOS" id="oleos" width="165" height="165"></card-product>

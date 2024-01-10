@@ -91,10 +91,11 @@ export default async function agenda({ tagPage }) {
   tagPage.addEventListener("click", e => {
     if (e.target.id === "pix") {
       const pixText = e.target.textContent.trim();
-      navigator.clipboard.writeText(pixText);
+      navigator.clipboard.writeText(pixText)
+       }  
+    })
 
-    }
-    
+  tagPage.addEventListener('change', e =>{
     if (e.target.id === "horario") {
       const dataSelecionada = tagPage.querySelector("#data").value;
       const dataAgendar = tagPage.querySelector("#agendar");
@@ -111,9 +112,8 @@ export default async function agenda({ tagPage }) {
           dataAgendar.textContent = "Agendar";
       }
   }
-  
-
   })
+
 
  
 

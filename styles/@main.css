@@ -426,6 +426,7 @@ body {
         font-size: 18px;
         color: #f9f9f9;
         margin-bottom: 20px;
+        cursor: pointer;
     }
 }
 
