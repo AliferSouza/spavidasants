@@ -13,7 +13,7 @@ export default async function compPedido(tag) {
 
     if (e.target.id === "button_submit") {
       const whats = tag.querySelector("#order-number").value;
-      const dP = await getPlanilha(whats);
+      const dP = await getPlanilha();
       filteredObjects = dP.filter((item) => item.Telefone === parseInt(whats));
       lista = true;
       tag.removeEventListener("click", verificarOrdem);
@@ -75,8 +75,8 @@ export default async function compPedido(tag) {
   }
 
   if (lista) {
-    return `
-      <h1>Lista de Pedido</h1>
+    return ` 
+          <h1>LISTA DE PEDIDOS</h1>
       <div class="container_pedido_list">
         ${filteredObjects      
           .map(
@@ -99,7 +99,7 @@ export default async function compPedido(tag) {
 
   return `
     <div id="orderform">
-      <label for="order-number">Digite o numero de telefone</label>
+      <label for="order-number">Digite o número de telefone do "Agendamento"</label>
       <input type="text" id="order-number" name="order-number" required>
       <button  id="button_submit">Acompanhar Pedido</button>
     </div>

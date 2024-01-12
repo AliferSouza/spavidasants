@@ -235,7 +235,10 @@ const Router = async () => {
       if (href) {
         window.history.replaceState(null, null, href);
         routerPages();
-      }             
+      }else{
+        window.history.pushState(null, null, href);
+      
+      }       
 
     }
     
