@@ -1,6 +1,5 @@
 const root = document.querySelector("#app");
 let PagesComponents;
-let URL
 const componentCache = {};
 const functionEvent = {};
 
@@ -196,7 +195,6 @@ function debounce(fn, delay) {
 
 const Router = async () => {
   async function routerPages() {
-    URL = location.href
     
     let currentPathUrl;
     const match = location.href.match(/#\/([^\/?]+)/);
@@ -230,19 +228,17 @@ const Router = async () => {
   function handleClick(e) {
     e.preventDefault();
     const href = e.target.getAttribute("use:href");    
-    if(URL === location.href){
-      URL = location.href
-      if (href) {
-        window.history.replaceState(null, null, href);
-        routerPages();
-      }else{
-        window.history.pushState(null, null, href);
+    if (href) {
+       window.history.pushState(null, null, href);
+       routerPages();
+     }
       
-      }       
+      
+  }  
 
-    }
     
-  }
+    
+  
 
   window.addEventListener("popstate", routerPages);
   document.body.addEventListener("click", debounce(handleClick, 200));
