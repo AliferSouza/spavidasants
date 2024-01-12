@@ -446,21 +446,21 @@ body {
         top: -70px
     }
 
-    .status_pedido{      
-        padding: 20px;
+    .status_pedido{    
+        width: 100%;  
+        padding: 20px 5px  20px 5px ;
         background: #000000;
+        border-radius: 5px;
+        
         p{
+            width: 100%;
             margin-top: 10px;
             text-align: left;
         }
     }
-    #orderform{
-        padding: 15px;
-        background:#000000;
-
-        label{
-           font-size: 15px;
-        }
+    
+    p{
+        width: 100%;
     }
 
     #voltar_whats{
@@ -482,20 +482,96 @@ body {
     }
 
 
+    #order-status {
+        margin-top: 20px;
+        color: #f9f9f9;
+    }
+
+    #payment-status,
+    #service-status {
+        font-weight: bold;
+    }
+
+    #payment-status {
+        color: red;
+    }
+
+    #service-status {
+        color: red;
+    }
+}
+
+comp-pedido{
+    max-width: 500px;
+    width: 90%;
+    padding: 10px;
+    display: flex; 
+    align-items: center;
+    flex-direction: column;
+    background: #fafafa65;
+    border-radius: 10px;
+
+        .container_pedido_list {
+            width: 95%;
+            height: 700px;
+            display: flex;         
+            align-items: center;
+            flex-direction: column;
+            gap: 10px;
+            padding: 5px;
+            border-radius: 10px;
+            overflow-x: auto;
+
+            .pedido_list {
+                margin-bottom: 20px;
+                width: 90%;    
+                height: 200px;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                flex-direction: column;
+                background: #20804b;
+                padding: 10px;
+                border-radius: 8px;
+                font-size: 15px;
+
+                button {
+                    margin-top: 5px;
+                    width: 100%;
+                    padding: 5px;
+                    cursor: pointer;
+
+                }
+                div{
+                    background: #000000;
+                }            
+
+            }     
+
+        
+        }
+
+        p{
+            width: 80%;
+        }
+
+      
     #orderform {
-        width: 250px;
-        height: 200px;
+        width: 100%;     
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
         gap: 10px;
         font-size: 20px;
-        color: #f9f9f9;
+        color: #000000;
+        background: #000000;
+        padding: 10px;
 
 
 
         label {
+            color: #fff;
             display: block;
             margin-bottom: 8px;
         }
@@ -525,63 +601,7 @@ body {
         }
     }
 
-    #order-status {
-        margin-top: 20px;
-        color: #f9f9f9;
-    }
-
-    #payment-status,
-    #service-status {
-        font-weight: bold;
-    }
-
-    #payment-status {
-        color: red;
-    }
-
-    #service-status {
-        color: red;
-    }
-}
-
-.container_pedido_list {
-    width: 350px;
-    height: 600px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 10px;
-    padding: 20px;
-    border-radius: 10px;
-    overflow-x: auto;
-
-    .pedido_list {
-        width: 250px;    
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        flex-direction: column;
-        background: #20804b;
-        padding: 20px;
-        border-radius: 8px;
-        font-size: 15px;
-
-        button {
-            margin-top: 5px;
-            width: 100%;
-            padding: 5px;
-
-        }
-        div{
-            background: #000000;
-        }
     
-
-    }
- 
-
- 
 }
 
 .slideshow-container-product {
