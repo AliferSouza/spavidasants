@@ -10,7 +10,7 @@ export default async function catalogos() {
                 <div class="catalogo_card">         
                 <div class="catalogo_card_interno">
                 <img src="/catalogos/01.jpeg" alt="" >
-                <span>Catálogos de tratamentos estéticos e faciais... <span>
+                <span>Catálogo de tratamentos estéticos e faciais... <span>
                 <a href="/catalogos/01.pdf" download="Terapias.pdf">Download</a>
                 </div>
                 </div>
@@ -20,7 +20,7 @@ export default async function catalogos() {
                          
                 <div class="catalogo_card_interno">
                 <img src="/catalogos/02.jpeg"  alt="" >
-                <span>Catálogos com nossos pacotes de SPA...<span>
+                <span>Catálogo com nossos pacotes de SPA...<span>
                 <a href="/catalogos/02.pdf" download="Estetica.pdf">Download</a>
 
                 </div>
