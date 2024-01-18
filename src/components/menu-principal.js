@@ -12,6 +12,7 @@ export default function Menu(tag) {
           <img class="pointer" use:href="/home/" src="/img/logo/logo22.png" width="50px" height="50px" alt="Logo">
           <label id="menu-oculto">&#8801</label>
       </div>
+ 
       <div class="menu-oculto">
           <a class="active" use:href="/home/">Início</a>     
           <a class="active" use:href="/catalogo/">Catálogos</a>      

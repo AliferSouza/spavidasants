@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-body {
+body { 
     display: flex;
     justify-content: center;
     align-items: center;    
@@ -50,7 +50,7 @@ body {
 .menu-mostrar {
     position: relative;
     width: 100%;
-    height: calc(100vh - 50px);
+    height: calc(100vh - 70px);
     background: rgb(226, 147, 248);
     opacity: 40%;
     display: flex;
@@ -646,47 +646,44 @@ comp-pedido{
     }
 }
 
-.catalogo{
-    width: 100%;
+.catalogo{ 
+    width: 100%;  
     display: flex;
     justify-content: center;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    height: 100vh;
+    margin-top: 10px;
     color: #f9f9f9;
 
-
-    h1 {
-        font-size: 100%;
-        position: relative;
-        bottom: 20%;
-        }
-
-    .catalogo_card {
+     .catalogo_card {
         width: 90%;       
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;   
         flex-direction: column;    
+        gap: 10px;
+
         
     
     }
 
     .catalogo_card_interno {
-        width: 60%;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         gap: 15px;   
         margin: 10px;   
-        border-radius: 5px;     
+        border-radius: 8px;     
         padding: 10px;
-        background: #6b0d66;
+        background: #10c580;
+
          
         img{
-            width: 40%;
-            border-radius: 5px;
+            width: 60%;       
+            border-radius: 8px;
+          
         }
 
         span{
@@ -695,7 +692,18 @@ comp-pedido{
           align-items: center;
           flex-direction: column;
           gap: 10px;
+          font-size: 200%;
 
+        }
+        a {
+            width: 100%;
+            padding: 10px;
+            background: #318f5b;
+            color: #f9f9f9;
+            font-size: 30px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
         }
         
     }
@@ -703,16 +711,7 @@ comp-pedido{
 
 
 
-    a {
-        width: 100%;
-        padding: 10px;
-        background: #20804b;
-        color: #f9f9f9;
-        font-size: 15px;
-        text-decoration: none;
-        border: none;
-        border-radius: 5px;
-    }
+   
 }
 
 

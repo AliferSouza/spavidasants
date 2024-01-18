@@ -1,56 +1,26 @@
 const root = document.querySelector("#app");
 let PagesComponents;
 const componentCache = {};
-const functionEvent = {};
 
 const $imports = (objImports) => {
   PagesComponents = objImports;
 };
 
-function on(event, cb) {
-  const nameFunction = event.name || event;
-  if (nameFunction.includes("comp")) {
-    const kebabCaseName = nameFunction
-      .replace(/([a-zA-Z])(?=[A-Z])/g, "$1-")
-      .toLowerCase();
-
-    if (!PagesComponents.hasOwnProperty(kebabCaseName)) {
-      PagesComponents[kebabCaseName] = cb || event;
+async function $useNavigate(Rota) {
+ 
+    if(location.origin + Rota === location.href){
+      Router();
+    }else{
+      window.history.pushState(null, null, Rota);
+      Router();
     }
-  }
-  if (typeof event === "function") {
-    const nameFunction = event.name;
-    if (!functionEvent[nameFunction]) {
-      functionEvent[nameFunction] = [event];
-    } else if (!functionEvent[nameFunction].includes(event)) {
-      functionEvent[nameFunction].push(event);
-    }
-  } else {
-    if (!functionEvent[event]) {
-      functionEvent[event] = [cb];
-    } else if (!functionEvent[event].includes(cb)) {
-      functionEvent[event].push(cb);
-    }
-  }
-}
 
-function emit(event, ...args) {
-  if (functionEvent[event]) {
-    const values = functionEvent[event]
-      .map((cb) => cb(...args))
-      .filter((result) => result !== undefined);
-    return values.length > 0 ? values : "";
-  }
-  return "";
-}
 
-async function useNavigate(Rota) {  
-  window.history.pushState(null, null, Rota);
-  Router();
 }
 
 let urlRevalidateComponent;
 const intervalMap = new Map();
+
 const reloadComp = (element) => {
   if (element.tagName.includes("-")) {
     const verificarUse = () => {
@@ -81,7 +51,6 @@ const reloadComp = (element) => {
     }
   }
 };
-
 const pagesComponentsFetch = async (props) => {
   const { tag, Data } = props;
   const componentKey = tag.tagName.toLowerCase();
@@ -120,68 +89,47 @@ const pagesComponentsFetch = async (props) => {
     }
   }
 };
+
 const processElement = async (elem) => {
   const elemName = elem.tagName.toLowerCase();
   const isFetch = elem.hasAttribute("use:fetch");
   const revalidate = elem.hasAttribute("use:revalidate");
-  const slot = elem.querySelector("slot");
-  const componentResult = await (isFetch ? pagesComponentsFetch(elem): PagesComponents[elemName](elem))
- 
-  elem.innerHTML = slot ? slot.innerHTML + componentResult : componentResult;
+  const slot = elem.querySelector("slot") || elem;
 
-  await Promise.all(
-    Array.from(elem.querySelectorAll("*")).map(async (element) => {
-      if (
-        element.tagName.includes("-") &&
-        element.tagName.toLowerCase() !== elemName
-      ) {
-        await processElement(element);
-        if (revalidate) {
-          reloadComp(element);
-        }
-      }
-    })
-  );
-  if (revalidate) {
-    reloadComp(elem);
-  }
-  emit(elemName);
+  slot.innerHTML = await (isFetch ? pagesComponentsFetch(elem) : PagesComponents[elemName](elem));
+
+  await Promise.all(Array.from(elem.querySelectorAll("*")).map(async (element) => 
+    element.tagName.includes("-") && processElement(element)
+  ));
+
+  revalidate && reloadComp(elem);
 };
 
-async function customTags() {
+
+async function customTagsComponents() {  
   const tagElementsObserve = Array.from(document.querySelectorAll("*")).filter(
     (element) => {
       const hasHyphen = element.tagName.includes("-");
       const hasPriority = element.hasAttribute("priority");
-
-      if (hasHyphen) {
-        if (hasPriority) {
-          processElement(element);
-        } else {
-          return element;
-        }
-      }
+      return hasHyphen && (hasPriority ? processElement(element) : true);
     }
-  );
+  )
 
   const processed = new Set();
-  const observerTagsDom = (() => {
-    const observer = new IntersectionObserver(async (entries, obs) => {
-      const e = entries.find((e) => e.isIntersecting);
-      if (e) {
-        const { target } = e;
-        processElement(target);
-        reloadComp(target);
-        obs.unobserve(target);
-        const next = tagElementsObserve.find((tag) => !processed.has(tag));
-        if (next) processed.add(next) && obs.observe(next);
-      }
-    });
-
-    const first = tagElementsObserve.find((tag) => !processed.has(tag));
-    if (first) processed.add(first) && observer.observe(first);
-  })();
+  const observer = new IntersectionObserver(async (entries, obs) => {
+    const e = entries.find((e) => e.isIntersecting);
+    if (e) {
+      const { target } = e;
+      processElement(target);
+      obs.unobserve(target);
+      const next = tagElementsObserve.find((tag) => !processed.has(tag));
+      if (next) processed.add(next) && obs.observe(next);
+    }
+  });
+  const first = tagElementsObserve.find((tag) => !processed.has(tag));
+  if (first) processed.add(first) && observer.observe(first);
 }
+
 
 function debounce(fn, delay) {
   let timeoutId;
@@ -195,7 +143,6 @@ function debounce(fn, delay) {
 
 const Router = async () => {
   async function routerPages() {
-    
     let currentPathUrl;
     const match = location.href.match(/#\/([^\/?]+)/);
     if (match) {
@@ -205,43 +152,56 @@ const Router = async () => {
         location.pathname.split("/")[1] || Object.keys(PagesComponents)[0];
     }
     if (!currentPathUrl || currentPathUrl === "#") return;
-    const currentPage = PagesComponents[currentPathUrl] || "erro";
 
-    if(currentPage === "erro"){
-      erroPage(PagesComponents)
-    }else{
-      root.innerHTML = await currentPage(root)
+    if (!currentPathUrl.includes("-")) {
+      const currentPage = PagesComponents[currentPathUrl] || "erro";
+
+      if (currentPage === "erro") {
+        erroPage(PagesComponents);
+      } else {
+        root.innerHTML = await currentPage(root);
+      }
+      customTagsComponents();
+    } else {
+      erroPage(PagesComponents);
     }
-
-    emit(currentPathUrl);
-    customTags();
   }
-
   function erroPage(Pages) {
-    const nomesSemHifen = Object.keys(Pages).filter(page => !page.includes('-'));    
-    root.innerHTML = nomesSemHifen.map((page, index) => 
-      `<a class="erro_page" id="${index}" use:href="${location.hash ? `/#/${page}/` : `/${page}/`}">${page}</a>`
-    ).join("");
+    const nomesSemHifen = Object.keys(Pages).filter(
+      (page) => !page.includes("-")
+    );
+    root.innerHTML = nomesSemHifen
+      .map(
+        (page, index) =>
+          `<a class="erro_page" id="${index}" use:href="${
+            location.hash ? `/#/${page}/` : `/${page}/`
+          }">${page}</a>`
+      )
+      .join("");
   }
-  
-
   function handleClick(e) {
     e.preventDefault();
-    const href = e.target.getAttribute("use:href");    
-    if (href) {
-       window.history.pushState(null, null, href);
-       routerPages();
-     }
-      
-      
-  }  
+    const href = e.target.getAttribute("use:href"); 
+    if(href){
+      if(location.origin + href === location.href){
+        routerPages();
+      }else{
+        window.history.pushState(null, null, href);
+        routerPages();
+      }
+    }
+    
 
+ 
     
+   
     
+      
+    
+  }
   
-
   window.addEventListener("popstate", routerPages);
-  document.body.addEventListener("click", debounce(handleClick, 200));
+  root.addEventListener("click", debounce(handleClick, 200));
   routerPages();
 };
 
@@ -252,18 +212,6 @@ const $effect = async (elem) => {
     processElement(elem);
   }
 };
-
-const $render = (elem, render) => {
-  if (typeof elem === "string") {
-    document.querySelector(elem).innerHTML = render();
-  } else
-    document.querySelector(elem.tagName.toLowerCase()).innerHTML = render();
-};
-
-const $on = (seletor) => {
-  on(seletor);
-};
-
 
 const $state = (() => {
   const instancesMap = new Map();
@@ -282,17 +230,4 @@ const $state = (() => {
   };
 })();
 
-
-export {
-  debounce,
-  useNavigate,
-  Router,
-  on,
-  emit,
-  processElement,
-  $imports,
-  $on,
-  $effect,
-  $render,
-  $state,
-};
+export { debounce, $useNavigate, $imports, $effect, $state };
