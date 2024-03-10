@@ -50,7 +50,8 @@ const reloadComp = (element) => {
       }
     }
   }
-};
+}
+
 const pagesComponentsFetch = async (props) => {
   const { tag, Data } = props;
   const componentKey = tag.tagName.toLowerCase();
@@ -88,7 +89,7 @@ const pagesComponentsFetch = async (props) => {
       componentCache[componentKey] = Resultcomponent;
     }
   }
-};
+}
 
 const processElement = async (elem) => {
   const elemName = elem.tagName.toLowerCase();
@@ -103,8 +104,7 @@ const processElement = async (elem) => {
   ));
 
   revalidate && reloadComp(elem);
-};
-
+}
 
 async function customTagsComponents() {  
   const tagElementsObserve = Array.from(document.querySelectorAll("*")).filter(
@@ -129,7 +129,6 @@ async function customTagsComponents() {
   const first = tagElementsObserve.find((tag) => !processed.has(tag));
   if (first) processed.add(first) && observer.observe(first);
 }
-
 
 function debounce(fn, delay) {
   let timeoutId;

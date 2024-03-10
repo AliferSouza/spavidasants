@@ -7,6 +7,8 @@ import cardProduct from "./card-product.js";
 import menuPrincipal from "./menu-principal.js";
 import compPedido from "./comp-pedido.js";
 import slideProduct from "./comp-slider-product.js";
+import relogio from "./comp-relogio.js";
+import cookies from "./comp-cookies.js"
 
 export default {
   "comp-slider": slider,
@@ -18,4 +20,6 @@ export default {
   "menu-principal": menuPrincipal,
   "comp-pedido": compPedido,
   "comp-slider-product": slideProduct,
+  "comp-relogio": relogio,
+  "comp-cookies": cookies,
 };

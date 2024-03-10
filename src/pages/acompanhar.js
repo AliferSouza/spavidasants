@@ -1,10 +1,7 @@
 export default async function pedido() {
-
-  return `          
+  return`
   <menu-principal ></menu-principal>
   <div class="container_pedido">
-    <comp-pedido></comp-pedido>
-       
-    </div>    
-         `
+    <comp-pedido></comp-pedido>       
+  </div>`
 }

@@ -51,7 +51,7 @@ body {
     position: relative;
     width: 100%;
     height: calc(100vh - 70px);
-    background: rgb(226, 147, 248);
+    background: #830c4e;
     opacity: 40%;
     display: flex;
     justify-content: center;
@@ -351,6 +351,7 @@ body {
                 border: none;
                 border-radius: 5px;
                 box-sizing: border-box;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
             }
             input::placeholder {
                 color: #070707;           
@@ -726,8 +727,8 @@ comp-pedido{
 
 @media only screen and (min-width: 500px) {
     #app {   
-       max-width: 1600px;
-       width: 100%;  
+       max-width: 800px;
+       width: 800px;  
     
             
     }
@@ -783,7 +784,8 @@ comp-pedido{
             }
 
             .container_produtos_produtos {
-                width: 70vw;     
+                max-width: 800px;
+                width: 80vw;     
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -842,4 +844,492 @@ comp-pedido{
     
 }
 
+
+.container_home{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    flex-direction: column;
+    background: #830c4e;
+    gap: 10px;
+    h1{   
+      margin-top: 10px;
+      color: #ffffff;
+      font-style: italic;
+      background-color: #000000;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  
+   
+  
+  }
+  
+
+
+.relogio{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    top: 35px;
+    color: #fff;
+    z-index: 20000;
+
+  }
+  
+  .relogio p{
+       width: 100%;
+       text-align: center;
+  }
+  
+  .container_home_texto{   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 5px;
+    width: 350px;
+    color: #fff;
+    padding: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 14px;
+    a{
+
+      color: rgb(255, 10, 10);
+    }
+  }
+  
+ 
+  
+  .container_home_buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+  }
+  
+  .btnn{
+    width: 340px;
+    height: 55px;
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+  .btn-1{
+    position: relative;
+    padding: 1em 1em;
+    border: 0;
+    background-color: rgb(1, 150, 250);
+    font-family: "Roboto", Arial, "Segoe UI", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #fff;
+    z-index: 2;
+  
+  }
+  .btn-2{ 
+   position: relative;
+   padding: 1em 1em;
+   border: 0;
+   background-color: #f11c1c;
+   font-family: "Roboto", Arial, "Segoe UI", sans-serif;
+   font-size: 18px;
+   font-weight: 400;
+   color: #fff;
+   z-index: 2;
+   animation: blink 2s linear infinite;
+  
+  }
+  
+  
+  
+  .btn-3{
+    position: relative;
+    padding: 1em 1em;
+    border: 0;
+    background-color: rgb(99, 194, 248);
+    font-family: "Roboto", Arial, "Segoe UI", sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    color: #fff;
+    z-index: 2;
+  }
+
+  
+  
+  
+  /*css card*/
+  .home-img-cards{
+    width: 100%;
+    display: flex; 
+    gap: 5px;
+    cursor: pointer;
+    overflow-x: auto; 
+  }
+  
+  .home-img-card{
+    width: 200px;
+    margin: 15px 0px 15px 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;   
+  }
+  
+  
+  
+  
+  
+  .cards{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    overflow-x: auto; 
+  }
+  
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 160px;
+    padding: 10px 1px;
+    margin: 2px 0;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    box-shadow: 0 10px 15px -3px rgba(235, 27, 190, 0.4),0 4px 6px -4px rgba(33,150,243,.4);
+    border-radius: 10px;
+    background-color: #6B6ECC;
+    background: linear-gradient(45deg, #323233ea 0%, #fc044e 100%);
+      
+  button {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    border: none;
+    outline: none;
+    color: rgb(255 255 255);
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 0.75rem;
+    padding: 0.55rem 1.2rem;
+    background-color: rgb(33 150 243);
+    border-radius: 0.5rem;
+    width: 90%;
+    text-shadow: 0px 4px 18px #2c3442;
+    cursor: pointer;
+  }
+  
+  }
+  
+  .content {
+    padding: 20px;
+  }
+  
+  .content .price {
+    color: white;
+    font-weight: 600;
+    font-size:30px;
+    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.42);
+  }
+  
+  .content .description {
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  .content .title {
+    font-weight: 600;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.64);
+    margin-top: 10px;
+    font-size: 15px;
+    letter-spacing: 1px;
+  }
+
+   
+  
+  
+  
+   
+  
+  
+  .cookie-card {
+    max-width: 320px;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 20px 20px 30px rgba(0, 0, 0, .05);
+  }
+  
+  .title {
+    font-weight: 600;
+    color: rgb(31 41 55);
+  }
+  
+  .description {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: rgb(75 85 99);
+  }
+  
+  .description a {
+    --tw-text-opacity: 1;
+    color: rgb(59 130 246);
+  }
+  
+  .description a:hover {
+    -webkit-text-decoration-line: underline;
+    text-decoration-line: underline;
+  }
+  
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    -moz-column-gap: 1rem;
+    column-gap: 1rem;
+    flex-shrink: 0;
+  }
+  
+  .pref {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: rgb(31 41 55 );
+    -webkit-text-decoration-line: underline;
+    text-decoration-line: underline;
+    transition: all .3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: none;
+    background-color: transparent;
+  }
+  
+  .pref:hover {
+    color: rgb(156 163 175);
+  }
+  
+  .pref:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+  
+  .accept {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    background-color: rgb(17 24 39);
+    font-weight: 500;
+    border-radius: 0.5rem;
+    color: #fff;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+    border: none;
+    transition: all .15s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .accept:hover {
+    background-color: rgb(55 65 81);
+  }
+  
+  .accept:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+  }
+  
+ 
+   
+  
+  #lgpd-card{
+    position: absolute;  
+    margin-top: 90%;
+    width: 280px;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 5px;
+    padding: 20px;
+    z-index: 10000;
+  }
+  
+  .container-p{
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+    width: 60vw;
+    background: #ffffff;
+    height: 90%;
+    border-radius: 8px;
+    padding: 5px;
+  
+  }
+  
+  .container-p a{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    top: 100px;
+    width: 20px;
+    left: 92%;
+    font-size: 25px;
+    font-weight: 900;
+    background: none;
+    text-decoration: none;
+    color: #ffffff;
+  
+  }
+  
+  
+  
+  
+  #floating-button {
+    position: fixed;
+    top: 50%;
+    right: 15px;
+    width: 50px;
+    padding: 10px;
+    border-radius: 8px;
+    display: none;
+    cursor: pointer;
+    background: #000;
+    color: #fff;
+    z-index: 1000000;
+  
+  
+  
+  }
+  
+  #floating-button button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  #pop-video{
+    position: fixed;
+    top: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: #fff;
+    gap: 5px;
+    width: 205px;
+    border-radius: 8px;
+    padding: 5px;
+  
+   
+  
+  
+    z-index: 50000;
+    display: none;
+    
+  }
+  #pop-video button{
+    width: 90%;
+    margin-left:10px;
+    cursor: pointer;
+  }
+  
+  
+  
+  
+  
+  
+  .loader-tres-pontinhos {	
+      outline: 1px solid transparent;
+      font-size:0px;
+      padding:0px;
+      display:inline-block;
+  
+  }
+  
+  .loader-tres-pontinhos span {
+    background:#e29595;
+      border-radius:100%;
+      vertical-align:middle;
+      display:inline-block;
+      width:8px;
+      height:8px;
+      margin:2px 2px;
+      -webkit-animation:loader-tres-pontinhos 0.8s linear infinite alternate;
+      animation:loader-tres-pontinhos 0.8s linear infinite alternate;
+  }
+  
+  .loader-tres-pontinhos span:nth-child(1){
+  
+      -webkit-animation-delay:-0.8;
+      animation-delay:-0.8s;
+  
+  }
+  
+  .loader-tres-pontinhos span:nth-child(2) {
+      -webkit-animation-delay:-0.53333s;
+      animation-delay:-0.53333s;
+  }
+  
+  .loader-tres-pontinhos span:nth-child(3) {
+  
+      -webkit-animation-delay:-0.26666s;
+      animation-delay:-0.26666s;
+  }
+  
+  .container_vendas{
+      position: relative;
+      top: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+  }
+  
+  .container_vendas img {
+    width: 300px;
+    height: 450px;
+    border-radius: 5px;
+  }
+  
+  .container_vendas a {
+    position: relative;
+    top: 10px;
+    text-align: center;
+    padding: 10px 70px 10px 70px;
+    border-radius: 5px;
+    background: #07b66d;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+  }
+  
+  
+  @keyframes loader-tres-pontinhos{
+  
+      from {transform: scale(0, 0);}
+      to {transform: scale(1, 1);}
+  }
+  
+  @-webkit-keyframes loader-tres-pontinhos{
+  
+      from {-webkit-transform: scale(0, 0);}
+      to {-webkit-transform: scale(1, 1);}
+  }
 

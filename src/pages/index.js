@@ -4,6 +4,7 @@ import agendamentos from "./agendamentos.js"
 import produto from "./produto.js"
 import catalogo from "./catalogo.js"
 import acompanhar from "./acompanhar.js"
+import cursos from "./cursos.js"
 
 export default {
     home,
@@ -11,6 +12,7 @@ export default {
     agendamentos, 
     produto,
     catalogo,
-    acompanhar
+    acompanhar,
+    cursos
     
 }
