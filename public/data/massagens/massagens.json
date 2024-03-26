@@ -343,14 +343,54 @@
       "tempo": 1
     },
     {
+      "id": "cursos",
+      "categoria": "cursos",
+      "nome": "Cursos",
+      "img": "/img/cursos/05.jpeg",
+      "info": "",
+      "color": "#e29595",
+      "valor": 580,
+      "tempo": 8
+    },
+    {
       "id": "ylangylang",
       "categoria": "oleos",
       "nome": "Ylang Ylang Verde",
-      "img": "/img/oleos/p7.jpeg",
+      "img": "/img/cursos/01.jpeg",
       "info": "",
       "color": "#e29595",
       "valor": 40,
       "tempo": 1
-    }   
+    },
+    {
+      "id": "cursos",
+      "categoria": "cursos",
+      "nome": "Cursos",
+      "img": "/img/cursos/02.jpeg",
+      "info": "",
+      "color": "#e29595",
+      "valor": 580,
+      "tempo": 8
+    },
+    {
+      "id": "cursos",
+      "categoria": "cursos",
+      "nome": "Cursos",
+      "img": "/img/cursos/03.jpeg",
+      "info": "",
+      "color": "#e29595",
+      "valor": 580,
+      "tempo": 8
+    },{
+      "id": "cursos",
+      "categoria": "cursos",
+      "nome": "Cursos",
+      "img": "/img/cursos/04.jpeg",
+      "info": "",
+      "color": "#e29595",
+      "valor": 580,
+      "tempo": 8
+    }
+
 
   ]
