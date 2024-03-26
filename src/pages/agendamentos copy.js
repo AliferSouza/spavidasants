@@ -10,40 +10,20 @@ export default async function agenda(tagPage) {
   const params = new URLSearchParams(queryString);
   const jsonParams = Array.from(params.entries()).reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
 
- 
+
+
   tagPage.addEventListener("submit", (event) => {
     event.preventDefault();
   
     const formData = new FormData(agendamentoForm);
-    const formDataObject = Object.fromEntries(formData);  
+    const formDataObject = Object.fromEntries(formData);
+  
     // Check if all required fields have values
     const requiredFields = ['nome', 'telefone', 'profissional', 'horario', 'data', 'quantidade', 'servico'];
     const allFieldsFilled = requiredFields.every(field => {
       return formDataObject[field] && formDataObject[field].trim() !== '';
     });
-    
-    const horarioSelecionado = formDataObject.horario.replace(/:/g, '');
-    const dataVerify = formDataObject.data.replace(/-/g, '');
-
-     const lancamentoEncontrado = lancamentos.find(item => {
-      console.log(item.Data === parseInt(dataVerify) && item.Horário === parseInt(horarioSelecionado) )
-        return item.Data === parseInt(dataVerify) && item.Horário === parseInt(horarioSelecionado);
-     });
-
-
-     const horarioData = {
-      Horário:  horarioSelecionado,
-      Data: dataVerify
-
-     }
-
-
-     if(lancamentoEncontrado){
-       alert("Horario preenchido para esse dia")
-
-       
-     }else{
-      
+  
     if (allFieldsFilled) {
       const data = {
         ...formDataObject,
@@ -54,15 +34,10 @@ export default async function agenda(tagPage) {
       };
   
       // Save to localStorage
-      const lancamentos = JSON.parse(localStorage.getItem("agedamento")) || [];
-      lancamentos.push(horarioData);
-      localStorage.setItem("agedamento", JSON.stringify(lancamentos)); 
-
-      const AcopanharAgedamento = JSON.parse(localStorage.getItem("AcopanharAgedamento")) || [];
-      AcopanharAgedamento.push(data);
-      localStorage.setItem("AcopanharAgedamento", JSON.stringify(AcopanharAgedamento)); 
-   
-   
+      const lancamentos = JSON.parse(localStorage.getItem("agendamento")) || [];
+      lancamentos.push(data);
+      localStorage.setItem("agendamento", JSON.stringify(lancamentos));
+  
       // Send POST request
       const messageObj = {
         Nome: data.nome,
@@ -74,8 +49,6 @@ export default async function agenda(tagPage) {
         Servico: data.servico,
         Valor_Total: data.valorTotal
       };
-
-
   
       const requestOptions = {
         method: 'POST',
@@ -87,12 +60,13 @@ export default async function agenda(tagPage) {
       };
   
       const url = 'https://script.google.com/macros/s/AKfycbxEw_RZaAGlgYokXZBhug4iYv16XlBTklo4iscCC3xkeTB5uRF0Ld-ng2SgnCiCkroU/exec';
-      fetch(url, requestOptions)
-      .then(response => response.ok ? response.json() : Promise.reject('Erro no pedido POST: ' + response.statusText))
-      .then(data => console.log("Pedido POST bem-sucedido:", data))
-      .catch(error => console.error('Erro no pedido POST:', error));
   
-
+      fetch(url, requestOptions)
+        .then(response => response.ok ? response.json() : Promise.reject('Erro no pedido POST: ' + response.statusText))
+        .then(data => console.log("Pedido POST bem-sucedido:", data))
+        .catch(error => console.error('Erro no pedido POST:', error));
+  
+      // Open WhatsApp link
       const message = `
         Nome: ${data.nome}
         Telefone: ${data.telefone}
@@ -104,19 +78,13 @@ export default async function agenda(tagPage) {
         Valor Total: ${data.valorTotal}
       `;
       const phoneNumber = '31999739602';
-     const linkWhatsapp = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-     window.open(linkWhatsapp);  
-     agendamentoForm.reset();
-
+      const linkWhatsapp = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+      window.open(linkWhatsapp);
+  
+      agendamentoForm.reset();
     } else {
       console.error('Please fill in all required fields before submitting.');
     }
-
-    }
-
-
-
-
   });
   
   tagPage.addEventListener("click", e => {
@@ -124,6 +92,25 @@ export default async function agenda(tagPage) {
       const pixText = e.target.textContent.trim();
       navigator.clipboard.writeText(pixText)
        }  
+  });
+
+  tagPage.addEventListener('change', e => {
+    if (e.target.id === "horario") {
+      const dataSelecionada = tagPage.querySelector("#data").value;
+      const dataAgendar = tagPage.querySelector("#agendar");
+      const horarioSelecionado = e.target.value.replace(/:/g, '');
+      const dataVerify = dataSelecionada.replace(/-/g, '');
+  
+      const lancamentoEncontrado = lancamentos.find(item => {
+          return item.Data === parseInt(dataVerify) && item.Horário === parseInt(horarioSelecionado);
+      });
+
+      if (lancamentoEncontrado) {                
+          dataAgendar.textContent = "Já existe um agendamento: " +  lancamentoEncontrado.Horário.toString().substring(0, 2)
+      } else {
+          dataAgendar.textContent = "Agendar";
+      }
+  }
   });
 
  

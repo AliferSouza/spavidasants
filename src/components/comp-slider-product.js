@@ -7,6 +7,8 @@ export default async function sliderProduct(tag) {
     (d) => d.categoria === location.pathname.split("/").pop()
   );
 
+
+
   tag.addEventListener("click", (e) => {
     if (e.target.id === "prevBtnn") effect(-1);
     if (e.target.id === "nextBtnn") effect(1);
@@ -24,7 +26,7 @@ export default async function sliderProduct(tag) {
   }
 
   return `
-    <div class="slideshow-container-product ">
+    <div class="slideshow-container-product" >
       <button class="prev" id="prevBtnn">&#10094;</button>
       ${dadosSelecionados
         .map(

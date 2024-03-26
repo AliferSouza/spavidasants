@@ -6,6 +6,8 @@ export default async function perfil() {
   const data = dados.colaboradores.find((d) => d.id === slug);
   document.title = slug.toLocaleUpperCase();
 
+  console.log(data)
+
   return `        
        <menu-principal></menu-principal>
          <div class="container_page"> 

@@ -1,5 +1,5 @@
 import Data from "../context/Data.js";
-import { $effect } from "../lib/@prix.js";
+
 export default async function Colaboradores(tag) {
   const dados = await Data();
 
