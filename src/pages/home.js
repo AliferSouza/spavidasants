@@ -1,6 +1,6 @@
 import time from "../context/time.js"
 export default async function home() {
-  document.title = "NOVO";
+  document.title = "SPAVIDASANTS";
   return `   
        <div class="container_page">     
           <menu-principal ></menu-principal>     
