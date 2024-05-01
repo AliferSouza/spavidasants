@@ -1,5 +1,5 @@
 export default async function cursos() {
-  document.title = "CURSOS";
+  document.title = "cursos";
 
 
 

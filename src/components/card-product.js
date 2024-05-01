@@ -42,7 +42,7 @@ export default async function cardProdutos(tag) {
           <div class="container_produtos_produtos"> 
             <div>       
               ${generateOptions()}  
-            <div>             
+            <div>                       
           </div>
         </div
 

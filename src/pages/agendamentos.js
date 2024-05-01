@@ -2,6 +2,7 @@ import { itemAgendamento } from "../context/agedamento.js"
 import getPlanilhas from "../context/Data.js"
 
 export default async function agenda(tagPage) {
+  document.title = "agendamento"
   const lancamentos = JSON.parse(localStorage.getItem("agedamento")) || [];
   const planilhas = await getPlanilhas()
   
@@ -125,6 +126,25 @@ export default async function agenda(tagPage) {
       navigator.clipboard.writeText(pixText)
        }  
   });
+
+  const dadosFirebase = {
+    token: "safdhjfdsfs212121525415",
+    user: {
+      name: "Alifer Souza",
+      avatar: "urlimg",
+      phone: 31993253883
+    },
+    Scheduling:[{
+      professional: "Alifer Souza",
+      specialties: "Massagem Relaxante",
+      amount: 1,
+      data: 190522,
+      hours: 16,
+    }],
+  };
+
+
+
 
  
   return `

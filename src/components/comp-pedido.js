@@ -1,4 +1,4 @@
-import $effect from "../../prix/DOM/renderComponents.js";
+import $effect from "../../prix/front-end/DOM/renderComponents.js";
 
 let statusVerify = false;
 let filteredObjectsUnic;
