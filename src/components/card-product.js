@@ -17,7 +17,7 @@ export default async function cardProdutos(tag) {
           `<img 
             id="${item.id}"
             use:href="/#/agendamentos/"
-            src="public/${item.img}" 
+            src="${item.img}" 
             width="${width}"
             height="${height}"
             alt="${item.categoria}"

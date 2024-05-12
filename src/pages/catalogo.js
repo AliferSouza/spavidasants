@@ -10,7 +10,7 @@ export default async function catalogos() {
             <h1>Dia das Mães</h1
             <span>Catálogo Dia das Mães</span>    
                 
-            <a href="/public/catalogos/02.pdf" download="Mãe.pdf">Download</a>
+            <a href="/catalogos/02.pdf" download="Mãe.pdf">Download</a>
 
              
             </div>                          
