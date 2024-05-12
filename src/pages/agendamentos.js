@@ -1,185 +1,75 @@
-import { itemAgendamento } from "../context/agedamento.js"
-import getPlanilhas from "../context/Data.js"
+import { itemAgendamento } from "../context/agedamento.js";
+import getPlanilhas from "../context/Data.js";
 
 export default async function agenda(tagPage) {
-  document.title = "agendamento"
-  const lancamentos = JSON.parse(localStorage.getItem("agedamento")) || [];
-  const planilhas = await getPlanilhas()
-  
-  const urlParts = window.location.href.split("?");
-  const queryString = urlParts.length > 1 ? urlParts[1].split("#")[0] : "";
-  const params = new URLSearchParams(queryString);
-  const jsonParams = Array.from(params.entries()).reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
-
+  document.title = "Agendamento";
+  const planilhas = await getPlanilhas();
+  const jsonParams = Object.fromEntries(new URLSearchParams(window.location.search.slice(1)));
  
-  tagPage.addEventListener("submit", (event) => {
+
+  tagPage.addEventListener("submit", event => {
     event.preventDefault();
-  
     const formData = new FormData(agendamentoForm);
-    const formDataObject = Object.fromEntries(formData);  
-    // Check if all required fields have values
-    const requiredFields = ['nome', 'telefone', 'profissional', 'horario', 'data', 'quantidade', 'servico'];
-    const allFieldsFilled = requiredFields.every(field => {
-      return formDataObject[field] && formDataObject[field].trim() !== '';
-    });
-    
-    const horarioSelecionado = formDataObject.horario.replace(/:/g, '');
-    const dataVerify = formDataObject.data.replace(/-/g, '');
-
-     const lancamentoEncontrado = lancamentos.find(item => {
-      console.log(item.Data === parseInt(dataVerify) && item.Horário === parseInt(horarioSelecionado) )
-        return item.Data === parseInt(dataVerify) && item.Horário === parseInt(horarioSelecionado);
-     });
-
-
-     const horarioData = {
-      Horário:  horarioSelecionado,
-      Data: dataVerify
-
-     }
-
-
-     if(lancamentoEncontrado){
-       alert("Horario preenchido para esse dia")
-
-       
-     }else{
-      
-    if (allFieldsFilled) {
-      const data = {
-        ...formDataObject,
-        valorTotal: (
-          parseFloat(itemAgendamento?.valorMassagem?.valor) *
-          parseFloat(formDataObject?.quantidade)
-        ) ?? 0,
-      };
-  
-      // Save to localStorage
-      const lancamentos = JSON.parse(localStorage.getItem("agedamento")) || [];
-      lancamentos.push(horarioData);
-      localStorage.setItem("agedamento", JSON.stringify(lancamentos)); 
-
-      const AcopanharAgedamento = JSON.parse(localStorage.getItem("AcopanharAgedamento")) || [];
-      AcopanharAgedamento.push(data);
-      localStorage.setItem("AcopanharAgedamento", JSON.stringify(AcopanharAgedamento)); 
-   
-   
-      // Send POST request
-      const messageObj = {
-        Nome: data.nome,
-        Telefone: data.telefone,
-        Terapeuta: data.profissional,
-        Horário: data.horario.replace(/:/g, ''),
-        Data: data.data.replace(/-/g, ''),
-        Quantidade: data.quantidade,
-        Servico: data.servico,
-        Valor_Total: data.valorTotal
-      };
-
-
-  
-      const requestOptions = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(messageObj),
-        mode: 'no-cors'
-      };
-  
-      const url = 'https://script.google.com/macros/s/AKfycbxEw_RZaAGlgYokXZBhug4iYv16XlBTklo4iscCC3xkeTB5uRF0Ld-ng2SgnCiCkroU/exec';
-      fetch(url, requestOptions)
-      .then(response => response.ok ? response.json() : Promise.reject('Erro no pedido POST: ' + response.statusText))
-      .then(data => console.log("Pedido POST bem-sucedido:", data))
-      .catch(error => console.error('Erro no pedido POST:', error));
-  
-
-      const message = `
-        Nome: ${data.nome}
-        Telefone: ${data.telefone}
-        Terapeuta: ${data.profissional}
-        Horário: ${data.horario}
-        Data: ${data.data}
-        Servico: ${data.servico},
-        Quantidade: ${data.quantidade}
-        Valor Total: ${data.valorTotal}
-      `;
-      const phoneNumber = '31999739602';
-     const linkWhatsapp = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-     window.open(linkWhatsapp);  
-     agendamentoForm.reset();
-
-    } else {
-      console.error('Please fill in all required fields before submitting.');
-    }
-
-    }
-
-
-
-
+    const dataObj = Object.fromEntries(formData);
+    const jsonData = JSON.stringify(dataObj, null, 2).replace(/{|}/g, "").replace(/,\n/g, "\n");                       
+    const linkWhatsapp = `https://wa.me/${31999739602}?text=${encodeURIComponent(jsonData)}`;
+    window.open(linkWhatsapp);
+    agendamentoForm.reset();
   });
   
-  tagPage.addEventListener("click", e => {
-    if (e.target.id === "pix") {
-      const pixText = e.target.textContent.trim();
-      navigator.clipboard.writeText(pixText)
-       }  
-  });
-
-  const dadosFirebase = {
-    token: "safdhjfdsfs212121525415",
-    user: {
-      name: "Alifer Souza",
-      avatar: "urlimg",
-      phone: 31993253883
-    },
-    Scheduling:[{
-      professional: "Alifer Souza",
-      specialties: "Massagem Relaxante",
-      amount: 1,
-      data: 190522,
-      hours: 16,
-    }],
-  };
-
-
-
-
- 
+  
   return `
     <menu-principal ></menu-principal>   
     <div class="agendamento-container">
       <div class="agendamento-form-contains">
 
         <form id="agendamentoForm">
-                  <h1>AGENDAMENTO</h1>
+          <h1>AGENDAMENTO</h1>
           <div class="agendamento-form-imputs">
-            <input type="text" id="nome" name="nome" placeholder="Nome" required>
-            <input type="text" id="telefone" name="telefone" placeholder="Telefone" required>
-          </div>
+            <label>None</label>
+            <input type="text" id="nome" name="nome" placeholder="Maria de fatima" required>
+            <label>Telefone</label>
+            <input type="text" id="telefone" name="telefone" placeholder="(31)92222-2222" required>
+    
 
+          <label>Selecione um Profissiona</label>
           <select id="selecao-nome" name="profissional" required>
-          <option value="" selected}>Selecione um Profissional</option>
-          <option value="Alifer" ${jsonParams.profissional === 'Alifer' ? 'selected' : ''}>Alifer</option>
-          <option value="Viviane" ${jsonParams.profissional === 'Viviane' ? 'selected' : ''}>Viviane</option>
+          <option value="" selected}>Selecione</option>
+          <option value="Alifer" ${
+            jsonParams.profissional === "Alifer" ? "selected" : ""
+          }>Alifer</option>
+          <option value="Viviane" ${
+            jsonParams.profissional === "Viviane" ? "selected" : ""
+          }>Viviane</option>
          </select> 
   
+         
+         <label>Escolha uma Especialidade</label>
          <select id="selecao-servico" name="servico" required>
-          <option value="" selected >Escolha uma Especialidade</option>
-          ${ planilhas.massagens.map(produto => `
-          <option value="${produto.nome}" ${itemAgendamento.valorMassagem && itemAgendamento.valorMassagem.nome === produto.nome ? 'selected' : ''}>
+          <option value="" selected>Selecione</option>
+          ${planilhas.massagens
+            .map(
+              (produto) => `
+          <option value="${produto.nome}" ${
+                itemAgendamento.valorMassagem &&
+                itemAgendamento.valorMassagem.nome === produto.nome
+                  ? "selected"
+                  : ""
+              }>
             ${produto.nome}
           </option>`
-        ).join('')}
+            )
+            .join("")}
           </select> 
 
- 
-          <input class="agendamento-form-data" type="date" id="data" name="data"
-              value="${new Date().toISOString().split("T")[0]}" required>
+          <label>Escolha uma Data</label>
+          <input class="agendamento-form-data" type="date" id="data" name="data" value="${
+            new Date().toISOString().split("T")[0]
+          }" required>
 
+            <label>Selecione um horário</label>
            <select id="horario" name="horario" required>
-            <option value="">Selecione um horário</option>
+            <option value="">Selecione</option>
             <option value="8:00">8:00</option>
             <option value="9:00">9:00</option>
             <option value="10:00">10:00</option>
@@ -191,13 +81,10 @@ export default async function agenda(tagPage) {
             <option value="18:00">18:00</option>
             <option value="19:00">19:00</option>
             <option value="20:00">20:00</option>        
-          </select>          
-          <input type="text" id="quantidade" name="quantidade" placeholder="Quantidade" required>       
+          </select>              
           <button type="submit" id="agendar">Agendar</button>
-        </form>
-   
-        <span id="pix"> 065.555.0001-58 </span> 
-        clique para copiar
+        </form>  
+        </div>
       </div>
     </div>
   `;

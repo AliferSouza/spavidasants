@@ -4,7 +4,7 @@ export default async function sliderProduct(tag) {
   let slideIndex = 0;
   const p = await produtos();
   const dadosSelecionados = p.massagens.filter(
-    (d) => d.categoria === location.pathname.split("/").pop()
+    (d) => d.categoria === decodeURIComponent(location.pathname.split("/").pop())
   );
 
 
@@ -31,7 +31,7 @@ export default async function sliderProduct(tag) {
       ${dadosSelecionados
         .map(
           (item, index) =>
-            `<img use:href="/agendamentos/" id="${item.id}" class="mySlides" src="${
+            `<img use:href="/#/agendamentos/" id="${item.id}" class="mySlides" src="/public/${
               item.img
             }" alt="${item.info}" width="${
               item.width || 200

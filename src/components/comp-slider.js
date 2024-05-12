@@ -17,10 +17,10 @@ export default function slider(tag) {
 
     <div class="slideshow-container">
       <button class="prev" id="prevBtn">&#10094;</button>
-      <img style="display: block" class="mySlides" src="/img/slide/1.jpg" alt="Slider 1 Novidades">
-      <img class="mySlides" src="/img/slide/2.jpg" alt="Slider 1 Novidades">
-      <img class="mySlides" src="/img/slide/3.jpg" alt="Slider 1 Novidades">
-      <img class="mySlides" style=" max-width: 100%; height: auto; " src="/img/slide/banner_curso.jpeg" alt="Slider 1 Novidades">
+      <img style="display: block" class="mySlides" src="public/img/slide/1.jpg" alt="Slider 1 Novidades">
+      <img class="mySlides" src="public/img/slide/2.jpg" alt="Slider 1 Novidades">
+      <img class="mySlides" src="public/img/slide/3.jpg" alt="Slider 1 Novidades">
+      <img class="mySlides" style=" max-width: 100%; height: auto; " src="public/img/slide/banner_curso.jpeg" alt="Slider 1 Novidades">
       <button class="next" id="nextBtn">&#10095;</button>      
     </div>`;
 }

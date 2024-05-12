@@ -1,28 +1,26 @@
 export default async function catalogos() {
-    document.title = "CATÁLOGOS"; 
-    
+  document.title = "CATÁLOGOS";
 
-    return `   
+  return `   
        <menu-principal></menu-principal>   
       
-            <div class="catalogo">                                           
-                <img src="/catalogos/02.jpg">
-                <div>
-                <span>Catálogos dia das Mães...</span>
-                <a href="/catalogos/02.pdf" download="Terapias.pdf">Download</a> 
-                </div>                    
-                </div>
+            <div class="catalogo">    
+            <div class="cards">                                          
+               
+            <h1>Dia das Mães</h1
+            <span>Catálogo Dia das Mães</span>    
+                
+            <a href="/public/catalogos/02.pdf" download="Mãe.pdf">Download</a>
+
+             
+            </div>                          
+              
+               
+                             
+             
             </div>                          
     
-            <div class="catalogo">                           
-                <img src="/catalogos/01.jpeg">
-                <div>
-                <span>Catálogos de tratamentos estéticos e faciais...</span>
-                <a href="/catalogos/01.pdf" download="Terapias.pdf">Download</a> 
-                </div>                    
-                </div>
-            </div>                          
+                                
 
       `;
-  }
-  
+}

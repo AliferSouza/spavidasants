@@ -6,14 +6,12 @@ export default async function perfil() {
   const data = dados.colaboradores.find((d) => d.id === slug);
   document.title = slug.toLocaleUpperCase();
 
-  console.log(data)
-
   return `        
        <menu-principal></menu-principal>
          <div class="container_page"> 
         
          <div class="perfil">
-         <img src="${data.img}" alt="Imagem do colaborado ${data.nome}" >                           
+         <img src="/public/${data.img}" alt="Imagem do colaborado ${data.nome}" >                           
            ${data.nome}
            <a id="info" href="${data.insta}" target="_blank">@Instagram</a>
                ${data.funcao}                               
@@ -23,7 +21,5 @@ export default async function perfil() {
             <span use:href="/agendamentos/?profissional=${data.nome}"  id="entreemcontato"  class="buttonperfil" id="whats">Agende um horário</span>		           
             </button>`:""}  
           </div>                 
-  
-       
          `
 }

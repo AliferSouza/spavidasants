@@ -6,6 +6,7 @@ export default async function cardProdutos(tag) {
   const dadosSelecionados = dados.massagens.filter(
     (d) => d.categoria === tag.id
   );
+
   const width = tag.getAttribute("width");
   const height = tag.getAttribute("height");
 
@@ -15,8 +16,8 @@ export default async function cardProdutos(tag) {
         (item, key) =>
           `<img 
             id="${item.id}"
-            use:href="/agendamentos/"
-            src="${item.img}" 
+            use:href="/#/agendamentos/"
+            src="public/${item.img}" 
             width="${width}"
             height="${height}"
             alt="${item.categoria}"
@@ -33,9 +34,9 @@ export default async function cardProdutos(tag) {
   });
 
   return `
-         <div class="container_produtos"  style="display: ${tag.getAttribute("time") > 1 ? "block" : "none"}">
+         <div class="container_produtos">
           <div class="container_produtos_title">
-            <h2>${tag.getAttribute("key")}</h2>
+            <h2>${tag.id.toUpperCase()}</h2>
             <h2 use:href="/produto/${tag.id}">➜</h2>
           </div>
 
