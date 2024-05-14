@@ -12,7 +12,7 @@ export default function compCatalogo({tag}) {
   
     <div id="cat-02">   
     <img src="/img/promoções/promocao.jpeg">
-    <a href="/catalogos/Promoçoes2024" download="Promoções.pdf">Download</a>
+    <a href="/catalogos/Promoçoes2024.pdf" download="Promoções.pdf">Download</a>
     </div>
 
     `
