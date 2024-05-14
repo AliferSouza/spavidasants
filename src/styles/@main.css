@@ -793,10 +793,10 @@ comp-catalogo {
     flex-direction: column;
     gap: 5px;
     border-radius: 5px;
-    border: 1px solid #815883b0;
     padding: 5px;
     margin: 8px;
     img{
+      border-radius: 5px;
       max-width: 100px;
       width: 100%;
       height: 100%;
