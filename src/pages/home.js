@@ -6,6 +6,7 @@ export default async function home() {
           <menu-principal ></menu-principal>   
           <comp-slider ></comp-slider>
           <comp-colaboradores></comp-colaboradores>
+          <comp-catalogo></comp-catalogo>
           <comp-button-lateral  id="flutuante"> </comp-button-lateral>        
           <div class="container_card-product">
           <card-product id="promoções" width="180" height="250"></card-product> 
@@ -19,3 +20,4 @@ export default async function home() {
    
     `;
 }
+""
