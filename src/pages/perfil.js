@@ -11,7 +11,7 @@ export default async function perfil() {
          <div class="container_page"> 
         
          <div class="perfil">
-         <img src="/${data.img}" alt="Imagem do colaborado ${data.nome}" >                           
+         <img src="${data.img}" alt="Imagem do colaborado ${data.nome}" >                           
            ${data.nome}
            <a id="info" href="${data.insta}" target="_blank">@Instagram</a>
                ${data.funcao}                               
