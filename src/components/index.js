@@ -5,7 +5,6 @@ import Whatsapp from "./comp-whatsapp.js";
 import flutuante from "./comp-button-lateral.js";
 import cardProduct from "./card-product.js";
 import menuPrincipal from "./menu-principal.js";
-import slideProduct from "./comp-slider-product.js";
 import relogio from "./comp-relogio.js";
 import compcatalgo from'./comp-catalogo.js'
 
@@ -17,7 +16,6 @@ export default {
   "comp-button-lateral": flutuante,
   "card-product": cardProduct,
   "menu-principal": menuPrincipal,
-  "comp-slider-product": slideProduct,
   "comp-relogio": relogio,
   "comp-catalogo": compcatalgo
 };

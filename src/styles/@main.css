@@ -756,7 +756,6 @@ comp-slider-product {
 }
 
 
-
 comp-catalogo {
   display: flex;
   justify-content: center;
@@ -773,7 +772,7 @@ comp-catalogo {
     border-radius: 5px;
     box-shadow: 0 8px 12px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
-    background: #9c0a899f;
+    background: #9c0a8934;
     gap: 5px;
 
     h3 {
@@ -812,6 +811,7 @@ comp-catalogo {
         max-width: 100px;
         width: 100%;
         height: 100%;
+    
       }
 
 

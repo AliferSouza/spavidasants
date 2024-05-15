@@ -51,24 +51,29 @@ export default async function Router() {
     const layout = STATE_GLOBAL.App.Pages["+layout"];
     const match = location.href.match(/#\/([^\/?]+)/);
 
+
     if (layout) {
-      root.innerHTML = await STATE_GLOBAL.App.Pages["+layout"]();
+      root.innerHTML = await STATE_GLOBAL.App.Pages["+layout"]();     
       root = root.querySelector("slot");
+
+      console.log
       STATE_GLOBAL.delete("+layout");
     }
 
 
 
-   
     currentPathUrl
      =  match
      ? match[1].split("/")[0]
-     : location.pathname.split("/").pop() || STATE_GLOBAL.App.Pages[location.pathname]
+     : location.pathname.split("/").pop() || STATE_GLOBAL.App[location.pathname]
 
     if (!currentPathUrl || currentPathUrl === "#") return;
+
     const currentPage =
       (await STATE_GLOBAL.App.Pages[currentPathUrl]) || "erro";
     delete STATE_GLOBAL.App.Pages.Initial;
+
+    console.log(currentPage)
 
     if (currentPage === "erro") erroPage(STATE_GLOBAL.App.Pages);
 

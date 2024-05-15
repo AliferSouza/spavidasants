@@ -37,7 +37,7 @@ export default async function cardProdutos(tag) {
          <div class="container_produtos">
           <div class="container_produtos_title">
             <h2>${tag.id.toUpperCase()}</h2>
-            <h2 use:href="/produto/${tag.id}">➜</h2>
+            <h2 use:href="/#/produto/${tag.id}" style="font-weight: 900">▼</h2>
           </div>
 
           <div class="container_produtos_produtos"> 

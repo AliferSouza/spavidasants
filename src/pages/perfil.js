@@ -1,10 +1,16 @@
 import Data from "../context/Data.js"
+import {$useNavigate} from "../../prix/front-end/URL/index.js"
+
 
 export default async function perfil() {
   const dados = await Data()
   const slug = location.hash.split("/").pop() || location.pathname.split("/").pop()
   const data = dados.colaboradores.find((d) => d.id === slug);
   document.title = slug.toLocaleUpperCase();
+
+  if(!data) {
+    $useNavigate("/#/home/")
+  }
 
   return `        
        <menu-principal></menu-principal>

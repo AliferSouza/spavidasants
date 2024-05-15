@@ -1,4 +1,4 @@
-export default function compCatalogo() {
+export default function compCatalogo({tag}) {
 
 
     return `
