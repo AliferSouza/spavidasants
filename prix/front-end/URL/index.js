@@ -1,4 +1,4 @@
-import Router from "../ROUTER/index"
+import Router from "../ROUTER/index.js"
 export function $setSearchParam(paramsObject) {
   if (paramsObject) {
     const params = new URLSearchParams(window.location.search);

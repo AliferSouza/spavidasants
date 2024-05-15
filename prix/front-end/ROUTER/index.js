@@ -57,9 +57,12 @@ export default async function Router() {
       STATE_GLOBAL.delete("+layout");
     }
 
-    currentPathUrl = match
-      ? match[1].split("/")[0]
-      : location.pathname.split("/")[1] || STATE_GLOBAL.App.Pages.Initial;
+
+
+    currentPathUrl
+     =  match
+     ? match[1].split("/")[0]
+     : location.pathname.split("/").pop() || STATE_GLOBAL.App.Pages[location.pathname].name
 
     if (!currentPathUrl || currentPathUrl === "#") return;
     const currentPage =
@@ -89,6 +92,7 @@ export default async function Router() {
   function handleClick(e) {
     e.preventDefault();
     const href = e.target.getAttribute("use:href");
+    console.log(href)
     if (href) {
       if (location.origin + href === location.href) {
         routerPages();

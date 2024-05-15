@@ -1,4 +1,4 @@
-import { emit } from "../EMITTER/index";
+import { emit } from "../EMITTER/index.js";
 import reloadComp from "./reload.js";
 import STATE_GLOBAL from "../STATE_GLOBAL/index.js";
 

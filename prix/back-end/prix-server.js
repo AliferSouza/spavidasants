@@ -1,37 +1,46 @@
 import http from "http";
-import { URLRouter } from "../../server.js";
+import { URLRouter, use } from "../../server.js";
 
-const middleware = (req, res) => {
-  const url = req.url;
 
-  for (const routePath in URLRouter) {
-    const regexBeforeId = /^(.*)\/id\//;
-    const regexAfterId = /\/id\/(.*)$/;
-    const matchBeforeId = url.match(regexBeforeId);
-    const beforeId = matchBeforeId ? matchBeforeId[1] : null;
-    const matchAfterId = url.match(regexAfterId);
-    const afterId = matchAfterId ? matchAfterId[1] : null;
-    req.id = afterId;
-
-    // Lê o corpo da requisição
-    let body = "";
-    req.on("data", (chunk) => {
-      body += chunk.toString(); // Concatena os dados do buffer para string
-    });
-
-    // Quando todos os dados forem recebidos
-    req.on("end", () => {
-      // Atribui o corpo da requisição a req.body
-      req.body = body;
-
-      // Chama o handler correspondente à rota
-      URLRouter[routePath](req, res);
-    });
-
-    return; // Saia do loop assim que encontrar uma correspondência
+const applyMiddleware = (req, res) => {
+  for (const middleware of Object.values(use)) {
+    middleware(req, res);
   }
 };
 
-export const server = http.createServer((req, res) => {
-  middleware(req, res);
+const prixServer = (req, res) => {
+  const url = req.url;
+  // Se a URL começa com /api/, roteia para URLRouter
+  if (url.startsWith("/api/")) {
+    for (const routePath in URLRouter) {
+      const pattern = new RegExp('^' + routePath.replace(/:[^\s/]+/g, '([\\w-]+)') + '$');
+      const match = url.match(pattern);
+      if (match) {
+        if (routePath.includes(':id')) req.id = match[1];
+        let body = "";
+        req.on("data", chunk => body += chunk.toString());
+        req.on("end", () => {
+          req.body = body;
+          URLRouter[routePath](req, res);
+        });
+        return;
+      }
+    }
+  }else{
+    let body = "";
+    req.on("data", chunk => body += chunk.toString());
+    req.on("end", () => {
+      req.body = body;
+      URLRouter["/*"](req, res);
+    });
+    return;
+    
+  }
+
+
+};
+
+export const server = http.createServer((req, res, next) => {
+  applyMiddleware(req, res);
+  prixServer(req, res);
 });

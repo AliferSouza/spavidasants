@@ -1,4 +1,4 @@
-import Router from "./front-end/ROUTER/";
+import Router from "./front-end/ROUTER/index.js";
 import STATE_GLOBAL from "./front-end/STATE_GLOBAL/index.js";
 const macros = STATE_GLOBAL.macros;
 if (macros) {

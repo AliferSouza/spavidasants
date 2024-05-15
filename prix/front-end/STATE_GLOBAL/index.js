@@ -1,4 +1,4 @@
-import state_global from "../../../prix.config"
+import state_global from "../../../prix.config.js"
 export default {
   ...state_global
 };

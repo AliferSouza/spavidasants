@@ -1,4 +1,4 @@
-import renderComponents from "./renderComponents";
+import renderComponents from "./renderComponents.js";
 let urlRevalidateComponent;
 /**
  * @function reloadComp

@@ -42,9 +42,9 @@ export async function Fetch(url, options) {
       console.error(error);
       return null;
     }
-  }
+}
   
-  const cache = new Map();
+const cache = new Map();
 
 export async function fetchCustom(url, options = {}) {
     const { method = "GET", key, data } = options;
@@ -74,5 +74,53 @@ export async function fetchCustom(url, options = {}) {
     }
   
     return response;
-  }
+}
+  
+export default Fetch = async (url, options = {}) => {
+    const { time = 0, ...restOptions } = options;
+    const cacheKey = `${url}-${JSON.stringify(restOptions)}`;
+    
+    // Verificar se existe um cache válido
+    const cacheData = localStorage.getItem(cacheKey);
+    if (cacheData) {
+      const { timestamp, data } = JSON.parse(cacheData);
+      const elapsedTime = Date.now() - timestamp;
+      if (elapsedTime < time) {
+        return data;
+      }
+    }
+  
+    let response;
+    if (restOptions.method === 'GET') {
+      response = await fetch(url);
+    } else {
+      // Atualizar o cache antes de fazer a requisição
+      if (localStorage.getItem(cacheKey)) {
+        localStorage.setItem(cacheKey, JSON.stringify({
+          timestamp: Date.now(),
+          data: restOptions.data
+        }));
+      }
+      
+      response = await fetch(url, {
+        method: restOptions.method,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(restOptions.data)
+      });
+    }
+  
+    const responseData = await response.json();
+  
+    // Atualizar o cache se for uma requisição que permite o cache
+    if (restOptions.method === 'GET' && time > 0) {
+      localStorage.setItem(cacheKey, JSON.stringify({
+        timestamp: Date.now(),
+        data: responseData
+      }));
+    }
+  
+    return responseData;
+};
   
