@@ -59,10 +59,11 @@ export default async function Router() {
 
 
 
+   
     currentPathUrl
      =  match
      ? match[1].split("/")[0]
-     : location.pathname.split("/").pop() || STATE_GLOBAL.App.Pages[location.pathname].name
+     : location.pathname.split("/").pop() || STATE_GLOBAL.App.Pages[location.pathname]
 
     if (!currentPathUrl || currentPathUrl === "#") return;
     const currentPage =
