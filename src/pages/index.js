@@ -1,8 +1,10 @@
-import home from "./home.js"
-import perfil from "./perfil.js"
-import agenda from "./agenda.js"
-export default {
-    home,
-    perfil, 
-    agenda,   
-}
+import home from "./home.js";
+import perfil from "./perfil.js";
+import agendamentos from "./agendamentos.js";
+import cursos from "./cursos.js";
+
+
+export default {home, perfil, agendamentos, cursos }
+
+
+
