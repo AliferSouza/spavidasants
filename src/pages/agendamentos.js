@@ -33,14 +33,17 @@ export default async function agenda(tagPage) {
             <input type="text" id="telefone" name="telefone" placeholder="(31)92222-2222" required>
     
 
-            ${itemAgendamento.valorMassagem["categoria"] === "cursos" ? "" : `
-            <label>Selecione um Profissional</label>
-            <select id="selecao-nome" name="profissional" required>
-              <option value="" selected>Selecione</option>
-              <option value="Alifer" ${jsonParams.profissional === "Alifer" ? "selected" : ""}>Alifer</option>
-              <option value="Viviane" ${jsonParams.profissional === "Viviane" ? "selected" : ""}>Viviane</option>
-            </select>
-          `}
+           
+          <label>Selecione um Profissiona</label>
+          <select id="selecao-nome" name="profissional" required>
+          <option value="" selected}>Selecione</option>
+          <option value="Alifer" ${
+            jsonParams.profissional === "Alifer" ? "selected" : ""
+          }>Alifer</option>
+          <option value="Viviane" ${
+            jsonParams.profissional === "Viviane" ? "selected" : ""
+          }>Viviane</option>
+         </select> 
           
         
          
