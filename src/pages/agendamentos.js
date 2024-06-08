@@ -33,7 +33,8 @@ export default async function agenda(tagPage) {
             <input type="text" id="telefone" name="telefone" placeholder="(31)92222-2222" required>
     
 
-           
+            
+
           <label>Selecione um Profissiona</label>
           <select id="selecao-nome" name="profissional" required>
           <option value="" selected}>Selecione</option>
@@ -44,8 +45,7 @@ export default async function agenda(tagPage) {
             jsonParams.profissional === "Viviane" ? "selected" : ""
           }>Viviane</option>
          </select> 
-          
-        
+  
          
          <label>Escolha uma Especialidade</label>
          <select id="selecao-servico" name="servico" required>

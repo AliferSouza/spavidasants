@@ -19,8 +19,7 @@ export default function slider({$}) {
       <button class="prev" id="prevBtn">&#10094;</button>
       <img style="display: block" class="mySlides" src="/img/slide/1.jpg" alt="Slider 1 Novidades">
       <img class="mySlides" src="/img/slide/2.jpg" alt="Slider 1 Novidades">
-      <img class="mySlides" src="/img/slide/3.jpg" alt="Slider 1 Novidades">
-      <img class="mySlides" style=" max-width: 100%; height: auto;" src="/img/slide/banner_curso.jpeg" alt="Cursos">
+      <img class="mySlides" style=" max-width: 100%; height: auto;" src="/img/slide/3.jpeg" alt="Cursos">
       <button class="next" id="nextBtn">&#10095;</button>      
     </div>`;
 }
