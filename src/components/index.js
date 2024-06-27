@@ -7,6 +7,7 @@ import cardProduct from "./card-product.js";
 import menuPrincipal from "./menu-principal.js";
 import relogio from "./comp-relogio.js";
 import compcatalgo from'./comp-catalogo.js'
+import counter from "./couter.js";
 
 export default {
   "comp-slider": slider,
@@ -17,5 +18,6 @@ export default {
   "card-product": cardProduct,
   "menu-principal": menuPrincipal,
   "comp-relogio": relogio,
-  "comp-catalogo": compcatalgo
+  "comp-catalogo": compcatalgo,
+  "comp-couter": counter
 };
