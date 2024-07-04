@@ -6,10 +6,9 @@ export default async function agenda(tagPage) {
   document.title = "Agendamento";
   const planilhas = await getPlanilhas();
   const jsonParams = Object.fromEntries(new URLSearchParams(window.location.search.slice(1)));
-
   const querySnapshot = await getDocs(collection(db, "agedamento"));
   const data = querySnapshot.docs.map(doc => doc.data()); 
-  console.log(data)
+
 
   tagPage.addEventListener("submit", async event => {
     event.preventDefault();

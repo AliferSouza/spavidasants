@@ -302,7 +302,6 @@ body {
   align-items: center;
 }
 
-
 .agendamento-container {
   display: flex;
   align-items: center;
@@ -442,8 +441,6 @@ comp-slider-product {
   }
 }
 
-
-
 .catalogo {
   width: 100%;
   height: 92vh;
@@ -477,7 +474,6 @@ comp-slider-product {
 
 
 }
-
 
 .container_home {
   width: 100%;
@@ -537,8 +533,6 @@ comp-slider-product {
   align-items: center;
   text-decoration: none;
 }
-
-
 
 .cards {
   display: flex;
@@ -609,9 +603,6 @@ comp-slider-product {
   font-size: 15px;
   letter-spacing: 1px;
 }
-
-
-
 
 .container-p a {
   position: absolute;
@@ -755,7 +746,6 @@ comp-slider-product {
     -webkit-transform: scale(1, 1);
   }
 }
-
 
 comp-catalogo {
   display: flex;

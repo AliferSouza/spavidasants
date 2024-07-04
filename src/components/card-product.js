@@ -3,29 +3,7 @@ import { itemAgendamento } from "../context/agedamento.js";
 
 export default async function cardProdutos({$, dataSet}) {
   const dados = await Data();
-  const dadosSelecionados = dados.massagens.filter(
-    (d) => d.categoria === dataSet.id
-  );
-
-
-  const width = $.getAttribute("width");
-  const height = $.getAttribute("height");
-
-  const generateOptions = () => {
-    return dadosSelecionados
-      .map(
-        (item, key) =>
-          `<img 
-            id="${item.id}"
-            use:href="/agendamentos/"
-            src="${item.img}" 
-            width="${width}"
-            height="${height}"
-            alt="${item.categoria}"
-        >`
-      )
-      .join("");
-  };
+  const dadosSelecionados = dados.massagens.filter((d) => d.categoria === dataSet.id)
 
   $.addEventListener("click", (e) => {
     const valorMassagem = dados.massagens.find(
@@ -43,7 +21,11 @@ export default async function cardProdutos({$, dataSet}) {
 
           <div class="container_produtos_produtos"> 
             <div>       
-              ${generateOptions()}  
+              ${dadosSelecionados.map((item, key) =>
+                    `<img id="${item.id}" use:href="/agendamentos/"
+                      src="${item.img}" width="${$.getAttribute('width')}"
+                      height="${$.getAttribute('height')}"
+                      alt="${item.categoria}">`).join("")}  
             <div>                       
           </div>
         </div

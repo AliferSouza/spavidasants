@@ -5,10 +5,9 @@ export default async function home() {
           <menu-principal ></menu-principal>   
           <comp-slider ></comp-slider>
           <comp-colaboradores></comp-colaboradores>   
-          <comp-button-lateral  id="flutuante"> </comp-button-lateral>        
-          <div class="container_card-product">
-          <card-product data-id="promoções" width="180" height="250"></card-product> 
-          <card-product data-id="cursos" width="250" height="400"></card-product>                
+          <comp-button-lateral id="flutuante"> </comp-button-lateral>        
+          <div class="container_card-product">   
+          <comp-catalogo></comp-catalogo>
           <card-product data-id="massagens" width="180" height="250"></card-product>   
           <card-product data-id="estética" width="180" height="260"></card-product>
           <card-product data-id="oleos" width="165" height="165"></card-product>       

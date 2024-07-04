@@ -10,7 +10,7 @@ export default async function cursos() {
           <comp-relogio></comp-relogio>   
           <br>
           <br>
-          <img src="/img/slide/banner_curso.jpeg" alt="Logo" width="350"  loading="lazy">
+          <img src="/img/cursos/cursos.jpeg" alt="Logo" width="350"  loading="lazy">
                                 
           <div class="container_home_texto">  
             <h2 style="text-align: center;">Curso Presencial Massoterapia Técnicas de SPA</h2>
@@ -38,7 +38,7 @@ export default async function cursos() {
             </div>
             <a href="https://wa.me/message/UDYWL6TS4GQPP1" target="_blank">
               <button>
-              Comprar Agora
+              Entre em contato
               </button>
             </a>
           </div>
