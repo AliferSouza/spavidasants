@@ -80,77 +80,7 @@
     "valor": "110,00",
     "tempo": 1
   },
-  {
-    "id": "1",
-    "categoria": "promoções",
-    "nome": "Cumplicidade",
-    "img": "/img/promoções/01.PNG",
-    "info": "Aproveite nossas promoções especiais! Neste mês mães",
-    "color": "#e29595",
-    "valor": "100,00",
-    "tempo": 1
-  },
-  {
-    "id": "2",
-    "categoria": "promoções",
-    "nome": "Romance",
-    "img": "/img/promoções/02.PNG",
-    "info": "Aproveite nossas promoções especiais! Neste mês mães",
-    "color": "#e29595",
-    "valor": "150,00",
-    "tempo": 1
-  },
-  {
-    "id": "3",
-    "categoria": "promoções",
-    "nome": "Paixão",
-    "img": "/img/promoções/03.PNG",
-    "info": "Aproveite nossas promoções especiais! Neste mês mães",
-    "color": "#e29595",
-    "valor": "160,00",
-    "tempo": 1
-  },
-  {
-    "id": "4",
-    "categoria": "promoções",
-    "nome": "Presente Especial",
-    "img": "/img/promoções/04.PNG",
-    "info": "Aproveite nossas promoções especiais! Neste mês",
-    "color": "#e29595",
-    "valor": "160,00",
-    "tempo": 1
-  },
-  {
-    "id": "5",
-    "categoria": "promoções",
-    "nome": "Presente Especial",
-    "img": "/img/promoções/05.PNG",
-    "info": "Aproveite nossas promoções especiais! Neste mês mães",
-    "color": "#e29595",
-    "valor": "299,00",
-    "tempo": 1
-  },
-  {
-    "id": "6",
-    "categoria": "promoções",
-    "nome": "Presente Especial",
-    "img": "/img/promoções/06.PNG",
-    "info": "Aproveite nossas promoções especiais! Neste mês mães",
-    "color": "#e29595",
-    "valor": "299,00",
-    "tempo": 1
-  },
-  {
-    "id": "7",
-    "categoria": "promoções",
-    "nome": "Presente Especial",
-    "img": "/img/promoções/07.PNG",
-    "info": "Aproveite nossas promoções especiais! Neste mês",
-    "color": "#e29595",
-    "valor": "199,00",
-    "tempo": 1
-  },
-  {
+   {
     "id": "pillingneffetiti",
     "categoria": "estética",
     "nome": "Pelling Neffertiti",
@@ -284,30 +214,12 @@
     "id": "ylangylang",
     "categoria": "oleos",
     "nome": "Ylang Ylang Verde",
-    "img": "/img/cursos/01.jpeg",
+    "img": "/img/oleos/p7.jpeg",
     "info": "",
     "color": "#e29595",
     "valor": 40,
     "tempo": 1
-  },
-  {
-    "id": "cursos",
-    "categoria": "cursos",
-    "nome": "Cursos",
-    "img": "/img/cursos/03.jpeg",
-    "info": "",
-    "color": "#e29595",
-    "valor": 580,
-    "tempo": 8
-  },
-  {
-    "id": "cursos",
-    "categoria": "cursos",
-    "nome": "Cursos",
-    "img": "/img/cursos/04.jpeg",
-    "info": "",
-    "color": "#e29595",
-    "valor": 580,
-    "tempo": 8
   }
+
+
 ]
